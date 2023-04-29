@@ -1,23 +1,40 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4nmqqui8jyy0"]
+[gd_scene load_steps=11 format=3 uid="uid://b4nmqqui8jyy0"]
 
+[ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
 [ext_resource type="PackedScene" uid="uid://b1c1syrensxb0" path="res://Characters/pizza_boy.tscn" id="1_op20x"]
 [ext_resource type="Texture2D" uid="uid://k6fjm5rb0uwv" path="res://Assets/Sprites/Map.png" id="2_u2ymj"]
+[ext_resource type="Script" path="res://Area2D.gd" id="3_pkdxc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_72btl"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ulo"]
 size = Vector2(240, 21)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72btl"]
+size = Vector2(239.875, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wytdy"]
+size = Vector2(128.25, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tx7he"]
+size = Vector2(7, 112.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_osn4w"]
+size = Vector2(127, 21)
+
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_hxk0a")
 
-[node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
+[node name="MainCamera" type="Camera2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(127, 529)
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PizzaBoy"]
-remote_path = NodePath("../../Camera2D")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(127, 529)
+limit_left = 0
 limit_top = 0
 limit_bottom = 0
+script = ExtResource("1_i80df")
+
+[node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
+unique_name_in_owner = true
+position = Vector2(127, 529)
 
 [node name="Tutorial" type="Sprite2D" parent="."]
 z_index = -1
@@ -29,11 +46,16 @@ texture = ExtResource("2_u2ymj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tutorial/StaticBody2D"]
 position = Vector2(0.125, -28)
-shape = SubResource("RectangleShape2D_72btl")
+shape = SubResource("RectangleShape2D_o5ulo")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Tutorial/StaticBody2D"]
 position = Vector2(0, 78)
 shape = SubResource("RectangleShape2D_72btl")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Tutorial/StaticBody2D"]
+position = Vector2(-130.5, 24.875)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_wytdy")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Tutorial"]
 offset_left = -119.75
@@ -43,29 +65,37 @@ offset_bottom = 34.375
 text = "TUTORIAL
 "
 
-[node name="Battlearena" type="Sprite2D" parent="."]
+[node name="BattleArena" type="Sprite2D" parent="."]
 z_index = -1
 position = Vector2(2875, 530)
 scale = Vector2(8, 8)
 texture = ExtResource("2_u2ymj")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Battlearena"]
+[node name="StaticBody2D" type="StaticBody2D" parent="BattleArena"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Battlearena/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleArena/StaticBody2D"]
 position = Vector2(0.125, -28)
 shape = SubResource("RectangleShape2D_72btl")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Battlearena/StaticBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BattleArena/StaticBody2D"]
 position = Vector2(0, 78)
 shape = SubResource("RectangleShape2D_72btl")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Battlearena"]
+[node name="RichTextLabel" type="RichTextLabel" parent="BattleArena"]
 offset_left = -119.75
 offset_top = -5.625
 offset_right = 46.25
 offset_bottom = 34.375
 text = "BATTLEARENA
 "
+
+[node name="BattleArenaTrigger" type="Area2D" parent="BattleArena"]
+position = Vector2(-241.5, 1)
+script = ExtResource("3_pkdxc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleArena/BattleArenaTrigger"]
+position = Vector2(242, 25.75)
+shape = SubResource("RectangleShape2D_tx7he")
 
 [node name="End" type="Sprite2D" parent="."]
 z_index = -1
@@ -76,7 +106,7 @@ texture = ExtResource("2_u2ymj")
 [node name="StaticBody2D" type="StaticBody2D" parent="End"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="End/StaticBody2D"]
-position = Vector2(0.125, -28)
+position = Vector2(0.0625, -28)
 shape = SubResource("RectangleShape2D_72btl")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="End/StaticBody2D"]
@@ -90,3 +120,10 @@ offset_right = 46.25
 offset_bottom = 34.375
 text = "END
 "
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="End"]
+position = Vector2(130.5, 25)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_osn4w")
+
+[connection signal="body_entered" from="BattleArena/BattleArenaTrigger" to="BattleArena/BattleArenaTrigger" method="_on_body_entered"]
