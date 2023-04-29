@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4nmqqui8jyy0"]
+
+[ext_resource type="Texture2D" uid="uid://gteueth37qqy" path="res://Assets/Sprites/Character.png" id="1_hahu3"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(220, 177)
+scale = Vector2(8, 8)
+texture = ExtResource("1_hahu3")
+
+[node name="Camera2D" type="Camera2D" parent="."]
