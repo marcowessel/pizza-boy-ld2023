@@ -9,3 +9,5 @@ extends Node2D
 #- [] 20 mobs overall split into 3 waves
 #- [] if all mobs are cleared baricades vanishes
 #- [] activate camera follow again (smooth transition on player)
+#- [] move delivery bag to that point smoothly (tween)
+#- [] make small cooldown for lightattack so it cant be spammed

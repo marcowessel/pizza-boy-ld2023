@@ -1,10 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://b4nmqqui8jyy0"]
+[gd_scene load_steps=15 format=3 uid="uid://b4nmqqui8jyy0"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
 [ext_resource type="PackedScene" uid="uid://cthm02avoqjiv" path="res://Characters/pizza_boy.tscn" id="1_op20x"]
 [ext_resource type="Texture2D" uid="uid://k6fjm5rb0uwv" path="res://Assets/Sprites/Map.png" id="2_u2ymj"]
 [ext_resource type="Script" path="res://Area2D.gd" id="3_pkdxc"]
+[ext_resource type="Texture2D" uid="uid://b4uq1xcfofmth" path="res://Assets/Sprites/Pizzaria.png" id="4_crpbj"]
+[ext_resource type="PackedScene" uid="uid://csur3fv2x4l28" path="res://Characters/enemy_fass.tscn" id="6_lrtvu"]
+[ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="7_fuf7g"]
+[ext_resource type="PackedScene" uid="uid://bcl7u4d1xw36m" path="res://barricade.tscn" id="9_quct6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ulo"]
 size = Vector2(240, 21)
@@ -34,13 +38,13 @@ script = ExtResource("1_i80df")
 
 [node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
 unique_name_in_owner = true
-position = Vector2(127, 529)
+position = Vector2(848, 430)
 
 [node name="Tutorial" type="Sprite2D" parent="."]
 z_index = -2
 position = Vector2(960, 540)
 scale = Vector2(8, 8)
-texture = ExtResource("2_u2ymj")
+texture = ExtResource("4_crpbj")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Tutorial"]
 
@@ -97,6 +101,29 @@ script = ExtResource("3_pkdxc")
 position = Vector2(242, 25.75)
 shape = SubResource("RectangleShape2D_tx7he")
 
+[node name="Barricade3" parent="BattleArena" instance=ExtResource("9_quct6")]
+z_index = 0
+position = Vector2(-112.875, 3.25)
+scale = Vector2(0.125, 0.125)
+
+[node name="Barricade4" parent="BattleArena" instance=ExtResource("9_quct6")]
+z_index = 0
+position = Vector2(-113.875, 48.25)
+rotation = -0.107897
+scale = Vector2(0.125, 0.125)
+
+[node name="Barricade5" parent="BattleArena" instance=ExtResource("9_quct6")]
+z_index = 0
+position = Vector2(117, 3.625)
+rotation = -0.130616
+scale = Vector2(0.125, 0.125)
+
+[node name="Barricade6" parent="BattleArena" instance=ExtResource("9_quct6")]
+z_index = 0
+position = Vector2(117.5, 47.875)
+rotation = -0.0539049
+scale = Vector2(0.125, 0.125)
+
 [node name="End" type="Sprite2D" parent="."]
 z_index = -2
 position = Vector2(4798, 540)
@@ -125,5 +152,36 @@ text = "END
 position = Vector2(130.5, 25)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_osn4w")
+
+[node name="Enemy_Fass" parent="." instance=ExtResource("6_lrtvu")]
+z_index = -1
+position = Vector2(777, 612)
+
+[node name="Enemy_Fass2" parent="." instance=ExtResource("6_lrtvu")]
+z_index = -1
+position = Vector2(1234, 741)
+
+[node name="Enemy_Fass3" parent="." instance=ExtResource("6_lrtvu")]
+z_index = -1
+position = Vector2(1231, 804)
+
+[node name="Enemy_Fass4" parent="." instance=ExtResource("6_lrtvu")]
+z_index = -1
+position = Vector2(1227, 875)
+
+[node name="PizzaPieceItem" parent="." instance=ExtResource("7_fuf7g")]
+position = Vector2(496, 638)
+
+[node name="PizzaPieceItem2" parent="." instance=ExtResource("7_fuf7g")]
+position = Vector2(926, 771)
+rotation = -1.48156
+
+[node name="Barricade" parent="." instance=ExtResource("9_quct6")]
+position = Vector2(1181, 527)
+rotation = -0.468024
+
+[node name="Barricade2" parent="." instance=ExtResource("9_quct6")]
+position = Vector2(1181, 1074)
+rotation = 0.227282
 
 [connection signal="body_entered" from="BattleArena/BattleArenaTrigger" to="BattleArena/BattleArenaTrigger" method="_on_body_entered"]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://kw4rqsuft0ix"]
+
+[ext_resource type="Texture2D" uid="uid://cdrkfko6bp7vi" path="res://Assets/Sprites/Pizza_Bar.png" id="1_fdpou"]
+[ext_resource type="Script" path="res://PizzaPieces.gd" id="2_pkxuy"]
+
+[node name="PlayerHUD" type="CanvasLayer"]
+
+[node name="PizzaPieces" type="Sprite2D" parent="."]
+position = Vector2(150, 147)
+scale = Vector2(3, 3)
+texture = ExtResource("1_fdpou")
+hframes = 9
+script = ExtResource("2_pkxuy")
