@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cthm02avoqjiv"]
+[gd_scene load_steps=6 format=3 uid="uid://cthm02avoqjiv"]
 
 [ext_resource type="Script" path="res://Characters/pizza_boy.gd" id="1_qt10e"]
 [ext_resource type="Texture2D" uid="uid://gteueth37qqy" path="res://Assets/Sprites/Character.png" id="1_xmujj"]
 [ext_resource type="Texture2D" uid="uid://cxi7jx62cye5f" path="res://Assets/Sprites/bag.png" id="2_8sdut"]
-[ext_resource type="PackedScene" uid="uid://bkko56x8wnut3" path="res://Characters/delivery_bag.tscn" id="3_8hfc6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bacsx"]
 size = Vector2(64, 20)
@@ -13,7 +12,6 @@ size = Vector2(40, 40)
 
 [node name="PizzaBoy" type="CharacterBody2D"]
 script = ExtResource("1_qt10e")
-deliveryBag = ExtResource("3_8hfc6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(8, 8)
@@ -24,13 +22,13 @@ position = Vector2(0, 22)
 shape = SubResource("RectangleShape2D_bacsx")
 
 [node name="DeliveryBagBack" type="Area2D" parent="."]
+unique_name_in_owner = true
 z_index = -1
+position = Vector2(-28, -4)
 
 [node name="Sprite2D" type="Sprite2D" parent="DeliveryBagBack"]
-position = Vector2(-28, -4)
 scale = Vector2(8, 8)
 texture = ExtResource("2_8sdut")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeliveryBagBack"]
-position = Vector2(-28, -4)
 shape = SubResource("RectangleShape2D_q5ctr")

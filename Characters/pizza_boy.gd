@@ -2,7 +2,13 @@ extends CharacterBody2D
 
 @export var speed = 400
 @export var pizza_slices = 6 # represents the amount of health
-@export var deliveryBag:PackedScene
+#@export var delivery_bag:PackedScene
+var delivery_bag_back
+var delivery_bag_back_default_pos
+
+func _ready():
+	delivery_bag_back = get_node("%DeliveryBagBack")
+	delivery_bag_back_default_pos = delivery_bag_back.position
 
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -18,18 +24,31 @@ func _input(event):
 		light_attack()
 	
 func light_attack():
-	#TODO
+	# TODO
+	# - put deliverybag into the center of node
+	delivery_bag_back.position = Vector2(0, 0)
+	delivery_bag_back.set_z_index(10)
+	delivery_bag_back.look_at(get_global_mouse_position())
+	
+	# - make the bag point to mouse direction
+	
+	
+	# - take a fixed distance beetween the player and the cursor
+	
+	# - activate damage, with the collider 
+	
+	# - move bag to that point smoothly (tween)
+	
+	# - 
+	
+	
+	
 	# - collider initialisieren in richtung des cursors 
-	var instance = deliveryBag.instantiate()
+	#var instance = delivery_bag.instantiate()
 	
 	# -fix error
 	#instance.position = $Sprite.position + $Sprite.global_transform.basis_x * 32
 	
-	add_child(instance)
+	#add_child(instance)
 	
-	print("attack")
-	
-	
-	
-
-
+	print("light attack")

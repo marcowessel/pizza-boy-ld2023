@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
-[ext_resource type="PackedScene" uid="uid://ckmc6fd7wy0ds" path="res://Characters/pizza_boy.tscn" id="1_op20x"]
+[ext_resource type="PackedScene" uid="uid://cthm02avoqjiv" path="res://Characters/pizza_boy.tscn" id="1_op20x"]
 [ext_resource type="Texture2D" uid="uid://k6fjm5rb0uwv" path="res://Assets/Sprites/Map.png" id="2_u2ymj"]
 [ext_resource type="Script" path="res://Area2D.gd" id="3_pkdxc"]
 
