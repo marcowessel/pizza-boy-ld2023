@@ -1,24 +1,160 @@
-[gd_scene load_steps=6 format=3 uid="uid://cthm02avoqjiv"]
+[gd_scene load_steps=14 format=3 uid="uid://cthm02avoqjiv"]
 
 [ext_resource type="Script" path="res://Characters/pizza_boy.gd" id="1_qt10e"]
-[ext_resource type="Texture2D" uid="uid://gteueth37qqy" path="res://Assets/Sprites/Character.png" id="1_xmujj"]
+[ext_resource type="Texture2D" uid="uid://dptnjpuiu2ajd" path="res://Assets/Sprites/Character_Sheet.png" id="2_3jsvf"]
 [ext_resource type="Texture2D" uid="uid://cxi7jx62cye5f" path="res://Assets/Sprites/bag.png" id="2_8sdut"]
+[ext_resource type="Texture2D" uid="uid://c87drq4ia4bmv" path="res://Assets/Sprites/Bike.png" id="4_ny3v4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bacsx"]
-size = Vector2(64, 20)
+size = Vector2(72, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q5ctr"]
 size = Vector2(40, 40)
+
+[sub_resource type="Animation" id="Animation_in2ph"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ppvy3"]
+resource_name = "walk"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_y7tm2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bike:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_rvstt"]
+resource_name = "throw"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_kd15m"]
+resource_name = "falling"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [15, 16, 17, 18]
+}
+
+[sub_resource type="Animation" id="Animation_445d5"]
+resource_name = "bike_drive"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bike:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6q5yt"]
+_data = {
+"RESET": SubResource("Animation_y7tm2"),
+"bike_drive": SubResource("Animation_445d5"),
+"falling": SubResource("Animation_kd15m"),
+"idle": SubResource("Animation_in2ph"),
+"throw": SubResource("Animation_rvstt"),
+"walk": SubResource("Animation_ppvy3")
+}
 
 [node name="PizzaBoy" type="CharacterBody2D"]
 script = ExtResource("1_qt10e")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(8, 8)
-texture = ExtResource("1_xmujj")
+texture = ExtResource("2_3jsvf")
+hframes = 5
+vframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 22)
+position = Vector2(-4, 36)
 shape = SubResource("RectangleShape2D_bacsx")
 
 [node name="DeliveryBagBack" type="Area2D" parent="."]
@@ -32,3 +168,16 @@ texture = ExtResource("2_8sdut")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeliveryBagBack"]
 shape = SubResource("RectangleShape2D_q5ctr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6q5yt")
+}
+
+[node name="Bike" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 32)
+scale = Vector2(8, 8)
+texture = ExtResource("4_ny3v4")
+hframes = 4
+frame = 1
