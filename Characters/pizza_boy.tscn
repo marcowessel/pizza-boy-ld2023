@@ -8,7 +8,7 @@
 size = Vector2(64, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q5ctr"]
-size = Vector2(40, 40)
+size = Vector2(56, 64)
 
 [node name="PizzaBoy" type="CharacterBody2D"]
 script = ExtResource("1_qt10e")
@@ -24,11 +24,17 @@ shape = SubResource("RectangleShape2D_bacsx")
 [node name="DeliveryBagBack" type="Area2D" parent="."]
 unique_name_in_owner = true
 z_index = -1
-position = Vector2(-28, -4)
+position = Vector2(-32, -8)
 
 [node name="Sprite2D" type="Sprite2D" parent="DeliveryBagBack"]
 scale = Vector2(8, 8)
 texture = ExtResource("2_8sdut")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeliveryBagBack"]
+position = Vector2(-4, 0)
 shape = SubResource("RectangleShape2D_q5ctr")
+
+[node name="Timer" type="Timer" parent="DeliveryBagBack"]
+wait_time = 0.2
+
+[connection signal="timeout" from="DeliveryBagBack/Timer" to="." method="_on_timer_timeout"]
