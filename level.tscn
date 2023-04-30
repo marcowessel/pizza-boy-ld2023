@@ -38,7 +38,7 @@ position = Vector2(127, 529)
 
 [node name="Tutorial" type="Sprite2D" parent="."]
 z_index = -2
-position = Vector2(955, 530)
+position = Vector2(960, 540)
 scale = Vector2(8, 8)
 texture = ExtResource("2_u2ymj")
 
@@ -67,7 +67,7 @@ text = "TUTORIAL
 
 [node name="BattleArena" type="Sprite2D" parent="."]
 z_index = -2
-position = Vector2(2875, 530)
+position = Vector2(2879, 540)
 scale = Vector2(8, 8)
 texture = ExtResource("2_u2ymj")
 
@@ -99,7 +99,7 @@ shape = SubResource("RectangleShape2D_tx7he")
 
 [node name="End" type="Sprite2D" parent="."]
 z_index = -2
-position = Vector2(4795, 530)
+position = Vector2(4798, 540)
 scale = Vector2(8, 8)
 texture = ExtResource("2_u2ymj")
 
