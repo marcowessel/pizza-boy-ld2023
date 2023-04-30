@@ -1,5 +1,12 @@
 extends Area2D
 
+var barricades
+
+
+func _ready():
+	barricades = get_tree().get_nodes_in_group("barricade")
+	deactivate_barricades()
+
 func _on_body_entered(body:CharacterBody2D):
 	if(body.name == "PizzaBoy"):
 		disable_camera_movement()
@@ -11,7 +18,9 @@ func disable_camera_movement():
 	camera.set_follow_active(false)
 	
 func activate_barricades():
-	pass
+	for barricade in barricades:
+		barricade.activate()
 	
 func deactivate_barricades():
-	pass
+	for barricade in barricades:
+		barricade.deactivate()

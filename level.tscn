@@ -1,11 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4nmqqui8jyy0"]
+[gd_scene load_steps=15 format=3 uid="uid://ceugkgpedkg1k"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
 [ext_resource type="PackedScene" uid="uid://cthm02avoqjiv" path="res://Characters/pizza_boy.tscn" id="1_op20x"]
 [ext_resource type="Texture2D" uid="uid://k6fjm5rb0uwv" path="res://Assets/Sprites/Map.png" id="2_u2ymj"]
-[ext_resource type="Script" path="res://Area2D.gd" id="3_pkdxc"]
 [ext_resource type="Texture2D" uid="uid://b4uq1xcfofmth" path="res://Assets/Sprites/Pizzaria.png" id="4_crpbj"]
+[ext_resource type="Script" path="res://BattleArenaTrigger.gd" id="6_0hgfu"]
 [ext_resource type="PackedScene" uid="uid://csur3fv2x4l28" path="res://Characters/enemy_fass.tscn" id="6_lrtvu"]
 [ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="7_fuf7g"]
 [ext_resource type="PackedScene" uid="uid://bcl7u4d1xw36m" path="res://barricade.tscn" id="9_quct6"]
@@ -95,32 +95,32 @@ text = "BATTLEARENA
 
 [node name="BattleArenaTrigger" type="Area2D" parent="BattleArena"]
 position = Vector2(-241.5, 1)
-script = ExtResource("3_pkdxc")
+script = ExtResource("6_0hgfu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BattleArena/BattleArenaTrigger"]
 position = Vector2(242, 25.75)
 shape = SubResource("RectangleShape2D_tx7he")
 
-[node name="Barricade3" parent="BattleArena" instance=ExtResource("9_quct6")]
+[node name="Barricade3" parent="BattleArena/BattleArenaTrigger" instance=ExtResource("9_quct6")]
 z_index = 0
-position = Vector2(-112.875, 3.25)
+position = Vector2(127.375, 2.25)
 scale = Vector2(0.125, 0.125)
 
-[node name="Barricade4" parent="BattleArena" instance=ExtResource("9_quct6")]
+[node name="Barricade4" parent="BattleArena/BattleArenaTrigger" instance=ExtResource("9_quct6")]
 z_index = 0
-position = Vector2(-113.875, 48.25)
+position = Vector2(126.375, 47.25)
 rotation = -0.107897
 scale = Vector2(0.125, 0.125)
 
-[node name="Barricade5" parent="BattleArena" instance=ExtResource("9_quct6")]
+[node name="Barricade5" parent="BattleArena/BattleArenaTrigger" instance=ExtResource("9_quct6")]
 z_index = 0
-position = Vector2(117, 3.625)
+position = Vector2(354.75, 2.25)
 rotation = -0.130616
 scale = Vector2(0.125, 0.125)
 
-[node name="Barricade6" parent="BattleArena" instance=ExtResource("9_quct6")]
+[node name="Barricade6" parent="BattleArena/BattleArenaTrigger" instance=ExtResource("9_quct6")]
 z_index = 0
-position = Vector2(117.5, 47.875)
+position = Vector2(355.25, 46.5)
 rotation = -0.0539049
 scale = Vector2(0.125, 0.125)
 
