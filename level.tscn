@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
-[ext_resource type="PackedScene" uid="uid://b1c1syrensxb0" path="res://Characters/pizza_boy.tscn" id="1_op20x"]
+[ext_resource type="PackedScene" uid="uid://ckmc6fd7wy0ds" path="res://Characters/pizza_boy.tscn" id="1_op20x"]
 [ext_resource type="Texture2D" uid="uid://k6fjm5rb0uwv" path="res://Assets/Sprites/Map.png" id="2_u2ymj"]
 [ext_resource type="Script" path="res://Area2D.gd" id="3_pkdxc"]
 
@@ -37,7 +37,7 @@ unique_name_in_owner = true
 position = Vector2(127, 529)
 
 [node name="Tutorial" type="Sprite2D" parent="."]
-z_index = -1
+z_index = -2
 position = Vector2(955, 530)
 scale = Vector2(8, 8)
 texture = ExtResource("2_u2ymj")
@@ -66,7 +66,7 @@ text = "TUTORIAL
 "
 
 [node name="BattleArena" type="Sprite2D" parent="."]
-z_index = -1
+z_index = -2
 position = Vector2(2875, 530)
 scale = Vector2(8, 8)
 texture = ExtResource("2_u2ymj")
@@ -98,7 +98,7 @@ position = Vector2(242, 25.75)
 shape = SubResource("RectangleShape2D_tx7he")
 
 [node name="End" type="Sprite2D" parent="."]
-z_index = -1
+z_index = -2
 position = Vector2(4795, 530)
 scale = Vector2(8, 8)
 texture = ExtResource("2_u2ymj")
