@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ceugkgpedkg1k"]
+[gd_scene load_steps=31 format=3 uid="uid://ceugkgpedkg1k"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
@@ -8,12 +8,18 @@
 [ext_resource type="Script" path="res://BattleArenaTrigger.gd" id="6_0hgfu"]
 [ext_resource type="PackedScene" uid="uid://csur3fv2x4l28" path="res://Characters/enemy_fass.tscn" id="6_lrtvu"]
 [ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="7_fuf7g"]
+[ext_resource type="Texture2D" uid="uid://cnfy21kcbwwko" path="res://Assets/Sprites/Boss_Street.png" id="8_6cokp"]
 [ext_resource type="PackedScene" uid="uid://bcl7u4d1xw36m" path="res://barricade.tscn" id="9_quct6"]
+[ext_resource type="Script" path="res://Endboss_Cutscene_Trigger.gd" id="9_u8typ"]
 [ext_resource type="PackedScene" uid="uid://g711rfpjv3bn" path="res://cone.tscn" id="10_0qbg2"]
 [ext_resource type="PackedScene" uid="uid://byi1an6p8tlvj" path="res://red_car.tscn" id="11_5e4f2"]
 [ext_resource type="PackedScene" uid="uid://cypw1y4pi1hjm" path="res://pizza_car.tscn" id="12_aeigt"]
 [ext_resource type="PackedScene" uid="uid://c10ssjn0ge38f" path="res://Characters/pizza_zombie.tscn" id="13_y2vfb"]
 [ext_resource type="PackedScene" uid="uid://ci25vd13li2v4" path="res://enemy_spawner_area.tscn" id="14_2c8kk"]
+[ext_resource type="PackedScene" uid="uid://biqfhmap6ws4o" path="res://boss.tscn" id="15_h7n7g"]
+[ext_resource type="AudioStream" uid="uid://hsdhfv02cowx" path="res://Assets/Sounds/Musik/leftbanktwo.wav" id="16_x3kqb"]
+[ext_resource type="AudioStream" uid="uid://codcj12e6i6ay" path="res://Assets/Sounds/Musik/fightsong.wav" id="17_hcsr5"]
+[ext_resource type="AudioStream" uid="uid://ejrq5nguol8u" path="res://Assets/Sounds/Musik/gameover.wav" id="18_07i4i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ulo"]
 size = Vector2(240.125, 21)
@@ -33,6 +39,9 @@ size = Vector2(9, 85)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_osn4w"]
 size = Vector2(127, 21)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q7rom"]
+size = Vector2(72, 680)
+
 [sub_resource type="Animation" id="Animation_5y6df"]
 length = 0.001
 tracks/0/type = "value"
@@ -50,19 +59,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PizzaBoy:position")
+tracks/1/path = NodePath("PizzaBoy/Player:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(856, 432)]
+"update": 1,
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PizzaBoy/Player:flip_h")
+tracks/2/path = NodePath("PizzaBoy/Exclamation_Mark:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -74,7 +83,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PizzaBoy/Exclamation_Mark:visible")
+tracks/3/path = NodePath("PizzaBoy:is_in_custcene")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -86,7 +95,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PizzaBoy:is_in_custcene")
+tracks/4/path = NodePath("PizzaBoy/Mouse:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -98,10 +107,94 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PizzaBoy/Mouse:visible")
+tracks/5/path = NodePath("Boss/Sprite2D:flip_h")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Boss/There:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Boss/There2:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Boss/TextEdit3:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Boss/TextEdit4:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Boss/CanvasLayer/ProgressBar:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Boss/CanvasLayer/ProgressBar:value")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Boss/CanvasLayer/RichTextLabel:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -194,10 +287,133 @@ tracks/6/keys = {
 "values": [false, true]
 }
 
+[sub_resource type="Animation" id="Animation_sc10a"]
+resource_name = "endboss_cutscene"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PizzaBoy:is_in_custcene")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Boss/Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Boss/There:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Boss/There2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4.5, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Boss/TextEdit3:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 7.5, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Boss/TextEdit4:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 12, 14),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Boss/CanvasLayer/ProgressBar:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 4.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Boss/CanvasLayer/ProgressBar:value")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(3.5, 11),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 10.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Boss/CanvasLayer/RichTextLabel:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 4.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/9/type = "animation"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("PizzaBoy/AnimationPlayer")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"clips": PackedStringArray("idle", "RESET", "RESET"),
+"times": PackedFloat32Array(0, 1, 1.0001)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xn12w"]
 _data = {
 "RESET": SubResource("Animation_5y6df"),
-"Startup_Anim": SubResource("Animation_84toe")
+"Startup_Anim": SubResource("Animation_84toe"),
+"endboss_cutscene": SubResource("Animation_sc10a")
 }
 
 [node name="Node2D" type="Node2D"]
@@ -249,11 +465,6 @@ offset_bottom = 34.375
 text = "TUTORIAL
 "
 metadata/_edit_use_anchors_ = true
-
-[node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
-unique_name_in_owner = true
-position = Vector2(856, 432)
-metadata/_edit_group_ = true
 
 [node name="BattleArena" type="Node2D" parent="."]
 z_index = -2
@@ -314,7 +525,7 @@ texture = ExtResource("2_u2ymj")
 z_index = -2
 position = Vector2(4798, 540)
 scale = Vector2(8, 8)
-texture = ExtResource("2_u2ymj")
+texture = ExtResource("8_6cokp")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="End"]
 
@@ -338,6 +549,20 @@ text = "END
 position = Vector2(130.5, 25)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_osn4w")
+
+[node name="Endboss_Cutscene_Trigger" type="Area2D" parent="."]
+position = Vector2(4631, 780)
+script = ExtResource("9_u8typ")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Endboss_Cutscene_Trigger"]
+position = Vector2(27, -40)
+shape = SubResource("RectangleShape2D_q7rom")
+
+[node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
+unique_name_in_owner = true
+position = Vector2(4172, 685)
+metadata/_edit_group_ = true
 
 [node name="Enemy_Fass" parent="." instance=ExtResource("6_lrtvu")]
 position = Vector2(1195, 903)
@@ -391,7 +616,29 @@ scale = Vector2(1.001, 3.295)
 [node name="EnemySpawner2" parent="." instance=ExtResource("14_2c8kk")]
 position = Vector2(3916, 738)
 scale = Vector2(1, 3.29508)
+[node name="Boss" parent="." instance=ExtResource("15_h7n7g")]
+position = Vector2(5078, 432)
+
+[node name="ProgressBar" parent="Boss/CanvasLayer" index="0"]
+offset_left = 480.0
+offset_top = 73.0
+offset_right = 1865.0
+offset_bottom = 142.0
+value = 0.0
+
+[node name="Bike_Song" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_x3kqb")
+volume_db = -80.0
+
+[node name="Combat_Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_hcsr5")
+volume_db = 5.0
+
+[node name="Game_Over" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_07i4i")
 
 [connection signal="body_entered" from="BattleArena/BattleArenaTrigger" to="BattleArena/BattleArenaTrigger" method="_on_body_entered"]
+[connection signal="body_entered" from="Endboss_Cutscene_Trigger" to="Endboss_Cutscene_Trigger" method="_on_body_entered"]
 
 [editable path="PizzaBoy"]
+[editable path="Boss"]

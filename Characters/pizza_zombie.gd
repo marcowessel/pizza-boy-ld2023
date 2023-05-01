@@ -8,28 +8,41 @@ var pizza_piece_scene = preload("res://pizza_piece_item.tscn")
 var player = null
 var has_pizza_piece = false
 var spawn_position:Vector2 = Vector2(0, 0)
+var anim_player
+var is_dead = false
 
 
 func _ready():
 	$PizzaPieceItem/CollisionShapeDamage.queue_free()
 	self.add_to_group("enemy")
 	player = get_parent().get_node("PizzaBoy")
+	anim_player = $AnimationPlayer
 
 
 func _process(delta):
-	if !has_pizza_piece:
+	if !has_pizza_piece and !is_dead:
 		run_towards_player(delta)
-	else:
+	elif has_pizza_piece and !is_dead:
 		run_away(delta)
 
 
 func run_towards_player(delta):
+	#(366.6868, 795.4508)(446.6774, 776.8185)
+	anim_player.play("walk")
 	var target_position = player.position
+	print(target_position, position)
 	var new_position = position.move_toward(
 		target_position, 
 		walking_speed * delta
 	)
 	position = new_position
+	flip_to_player(target_position)
+
+func flip_to_player(target_position):
+	if target_position.x - position.x < 0:
+		$Sprite2D.flip_h = true
+	else:
+		$Sprite2D.flip_h = false
 
 func run_away(delta):
 	var target_position = spawn_position
@@ -53,10 +66,15 @@ func dies():
 	player.kill_count += 1
 	print(player.kill_count)
 	
+	is_dead = true
 	if has_pizza_piece: drop_pizza_piece()
+	$Death.rplay()
+	anim_player.play("death")
 	$ZombieFeet.queue_free()
 	$DamageArea/CollisionShape2D.queue_free()
-	$Sprite2D.hide()
+	#$Sprite2D.hide()
+	$Dust.emitting = true
+	await get_tree().create_timer(2).timeout
 	self.queue_free() 
 	
 func vanishes():
@@ -82,4 +100,4 @@ func _on_damage_area_area_entered(area):
 		if body.pizza_pieces != 0:
 			$PizzaPieceItem.visible = true
 			has_pizza_piece = true
-
+			$Haha.rplay()

@@ -4,6 +4,7 @@ func _ready():
 	$Tutorial/RichTextLabel.hide()
 	$BattleArena/RichTextLabel.hide()
 	$End/RichTextLabel.hide()
+	$Combat_Music.play()
 
 # WORKING ON
 #- [x] 3 zombie waves with increasing difficulty
