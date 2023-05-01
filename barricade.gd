@@ -10,7 +10,6 @@ func _ready():
 
 
 func deactivate():
-	print(str(collision.disabled) + "barricade")
 	collision.disabled = true
 	self.visible = false
 

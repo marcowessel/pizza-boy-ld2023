@@ -16,3 +16,4 @@ func _ready():
 #- [] activate camera follow again (smooth transition on player)
 #- [] move delivery bag to that point smoothly (tween)
 #- [] make small cooldown for lightattack so it cant be spammed
+#- [] if enemy has pizza piece, he cant steal more

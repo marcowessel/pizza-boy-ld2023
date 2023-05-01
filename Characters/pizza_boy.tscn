@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Characters/pizza_boy.gd" id="1_qt10e"]
 [ext_resource type="Texture2D" uid="uid://dptnjpuiu2ajd" path="res://Assets/Sprites/Character_Sheet.png" id="2_3jsvf"]
-[ext_resource type="Texture2D" uid="uid://cxi7jx62cye5f" path="res://Assets/Sprites/Bag.png" id="3_emvhn"]
+[ext_resource type="Texture2D" uid="uid://cxi7jx62cye5f" path="res://Assets/Sprites/bag.png" id="3_emvhn"]
 [ext_resource type="Texture2D" uid="uid://c87drq4ia4bmv" path="res://Assets/Sprites/Bike.png" id="4_ny3v4"]
 [ext_resource type="PackedScene" uid="uid://kw4rqsuft0ix" path="res://player_hud.tscn" id="5_o6rtb"]
 [ext_resource type="Texture2D" uid="uid://ba2i7qycvtamh" path="res://Assets/Sprites/Exclamation Mark.png" id="6_qpcb8"]

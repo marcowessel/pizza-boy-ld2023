@@ -7,7 +7,6 @@ var barricades
 
 func _ready():
 	barricades = get_tree().get_nodes_in_group("barricade")
-	print(barricades)
 	deactivate_barricades()
 
 func _on_body_entered(body):
@@ -29,7 +28,5 @@ func activate_barricades():
 
 
 func deactivate_barricades():
-	print(barricades)
 	for barricade in barricades:
-		print(str(barricade) + "trigger_barricade")
 		barricade.deactivate()

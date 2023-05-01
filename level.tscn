@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ceugkgpedkg1k"]
+[gd_scene load_steps=23 format=3 uid="uid://ceugkgpedkg1k"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
@@ -9,9 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://csur3fv2x4l28" path="res://Characters/enemy_fass.tscn" id="6_lrtvu"]
 [ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="7_fuf7g"]
 [ext_resource type="PackedScene" uid="uid://bcl7u4d1xw36m" path="res://barricade.tscn" id="9_quct6"]
-[ext_resource type="PackedScene" uid="uid://g711rfpjv3bn" path="res://cone.tscn" id="10_0qbg2"]
-[ext_resource type="PackedScene" uid="uid://byi1an6p8tlvj" path="res://red_car.tscn" id="11_5e4f2"]
-[ext_resource type="PackedScene" uid="uid://cypw1y4pi1hjm" path="res://pizza_car.tscn" id="12_aeigt"]
+[ext_resource type="PackedScene" path="res://cone.tscn" id="10_0qbg2"]
+[ext_resource type="PackedScene" path="res://red_car.tscn" id="11_5e4f2"]
+[ext_resource type="PackedScene" path="res://pizza_car.tscn" id="12_aeigt"]
+[ext_resource type="PackedScene" uid="uid://c10ssjn0ge38f" path="res://Characters/pizza_zombie.tscn" id="13_y2vfb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ulo"]
 size = Vector2(240.125, 21)
@@ -30,6 +31,81 @@ size = Vector2(9, 85)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_osn4w"]
 size = Vector2(127, 21)
+
+[sub_resource type="Animation" id="Animation_5y6df"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PizzaBoy:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PizzaBoy:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(856, 432)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PizzaBoy/Player:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PizzaBoy/Exclamation_Mark:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PizzaBoy:is_in_custcene")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PizzaBoy/Mouse:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_84toe"]
 resource_name = "Startup_Anim"
@@ -115,81 +191,6 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
-}
-
-[sub_resource type="Animation" id="Animation_5y6df"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PizzaBoy:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PizzaBoy:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(856, 432)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PizzaBoy/Player:flip_h")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PizzaBoy/Exclamation_Mark:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PizzaBoy:is_in_custcene")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("PizzaBoy/Mouse:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xn12w"]
@@ -372,6 +373,15 @@ position = Vector2(1040, 480)
 libraries = {
 "": SubResource("AnimationLibrary_xn12w")
 }
+
+[node name="PizzaZombie" parent="." instance=ExtResource("13_y2vfb")]
+position = Vector2(52, 457)
+
+[node name="PizzaZombie2" parent="." instance=ExtResource("13_y2vfb")]
+position = Vector2(716, 1004)
+
+[node name="PizzaZombie3" parent="." instance=ExtResource("13_y2vfb")]
+position = Vector2(1363, 1006)
 
 [connection signal="body_entered" from="BattleArena/BattleArenaTrigger" to="BattleArena/BattleArenaTrigger" method="_on_body_entered"]
 

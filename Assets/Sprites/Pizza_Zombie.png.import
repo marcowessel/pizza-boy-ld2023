@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c25txqjibulmx"
-path="res://.godot/imported/fass.png-7abaf1ef7f76e14157176ce71a083ac0.ctex"
+uid="uid://bjv4w7oaj1phf"
+path="res://.godot/imported/Pizza_Zombie.png-a1de7565b092778f461351bde1dea105.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/fass.png"
-dest_files=["res://.godot/imported/fass.png-7abaf1ef7f76e14157176ce71a083ac0.ctex"]
+source_file="res://Assets/Sprites/Pizza_Zombie.png"
+dest_files=["res://.godot/imported/Pizza_Zombie.png-a1de7565b092778f461351bde1dea105.ctex"]
 
 [params]
 

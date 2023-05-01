@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var pizza_pieces:int # represents the amount of health
 @export var movement_speed = 400
 @export var light_attack_damage = 2
-@export var light_attack_distance = 120
+@export var light_attack_distance = 90
 @export var light_attack_duration:float = 0.2
 @export var is_in_custcene = false
 
@@ -31,6 +31,7 @@ enum ATTACK_STATE {
 
 
 func _ready():
+	self.add_to_group("player")
 	pizza_pieces = max_pizza_pieces
 	delivery_bag_back = get_node("%DeliveryBagBack")
 	delivery_bag_back_default = delivery_bag_back.duplicate()
@@ -122,7 +123,7 @@ func light_attack():
 
 	delivery_bag_reset()
 	attack_state = ATTACK_STATE.NONE
-	print(delivery_bag_back.position)
+	#print(delivery_bag_back.position)
 	
 	
 func setup_delivery_bag(cursor_position):
@@ -149,7 +150,7 @@ func execute_attack(attack_vector):
 	
 func delivery_bag_reset():
 	delivery_bag_back.position = delivery_bag_back_default.position
-	print(delivery_bag_back.position)
+	#print(delivery_bag_back.position)
 	delivery_bag_back.set_z_index(delivery_bag_back_default.z_index)
 	delivery_bag_back.rotation = delivery_bag_back_default.rotation
 	delivery_bag_back_collision.disabled = true

@@ -1,5 +1,38 @@
-[gd_scene format=3 uid="uid://c10ssjn0ge38f"]
+[gd_scene load_steps=6 format=3 uid="uid://c10ssjn0ge38f"]
+
+[ext_resource type="Script" path="res://Characters/pizza_zombie.gd" id="1_24wtd"]
+[ext_resource type="Texture2D" uid="uid://bjv4w7oaj1phf" path="res://Assets/Sprites/Pizza_Zombie.png" id="2_p1bo0"]
+[ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="3_p3pca"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cr2mi"]
+size = Vector2(104, 109)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d5hur"]
+size = Vector2(72, 34)
 
 [node name="PizzaZombie" type="CharacterBody2D"]
+script = ExtResource("1_24wtd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(8, 8)
+texture = ExtResource("2_p1bo0")
+hframes = 5
+vframes = 3
+
+[node name="DamageArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(4, -0.5)
+shape = SubResource("RectangleShape2D_cr2mi")
+
+[node name="ZombieFeet" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 31)
+shape = SubResource("RectangleShape2D_d5hur")
+
+[node name="PizzaPieceItem" parent="." instance=ExtResource("3_p3pca")]
+visible = false
+z_index = 0
+position = Vector2(6, 25)
+rotation = -1.46729
+
+[connection signal="area_entered" from="DamageArea" to="." method="_on_damage_area_area_entered"]
