@@ -5,16 +5,15 @@
 [ext_resource type="PackedScene" uid="uid://cthm02avoqjiv" path="res://Characters/pizza_boy.tscn" id="1_op20x"]
 [ext_resource type="Texture2D" uid="uid://k6fjm5rb0uwv" path="res://Assets/Sprites/Map.png" id="2_u2ymj"]
 [ext_resource type="Texture2D" uid="uid://b4uq1xcfofmth" path="res://Assets/Sprites/Pizzaria.png" id="4_crpbj"]
+[ext_resource type="Script" path="res://BattleArena.gd" id="4_q5fpr"]
 [ext_resource type="Script" path="res://BattleArenaTrigger.gd" id="6_0hgfu"]
 [ext_resource type="PackedScene" uid="uid://csur3fv2x4l28" path="res://Characters/enemy_fass.tscn" id="6_lrtvu"]
-[ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="7_fuf7g"]
 [ext_resource type="Texture2D" uid="uid://cnfy21kcbwwko" path="res://Assets/Sprites/Boss_Street.png" id="8_6cokp"]
 [ext_resource type="PackedScene" uid="uid://bcl7u4d1xw36m" path="res://barricade.tscn" id="9_quct6"]
 [ext_resource type="Script" path="res://Endboss_Cutscene_Trigger.gd" id="9_u8typ"]
 [ext_resource type="PackedScene" uid="uid://g711rfpjv3bn" path="res://cone.tscn" id="10_0qbg2"]
 [ext_resource type="PackedScene" uid="uid://byi1an6p8tlvj" path="res://red_car.tscn" id="11_5e4f2"]
 [ext_resource type="PackedScene" uid="uid://cypw1y4pi1hjm" path="res://pizza_car.tscn" id="12_aeigt"]
-[ext_resource type="PackedScene" uid="uid://c10ssjn0ge38f" path="res://Characters/pizza_zombie.tscn" id="13_y2vfb"]
 [ext_resource type="PackedScene" uid="uid://ci25vd13li2v4" path="res://enemy_spawner_area.tscn" id="14_2c8kk"]
 [ext_resource type="PackedScene" uid="uid://biqfhmap6ws4o" path="res://boss.tscn" id="15_h7n7g"]
 [ext_resource type="AudioStream" uid="uid://hsdhfv02cowx" path="res://Assets/Sounds/Musik/leftbanktwo.wav" id="16_x3kqb"]
@@ -470,6 +469,7 @@ metadata/_edit_use_anchors_ = true
 z_index = -2
 position = Vector2(2879, 540)
 scale = Vector2(8, 8)
+script = ExtResource("4_q5fpr")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="BattleArena"]
 
@@ -521,6 +521,11 @@ scale = Vector2(0.125, 0.125)
 z_index = -2
 texture = ExtResource("2_u2ymj")
 
+[node name="BattleArena2" type="Sprite2D" parent="BattleArena/BattleArena2"]
+z_index = -2
+position = Vector2(479.875, 0)
+texture = ExtResource("2_u2ymj")
+
 [node name="End" type="Sprite2D" parent="."]
 z_index = -2
 position = Vector2(4798, 540)
@@ -561,7 +566,7 @@ shape = SubResource("RectangleShape2D_q7rom")
 
 [node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
 unique_name_in_owner = true
-position = Vector2(4172, 685)
+position = Vector2(844, 417)
 metadata/_edit_group_ = true
 
 [node name="Enemy_Fass" parent="." instance=ExtResource("6_lrtvu")]
@@ -576,15 +581,14 @@ position = Vector2(1487, 978)
 [node name="Enemy_Fass4" parent="." instance=ExtResource("6_lrtvu")]
 position = Vector2(1487, 1038)
 
-[node name="PizzaPieceItem" parent="." instance=ExtResource("7_fuf7g")]
-position = Vector2(496, 638)
-
-[node name="PizzaPieceItem2" parent="." instance=ExtResource("7_fuf7g")]
-position = Vector2(926, 771)
-rotation = -1.48156
-
 [node name="Barricade" parent="." instance=ExtResource("9_quct6")]
 position = Vector2(1496, 670)
+
+[node name="Barricade2" parent="." instance=ExtResource("9_quct6")]
+position = Vector2(5732, 562)
+
+[node name="Barricade3" parent="." instance=ExtResource("9_quct6")]
+position = Vector2(5732, 906)
 
 [node name="Cone" parent="." instance=ExtResource("10_0qbg2")]
 position = Vector2(1492, 858)
@@ -600,15 +604,6 @@ libraries = {
 "": SubResource("AnimationLibrary_xn12w")
 }
 
-[node name="PizzaZombie" parent="." instance=ExtResource("13_y2vfb")]
-position = Vector2(52, 457)
-
-[node name="PizzaZombie2" parent="." instance=ExtResource("13_y2vfb")]
-position = Vector2(716, 1004)
-
-[node name="PizzaZombie3" parent="." instance=ExtResource("13_y2vfb")]
-position = Vector2(1363, 1006)
-
 [node name="EnemySpawner" parent="." instance=ExtResource("14_2c8kk")]
 position = Vector2(1812, 738)
 scale = Vector2(1.001, 3.295)
@@ -616,6 +611,7 @@ scale = Vector2(1.001, 3.295)
 [node name="EnemySpawner2" parent="." instance=ExtResource("14_2c8kk")]
 position = Vector2(3916, 738)
 scale = Vector2(1, 3.29508)
+
 [node name="Boss" parent="." instance=ExtResource("15_h7n7g")]
 position = Vector2(5078, 432)
 

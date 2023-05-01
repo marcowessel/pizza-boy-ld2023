@@ -62,7 +62,6 @@ func take_damage(damage):
 
 
 func dies():
-	var player = get_tree().current_scene.get_node("%PizzaBoy")
 	player.kill_count += 1
 	print(player.kill_count)
 	
@@ -78,7 +77,6 @@ func dies():
 	self.queue_free() 
 	
 func vanishes():
-	var player = get_tree().current_scene.get_node("%PizzaBoy")
 	player.kill_count += 1
 	print(player.kill_count)
 	$ZombieFeet.queue_free()

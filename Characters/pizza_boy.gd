@@ -45,14 +45,16 @@ func _ready():
 	
 	
 func _process(_delta):
-	if !is_in_custcene:
-		get_input()
-		move_and_slide()
-		bike_logic()
-		if pizza_meter.value == 100:
-			spacebar.show()
-			spacebar.play("default")
+	if is_in_custcene: return
 	
+	get_input()
+	move_and_slide()
+	bike_logic()
+	
+	if pizza_meter.value == 100:
+		spacebar.show()
+		spacebar.play("default")
+		
 
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")

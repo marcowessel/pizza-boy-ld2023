@@ -22,6 +22,11 @@ func execute_battle():
 		node.activate_spawner()
 
 
+func enable_camera_movement():
+	var camera = get_node("%MainCamera")
+	camera.set_follow_active(true)
+
+
 func disable_camera_movement():
 	var camera = get_node("%MainCamera")
 	camera.set_follow_active(false)
