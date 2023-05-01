@@ -9,6 +9,7 @@ extends CharacterBody2D
 @export var is_in_custcene = false
 
 var attack_state = ATTACK_STATE.NONE
+var kill_count = 0
 var delivery_bag_back
 var delivery_bag_back_default
 var delivery_bag_back_collision
@@ -125,7 +126,6 @@ func light_attack():
 
 	delivery_bag_reset()
 	attack_state = ATTACK_STATE.NONE
-	#print(delivery_bag_back.position)
 	
 	
 func setup_delivery_bag(cursor_position):
@@ -153,7 +153,6 @@ func execute_attack(attack_vector):
 	
 func delivery_bag_reset():
 	delivery_bag_back.position = delivery_bag_back_default.position
-	#print(delivery_bag_back.position)
 	delivery_bag_back.set_z_index(delivery_bag_back_default.z_index)
 	delivery_bag_back.rotation = delivery_bag_back_default.rotation
 	delivery_bag_back_collision.disabled = true
@@ -162,7 +161,7 @@ func delivery_bag_reset():
 func _on_delivery_bag_back_area_entered(area):
 	var body = area.get_parent()
 	
-	if body.is_in_group("enemy"):
+	if body.is_in_group("enemy") or body.is_in_group("destructable"):
 		deal_damage(body)
 
 

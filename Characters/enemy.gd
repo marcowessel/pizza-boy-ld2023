@@ -4,7 +4,7 @@ extends CharacterBody2D
 
 
 func _ready():
-	self.add_to_group("enemy")
+	self.add_to_group("destructable")
 
 
 func take_damage(damage):

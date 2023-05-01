@@ -5,21 +5,22 @@ var pizza_piece_scene = preload("res://pizza_piece_item.tscn")
 @export var health:int = 5
 @export var walking_speed = 100
 
-var player
+var player = null
 var has_pizza_piece = false
+var spawn_position:Vector2 = Vector2(0, 0)
 
 
 func _ready():
 	$PizzaPieceItem/CollisionShapeDamage.queue_free()
-	player = get_node("%PizzaBoy")
 	self.add_to_group("enemy")
+	player = get_parent().get_node("PizzaBoy")
 
 
 func _process(delta):
 	if !has_pizza_piece:
 		run_towards_player(delta)
 	else:
-		run_away()
+		run_away(delta)
 
 
 func run_towards_player(delta):
@@ -30,9 +31,13 @@ func run_towards_player(delta):
 	)
 	position = new_position
 
-func run_away():
-	#TODO implement
-	pass
+func run_away(delta):
+	var target_position = spawn_position
+	var new_position = position.move_toward(
+		target_position, 
+		walking_speed * delta
+	)
+	position = new_position
 
 
 func take_damage(damage):
@@ -40,25 +45,34 @@ func take_damage(damage):
 		health = 0
 		dies()
 	else:
-		#print("Leben " + str(health))
 		health -= damage
-		#print("damage = " + str(damage))
-		#print("Neues Leben " + str(health))
 
 
 func dies():
+	var player = get_tree().current_scene.get_node("%PizzaBoy")
+	player.kill_count += 1
+	print(player.kill_count)
+	
 	if has_pizza_piece: drop_pizza_piece()
 	$ZombieFeet.queue_free()
 	$DamageArea/CollisionShape2D.queue_free()
 	$Sprite2D.hide()
 	self.queue_free() 
-
+	
+func vanishes():
+	var player = get_tree().current_scene.get_node("%PizzaBoy")
+	player.kill_count += 1
+	print(player.kill_count)
+	$ZombieFeet.queue_free()
+	$DamageArea/CollisionShape2D.queue_free()
+	$Sprite2D.hide()
+	self.queue_free() 
 
 func drop_pizza_piece():
 	var pizza_piece_item = pizza_piece_scene.instantiate()
 	pizza_piece_item.position = position
 	pizza_piece_item.set_rotation_degrees(randi_range(0, 360))
-	get_tree().get_root().add_child(pizza_piece_item)
+	get_tree().get_root().call_deferred("add_child", pizza_piece_item)
 
 
 func _on_damage_area_area_entered(area):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ceugkgpedkg1k"]
+[gd_scene load_steps=24 format=3 uid="uid://ceugkgpedkg1k"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
@@ -9,10 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://csur3fv2x4l28" path="res://Characters/enemy_fass.tscn" id="6_lrtvu"]
 [ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="7_fuf7g"]
 [ext_resource type="PackedScene" uid="uid://bcl7u4d1xw36m" path="res://barricade.tscn" id="9_quct6"]
-[ext_resource type="PackedScene" path="res://cone.tscn" id="10_0qbg2"]
-[ext_resource type="PackedScene" path="res://red_car.tscn" id="11_5e4f2"]
-[ext_resource type="PackedScene" path="res://pizza_car.tscn" id="12_aeigt"]
+[ext_resource type="PackedScene" uid="uid://g711rfpjv3bn" path="res://cone.tscn" id="10_0qbg2"]
+[ext_resource type="PackedScene" uid="uid://byi1an6p8tlvj" path="res://red_car.tscn" id="11_5e4f2"]
+[ext_resource type="PackedScene" uid="uid://cypw1y4pi1hjm" path="res://pizza_car.tscn" id="12_aeigt"]
 [ext_resource type="PackedScene" uid="uid://c10ssjn0ge38f" path="res://Characters/pizza_zombie.tscn" id="13_y2vfb"]
+[ext_resource type="PackedScene" uid="uid://ci25vd13li2v4" path="res://enemy_spawner_area.tscn" id="14_2c8kk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ulo"]
 size = Vector2(240.125, 21)
@@ -382,6 +383,14 @@ position = Vector2(716, 1004)
 
 [node name="PizzaZombie3" parent="." instance=ExtResource("13_y2vfb")]
 position = Vector2(1363, 1006)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("14_2c8kk")]
+position = Vector2(1812, 738)
+scale = Vector2(1.001, 3.295)
+
+[node name="EnemySpawner2" parent="." instance=ExtResource("14_2c8kk")]
+position = Vector2(3916, 738)
+scale = Vector2(1, 3.29508)
 
 [connection signal="body_entered" from="BattleArena/BattleArenaTrigger" to="BattleArena/BattleArenaTrigger" method="_on_body_entered"]
 

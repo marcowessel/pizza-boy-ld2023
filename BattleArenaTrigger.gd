@@ -3,8 +3,6 @@ extends Area2D
 var barricades
 
 
-#TODO fix collisions with battle arena barricades after they appear
-
 func _ready():
 	barricades = get_tree().get_nodes_in_group("barricade")
 	deactivate_barricades()
@@ -13,8 +11,15 @@ func _on_body_entered(body):
 	if(body.name == "PizzaBoy"):
 		disable_camera_movement()
 		activate_barricades()
-		$CollisionShape2D.disabled = true
-		#execute battle arena script
+		$CollisionShape2D.queue_free()
+		execute_battle()
+
+
+func execute_battle():
+	var nodes = get_tree().current_scene.get_tree().get_nodes_in_group("enemy_spawner")
+	
+	for node in nodes:
+		node.activate_spawner()
 
 
 func disable_camera_movement():
