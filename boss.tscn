@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://biqfhmap6ws4o"]
+[gd_scene load_steps=14 format=3 uid="uid://biqfhmap6ws4o"]
 
 [ext_resource type="Texture2D" uid="uid://373kjbknnnyy" path="res://Assets/Sprites/Customer.png" id="1_2fdnv"]
 [ext_resource type="Script" path="res://boss.gd" id="1_xo8dp"]
@@ -106,6 +106,9 @@ _data = {
 "walk": SubResource("Animation_4kr0s")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2868"]
+size = Vector2(19.4118, 28.7671)
+
 [node name="Boss" type="CharacterBody2D"]
 script = ExtResource("1_xo8dp")
 
@@ -193,3 +196,10 @@ theme_override_fonts/font = ExtResource("2_rcpw4")
 theme_override_font_sizes/font_size = 64
 text = "  Yer serious!?
   This Pizza cold"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, -9.53674e-07)
+scale = Vector2(1.7, 1.46)
+shape = SubResource("RectangleShape2D_w2868")

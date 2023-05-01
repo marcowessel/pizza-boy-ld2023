@@ -66,15 +66,6 @@ func get_input():
 	velocity = input_direction * movement_speed
 
 
-func lose_piece():
-	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
-	hud_pizza_pieces.remove_piece()
-	pizza_pieces -= 1
-	anim_player.play("hurt")
-
-	if pizza_pieces <= 0: player_death()
-
-
 func player_death():
 	print("player dead")
 
@@ -191,6 +182,7 @@ func _on_area_2d_area_entered(area):
 	var body = area.get_parent()
 
 	if body.is_in_group("enemy") or body.is_in_group("destructable"):
+		print(body.name)
 		deal_damage(body)
 
 func deal_damage(enemy):
@@ -219,7 +211,8 @@ func lose_piece():
 	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
 	hud_pizza_pieces.remove_piece()
 	pizza_pieces -= 1
-	
+	anim_player.play("hurt")
+
 	if pizza_pieces <= 0: player_death()
 
 

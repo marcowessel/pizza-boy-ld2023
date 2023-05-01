@@ -12,11 +12,12 @@ func _ready():
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "endboss_cutscene":
+		$Boss.activate()
 		$Boss_Song.play()
 
 func accelerate_cutscene():
 	if Input.is_action_pressed("speedup") and in_animation:
-		$AnimationPlayer.set_speed_scale(3)
+		$AnimationPlayer.set_speed_scale(100)
 		$Tutorial_Song.pitch_scale = 3
 	else:
 		$AnimationPlayer.set_speed_scale(1)
