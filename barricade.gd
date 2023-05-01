@@ -11,7 +11,8 @@ func _ready():
 
 func deactivate():
 	call_deferred("_deactivate")
-	
+
+
 func _deactivate():
 	collision.disabled = true
 	self.visible = false

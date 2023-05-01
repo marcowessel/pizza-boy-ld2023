@@ -61,13 +61,6 @@ func get_input():
 	velocity = input_direction * movement_speed	
 
 
-func lose_piece():
-	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
-	hud_pizza_pieces.remove_piece()
-	pizza_pieces -= 1
-	
-	if pizza_pieces <= 0: player_death()
-	
 func player_death():
 	print("player dead")
 	
@@ -169,7 +162,7 @@ func delivery_bag_reset():
 func _on_delivery_bag_back_area_entered(area):
 	var body = area.get_parent()
 	
-	if body.is_in_group("enemy") or body.is_in_group("destructable"):
+	if area.is_in_group("hitbox") or body.is_in_group("destructable"):
 		deal_damage(body)
 
 
@@ -185,9 +178,22 @@ func deal_damage(enemy):
 
 func _on_hit_detection_area_entered(area):
 	var body = area.get_parent()
+	#print(body, " player detection")
 	
-	if body.is_in_group("enemy"):
+	
+	if !body.is_in_group("enemy"): return
+	
+	if area.is_in_group("hitbox") && body.has_pizza_piece == false:
 		lose_piece()
+		body.has_pizza_piece = true
+
+
+func lose_piece():
+	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
+	hud_pizza_pieces.remove_piece()
+	pizza_pieces -= 1
+	
+	if pizza_pieces <= 0: player_death()
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "throw":
@@ -202,7 +208,6 @@ func _on_bike_timer_timeout():
 	$Bike_Loop.stop()
 	is_on_bike = false
 	movement_speed /= 2
-	print(movement_speed)
 	bike.hide()
 	anim_player.play("idle")
 

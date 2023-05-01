@@ -566,11 +566,8 @@ shape = SubResource("RectangleShape2D_q7rom")
 
 [node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
 unique_name_in_owner = true
-position = Vector2(844, 417)
+position = Vector2(840, 440)
 metadata/_edit_group_ = true
-
-[node name="Enemy_Fass" parent="." instance=ExtResource("6_lrtvu")]
-position = Vector2(1195, 903)
 
 [node name="Enemy_Fass2" parent="." instance=ExtResource("6_lrtvu")]
 position = Vector2(1487, 918)

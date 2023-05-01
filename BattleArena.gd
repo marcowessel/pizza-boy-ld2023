@@ -16,6 +16,5 @@ func _physics_process(_delta):
 
 func disable_battlezone():
 	var battle_arena_trigger = get_node("BattleArenaTrigger")
-	print(battle_arena_trigger)
 	battle_arena_trigger.enable_camera_movement()
 	battle_arena_trigger.deactivate_barricades()

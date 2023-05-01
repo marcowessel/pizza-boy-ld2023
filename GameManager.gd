@@ -10,9 +10,10 @@ func _ready():
 # WORKING ON
 #- [x] 3 zombie waves with increasing difficulty
 #- [x] merge jona stand
-#- [] if all mobs are cleared baricades vanishes
-#- [] activate camera follow again (smooth transition on player)
-#- [] Pizza detection pizza zombies for droped pizza pieces (area2d)
+#- [x] if all mobs are cleared baricades vanishes
+#- [x] activate camera follow again (smooth transition on player)
+#- [x] Pizza detection pizza zombies for droped pizza pieces (area2d)
+#- [] pizza zombies go for pizza pieces in range
 
 
 # TODO
@@ -24,12 +25,9 @@ func _ready():
 
 
 # ERRORS
-#- [] if enemy has pizza piece, he cant steal more
+#- [x] if enemy has pizza piece, he cant steal more
 #- [] make small cooldown for lightattack so it cant be spammed
-#- [] pizza piece still shows after player picked it up on a dead zombie
-#- [] zombie walk animation doesnt play if he has a pizza piece
 
 
 # BACKLOG
-#- [] "WATCH OUT! PIZZA HOOLIGANS INCOMING" text appears few seconds
-#- [] 20 mobs overall split into 3 waves
+#- [] 
