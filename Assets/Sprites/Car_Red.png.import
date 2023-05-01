@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxi7jx62cye5f"
-path="res://.godot/imported/Bag.png-1ba23430c3e1d253e5ad6ae799f6e9c2.ctex"
+uid="uid://6mmbyqleci8s"
+path="res://.godot/imported/Car_Red.png-81320ae450e63006372e3685421f912d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Bag.png"
-dest_files=["res://.godot/imported/Bag.png-1ba23430c3e1d253e5ad6ae799f6e9c2.ctex"]
+source_file="res://Assets/Sprites/Car_Red.png"
+dest_files=["res://.godot/imported/Car_Red.png-81320ae450e63006372e3685421f912d.ctex"]
 
 [params]
 

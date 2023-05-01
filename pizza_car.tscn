@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cypw1y4pi1hjm"]
+
+[ext_resource type="Texture2D" uid="uid://c00q2isnjhlko" path="res://Assets/Sprites/Pizza_Car.png" id="1_hvu5x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ak6q5"]
+size = Vector2(208, 80)
+
+[node name="Pizza_Car" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -48)
+scale = Vector2(8, 8)
+texture = ExtResource("1_hvu5x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 24)
+shape = SubResource("RectangleShape2D_ak6q5")

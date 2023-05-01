@@ -1,5 +1,10 @@
 extends Node2D
 
+func _ready():
+	$Tutorial/RichTextLabel.hide()
+	$BattleArena/RichTextLabel.hide()
+	$End/RichTextLabel.hide()
+
 # TODO
 #- [x] crosshair instead of cursor
 #- [x] implement light attack
