@@ -236,6 +236,9 @@ func _on_bike_timer_timeout():
 	bike.hide()
 	anim_player.play("idle")
 
+func move_to(pos, source):
+	pass
+
 func footstep():
 	$Walking.rplay()
 
