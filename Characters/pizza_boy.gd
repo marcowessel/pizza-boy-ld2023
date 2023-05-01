@@ -20,6 +20,7 @@ var is_on_bike = false
 var pizza_meter
 var timer
 var spacebar
+var bike_song_started = false
 
 enum ATTACK_STATE {
 	NONE,
@@ -95,6 +96,11 @@ func bike_logic():
 		if Input.is_action_just_pressed("space") and pizza_meter.value == 100: #and pizza_meter >= MAX_PIZZA_METER:
 			if !is_on_bike:
 				# show the bicycle node and double the movement speed
+				if !bike_song_started:
+					get_parent().get_node("Bike_Song").play()
+					bike_song_started = true
+				get_parent().get_node("Combat_Music").volume_db = -80
+				get_parent().get_node("Bike_Song").volume_db = -10
 				is_on_bike = true
 				is_walking = false
 				pizza_meter.value = 0
@@ -190,6 +196,8 @@ func _on_animation_player_animation_finished(anim_name):
 			anim_player.play("walk")
 
 func _on_bike_timer_timeout():
+	get_parent().get_node("Bike_Song").volume_db = -80
+	get_parent().get_node("Combat_Music").volume_db = 5
 	$Bike_Loop.stop()
 	is_on_bike = false
 	movement_speed /= 2

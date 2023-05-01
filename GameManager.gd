@@ -4,6 +4,7 @@ func _ready():
 	$Tutorial/RichTextLabel.hide()
 	$BattleArena/RichTextLabel.hide()
 	$End/RichTextLabel.hide()
+	$Combat_Music.play()
 
 # TODO
 #- [x] crosshair instead of cursor

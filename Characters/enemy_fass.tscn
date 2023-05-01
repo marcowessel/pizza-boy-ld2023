@@ -20,14 +20,14 @@ particles_anim_loop = false
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_qb5pg"]
+[sub_resource type="CurveTexture" id="CurveTexture_hqteo"]
 curve = SubResource("Curve_ugu4t")
 
 [sub_resource type="Gradient" id="Gradient_18jds"]
 offsets = PackedFloat32Array(0, 0.844444, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_1la60"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ksihp"]
 gradient = SubResource("Gradient_18jds")
 
 [sub_resource type="Curve" id="Curve_6vgb3"]
@@ -35,14 +35,14 @@ max_value = 100.0
 _data = [Vector2(0, 6.36364), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_uv0jq"]
+[sub_resource type="CurveTexture" id="CurveTexture_gd3bc"]
 curve = SubResource("Curve_6vgb3")
 
 [sub_resource type="Curve" id="Curve_tvk6h"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.190909), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_t6nsa"]
+[sub_resource type="CurveTexture" id="CurveTexture_xf8qc"]
 curve = SubResource("Curve_tvk6h")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c8dyh"]
@@ -58,14 +58,14 @@ orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 damping_min = 5.0
 damping_max = 10.0
-damping_curve = SubResource("CurveTexture_uv0jq")
+damping_curve = SubResource("CurveTexture_gd3bc")
 scale_min = 5.0
 scale_max = 7.0
-scale_curve = SubResource("CurveTexture_t6nsa")
-color_ramp = SubResource("GradientTexture1D_1la60")
+scale_curve = SubResource("CurveTexture_xf8qc")
+color_ramp = SubResource("GradientTexture1D_ksihp")
 turbulence_noise_strength = 0.0
 anim_offset_max = 1.0
-anim_offset_curve = SubResource("CurveTexture_qb5pg")
+anim_offset_curve = SubResource("CurveTexture_hqteo")
 
 [node name="EnemyFass" type="CharacterBody2D"]
 y_sort_enabled = true
