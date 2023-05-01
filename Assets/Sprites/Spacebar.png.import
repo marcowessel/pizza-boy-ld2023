@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvrp57hl6twxe"
-path="res://.godot/imported/Hot_Sauce.png-b2711f0c94d4f9e73c0efa2cfa069069.ctex"
+uid="uid://cefwm3yvrcgnw"
+path="res://.godot/imported/Spacebar.png-c26e1cca9efc3b57ad3af1130f6e0e07.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Hot_Sauce.png"
-dest_files=["res://.godot/imported/Hot_Sauce.png-b2711f0c94d4f9e73c0efa2cfa069069.ctex"]
+source_file="res://Assets/Sprites/Spacebar.png"
+dest_files=["res://.godot/imported/Spacebar.png-c26e1cca9efc3b57ad3af1130f6e0e07.ctex"]
 
 [params]
 

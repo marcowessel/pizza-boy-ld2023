@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cthm02avoqjiv"]
+[gd_scene load_steps=36 format=3 uid="uid://cthm02avoqjiv"]
 
 [ext_resource type="Script" path="res://Characters/pizza_boy.gd" id="1_qt10e"]
 [ext_resource type="Texture2D" uid="uid://dptnjpuiu2ajd" path="res://Assets/Sprites/Character_Sheet.png" id="2_3jsvf"]
@@ -7,6 +7,24 @@
 [ext_resource type="PackedScene" uid="uid://kw4rqsuft0ix" path="res://player_hud.tscn" id="5_o6rtb"]
 [ext_resource type="Texture2D" uid="uid://ba2i7qycvtamh" path="res://Assets/Sprites/Exclamation Mark.png" id="6_qpcb8"]
 [ext_resource type="Texture2D" uid="uid://cahmy4lc8lvv8" path="res://Assets/Sprites/Mouse_Button.png" id="7_ehs7x"]
+[ext_resource type="PackedScene" uid="uid://dh8rp1004ii04" path="res://random_range_player.tscn" id="8_lrt2e"]
+[ext_resource type="AudioStream" uid="uid://d10tqx66ilajl" path="res://Assets/Sounds/Footsteps/Footsteps_1.wav" id="9_ix1dh"]
+[ext_resource type="AudioStream" uid="uid://i76iv1l4c6ya" path="res://Assets/Sounds/Footsteps/Footsteps_2.wav" id="10_fpmkn"]
+[ext_resource type="AudioStream" uid="uid://6o2qu3uhaysy" path="res://Assets/Sounds/Footsteps/Footsteps_3.wav" id="11_ectvh"]
+[ext_resource type="AudioStream" uid="uid://do1l6t6gbrjf" path="res://Assets/Sounds/Footsteps/Footsteps_4.wav" id="12_amb1o"]
+[ext_resource type="AudioStream" uid="uid://8cmmxe4n78pu" path="res://Assets/Sounds/Footsteps/Footsteps_5.wav" id="13_kg4a5"]
+[ext_resource type="AudioStream" uid="uid://dwar4eapa0qcc" path="res://Assets/Sounds/Footsteps/Footsteps_6.wav" id="14_w7136"]
+[ext_resource type="AudioStream" uid="uid://c2piqjwtclrec" path="res://Assets/Sounds/Hit/Punch_1.wav" id="15_y83p0"]
+[ext_resource type="AudioStream" uid="uid://df66gq18sa5bq" path="res://Assets/Sounds/Hit/Punch_2.wav" id="16_txxox"]
+[ext_resource type="AudioStream" uid="uid://bfddb2nqrdoao" path="res://Assets/Sounds/Hit/Punch_3.wav" id="17_7ujnj"]
+[ext_resource type="AudioStream" uid="uid://ciprql53ipw6g" path="res://Assets/Sounds/Bag_Throw/Throwing Pizza_1.wav" id="18_orhl2"]
+[ext_resource type="AudioStream" uid="uid://bgykvwgft7dtc" path="res://Assets/Sounds/Bag_Throw/Throwing Pizza_2.wav" id="19_jl2a3"]
+[ext_resource type="AudioStream" uid="uid://d03kxlvxfmseh" path="res://Assets/Sounds/Bag_Throw/Throwing Pizza_3.wav" id="20_kmsm5"]
+[ext_resource type="AudioStream" uid="uid://ff8jnskpamph" path="res://Assets/Sounds/Bag_Throw/Throwing Pizza_4.wav" id="21_ksp4k"]
+[ext_resource type="AudioStream" uid="uid://31pdqijxofbd" path="res://Assets/Sounds/Bag_Throw/Throwing Pizza_5.wav" id="22_y568g"]
+[ext_resource type="AudioStream" uid="uid://v5iu0qlaijdh" path="res://Assets/Sounds/Bike/8 bit cycle sound.wav" id="23_mwah3"]
+[ext_resource type="AudioStream" uid="uid://drb33uupc6ly6" path="res://Assets/Sounds/Bike/BicycleBell_1.wav" id="24_phom5"]
+[ext_resource type="AudioStream" uid="uid://cq0xbxbk6ghyi" path="res://Assets/Sounds/Bike/BicycleBell_2.wav" id="25_hvtqn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bacsx"]
 size = Vector2(72, 24)
@@ -135,6 +153,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [5, 6, 7, 8, 9]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"footstep"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6q5yt"]
 _data = {
@@ -212,6 +244,26 @@ position = Vector2(8, -104)
 scale = Vector2(6, 6)
 texture = ExtResource("7_ehs7x")
 
+[node name="Bike_Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="Walking" parent="." instance=ExtResource("8_lrt2e")]
+streams = Array[Resource]([ExtResource("9_ix1dh"), ExtResource("10_fpmkn"), ExtResource("11_ectvh"), ExtResource("12_amb1o"), ExtResource("13_kg4a5"), ExtResource("14_w7136")])
+
+[node name="Hit" parent="." instance=ExtResource("8_lrt2e")]
+streams = Array[Resource]([ExtResource("15_y83p0"), ExtResource("16_txxox"), ExtResource("17_7ujnj")])
+
+[node name="Bag_Throw" parent="." instance=ExtResource("8_lrt2e")]
+streams = Array[Resource]([ExtResource("18_orhl2"), ExtResource("19_jl2a3"), ExtResource("20_kmsm5"), ExtResource("21_ksp4k"), ExtResource("22_y568g")])
+
+[node name="Bike_Loop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23_mwah3")
+
+[node name="Bike_Ring" parent="." instance=ExtResource("8_lrt2e")]
+streams = Array[Resource]([ExtResource("24_phom5"), ExtResource("25_hvtqn")])
+
 [connection signal="area_entered" from="DeliveryBagBack" to="." method="_on_delivery_bag_back_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="HitDetection" to="." method="_on_hit_detection_area_entered"]
+[connection signal="timeout" from="Bike_Timer" to="." method="_on_bike_timer_timeout"]

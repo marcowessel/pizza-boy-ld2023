@@ -1,7 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://kw4rqsuft0ix"]
+[gd_scene load_steps=9 format=3 uid="uid://kw4rqsuft0ix"]
 
 [ext_resource type="Texture2D" uid="uid://cdrkfko6bp7vi" path="res://Assets/Sprites/Pizza_Bar.png" id="1_fdpou"]
 [ext_resource type="Script" path="res://PizzaPieces.gd" id="2_pkxuy"]
+[ext_resource type="Theme" uid="uid://dicggahvhfah6" path="res://new_theme.tres" id="3_173k2"]
+[ext_resource type="Texture2D" uid="uid://dvrp57hl6twxe" path="res://Assets/Sprites/Hot_Sauce.png" id="4_6osk7"]
+[ext_resource type="Texture2D" uid="uid://cefwm3yvrcgnw" path="res://Assets/Sprites/Spacebar.png" id="5_ot0fq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcu8j"]
+atlas = ExtResource("5_ot0fq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8g6lv"]
+atlas = ExtResource("5_ot0fq")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1mrn1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mcu8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8g6lv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
 
 [node name="PlayerHUD" type="CanvasLayer"]
 
@@ -11,3 +36,24 @@ scale = Vector2(3, 3)
 texture = ExtResource("1_fdpou")
 hframes = 9
 script = ExtResource("2_pkxuy")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 368.0
+offset_top = 216.0
+offset_right = 512.0
+offset_bottom = 256.0
+rotation = -1.57031
+theme = ExtResource("3_173k2")
+step = 10.0
+show_percentage = false
+
+[node name="HotSauce" type="Sprite2D" parent="."]
+position = Vector2(328, 144)
+scale = Vector2(3, 3)
+texture = ExtResource("4_6osk7")
+
+[node name="Spacebar" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(360, 48)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_1mrn1")
