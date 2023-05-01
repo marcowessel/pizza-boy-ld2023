@@ -54,19 +54,27 @@ func flip_to_player(target_position):
 		$Sprite2D.flip_h = false
 
 func run_away(delta):
+	anim_player.play("walk")
 	var target_position = spawn_position
 	var new_position = position.move_toward(
 		target_position, 
 		walking_speed * delta
 	)
 	position = new_position
+	flip_to_target(target_position)
 
+func flip_to_target(target_position):
+	if target_position.x - position.x < 0:
+		$Sprite2D.flip_h = true
+	else:
+		$Sprite2D.flip_h = false
 
 func take_damage(damage):
 	if (health - damage <= 0):
 		health = 0
 		dies()
 	else:
+		$Hurt.rplay()
 		health -= damage
 
 
@@ -81,9 +89,15 @@ func dies():
 	anim_player.play("death")
 	$ZombieFeet.queue_free()
 	$DamageArea/CollisionShape2D.queue_free()
+	hidden()
+	$Sprite2D.z_index -= 1
 	$Dust.emitting = true
 	await get_tree().create_timer(2).timeout
 	self.queue_free() 
+
+
+func hidden():
+	$PizzaPieceItem.hide()
 
 
 func vanishes():
@@ -91,9 +105,12 @@ func vanishes():
 	player.kill_count += 1
 	
 	$PizzaRadar.queue_free()
+	hidden()
 	$ZombieFeet.queue_free()
 	$DamageArea/CollisionShape2D.queue_free()
 	$Sprite2D.hide()
+	$Dust.emitting = true
+	await get_tree().create_timer(1).timeout
 	self.queue_free() 
 
 func drop_pizza_piece():
@@ -113,7 +130,7 @@ func move_to_pizza(delta):
 	)
 	position = new_position
 
-
+#BEGIN checkout
 func _on_damage_area_area_entered(area):
 	var body = area.get_parent()
 	
@@ -131,3 +148,6 @@ func _on_damage_area_area_entered(area):
 func picked_up_pizza():
 	$PizzaPieceItem.visible = true
 	$Haha.rplay()
+	$Stole.play()
+	has_pizza_piece = true
+#END checkout

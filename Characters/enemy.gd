@@ -16,6 +16,7 @@ func take_damage(damage):
 
 
 func dies():
+	$Destruction.play()
 	$CollisionShape2D.queue_free()
 	$Area2D/CollisionShape2D.queue_free()
 	$Sprite2D.hide()

@@ -5,8 +5,10 @@ extends CharacterBody2D
 @export var movement_speed = 400
 @export var light_attack_damage = 2
 @export var light_attack_distance = 90
+@export var bike_damage = 10
 @export var light_attack_duration:float = 0.2
 @export var is_in_custcene = false
+@export var mouse_showing = false
 
 var attack_state = ATTACK_STATE.NONE
 var kill_count = 0
@@ -17,15 +19,17 @@ var delivery_bag_back_collision
 var is_walking = false
 var anim_player
 var bike
-var is_on_bike = false 
+var is_on_bike = false
 var pizza_meter
 var timer
 var spacebar
 var bike_song_started = false
+var reached_full_capacity = false
 
 enum ATTACK_STATE {
 	NONE,
-	LIGHT_ATTACK
+	LIGHT_ATTACK,
+	BIKE_ATTACK
 }
 
 
@@ -42,31 +46,42 @@ func _ready():
 	anim_player = get_node("AnimationPlayer")
 	bike = get_node("Bike")
 	bike.hide()
-	
-	
+
+
 func _process(_delta):
-	if is_in_custcene: return
-	
-	get_input()
-	move_and_slide()
-	bike_logic()
-	
-	if pizza_meter.value == 100:
-		spacebar.show()
-		spacebar.play("default")
-		
+	if !is_in_custcene:
+		get_input()
+		move_and_slide()
+		bike_logic()
+		if pizza_meter.value == 100:
+			if !reached_full_capacity:
+				spacebar.show()
+				spacebar.play("default")
+				$Pizza_Meter.play()
+				reached_full_capacity = true
+
 
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
-	velocity = input_direction * movement_speed	
+	velocity = input_direction * movement_speed
+
+
+func lose_piece():
+	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
+	hud_pizza_pieces.remove_piece()
+	pizza_pieces -= 1
+	anim_player.play("hurt")
+
+	if pizza_pieces <= 0: player_death()
 
 
 func player_death():
 	print("player dead")
-	
-	
+
+
 func pickup_piece():
 	if pizza_pieces < max_pizza_pieces:
+		$Pickup.play()
 		var hud_pizza_pieces = $PlayerHUD/PizzaPieces
 		hud_pizza_pieces.add_piece()
 		pizza_pieces += 1
@@ -81,7 +96,7 @@ func bike_logic():
 		elif is_walking and !is_on_bike:
 			anim_player.play("idle")
 			is_walking = false
-			
+
 		if get_global_mouse_position().x > position.x: # Flips Sprite at mouse
 			$Player.flip_h = false
 			$Bike.flip_h = false
@@ -92,14 +107,18 @@ func bike_logic():
 		if Input.is_action_just_pressed("space") and pizza_meter.value == 100: #and pizza_meter >= MAX_PIZZA_METER:
 			if !is_on_bike:
 				# show the bicycle node and double the movement speed
+				attack_state = ATTACK_STATE.BIKE_ATTACK
+				call_deferred("_activate")
 				if !bike_song_started:
 					get_parent().get_node("Bike_Song").play()
 					bike_song_started = true
 				get_parent().get_node("Combat_Music").volume_db = -80
+				get_parent().get_node("Boss_Song").volume_db = -80
 				get_parent().get_node("Bike_Song").volume_db = -10
 				is_on_bike = true
 				is_walking = false
 				pizza_meter.value = 0
+				reached_full_capacity = false
 				bike.show()
 				$Bike_Ring.rplay()
 				$Bike_Loop.play()
@@ -114,44 +133,46 @@ func bike_logic():
 func _input(event):
 	if event.is_action_pressed("click") and !is_in_custcene:
 		light_attack()
-	
-	
+
+
 func light_attack():
 	attack_state = ATTACK_STATE.LIGHT_ATTACK
 	var cursor_position = get_global_mouse_position()
 	var attack_vector = calculate_attack_vector(cursor_position)
-	
+
 	anim_player.play("throw")
 	setup_delivery_bag(cursor_position)
 	await execute_attack(attack_vector)
 
 	delivery_bag_reset()
 	attack_state = ATTACK_STATE.NONE
-	
-	
+
+
 func setup_delivery_bag(cursor_position):
 	delivery_bag_back.position = Vector2(0, 0) #center on player
 	delivery_bag_back.set_z_index(10) #bring to front
 	delivery_bag_back.look_at(cursor_position) #setup attack angle
-	
-	
+
+
 func calculate_attack_vector(cursor_position):
 	var start_position = delivery_bag_back.global_position
 	var direction_vector = cursor_position - start_position
 	var normalized_direction_vector = direction_vector.normalized()
-	
+
 	return normalized_direction_vector * light_attack_distance
 
-	
+
 func execute_attack(attack_vector):
 	#var tween = create_tween()
 	#tween.tween_property(delivery_bag_back, "position", attack_vector, 0.2).set_ease(Tween.EASE_IN)
+	if mouse_showing:
+		$Mouse.hide()
 	$Bag_Throw.rplay()
 	delivery_bag_back_collision.disabled = false
 	delivery_bag_back.position += attack_vector
 	await get_tree().create_timer(light_attack_duration).timeout
-	
-	
+
+
 func delivery_bag_reset():
 	delivery_bag_back.position = delivery_bag_back_default.position
 	delivery_bag_back.set_z_index(delivery_bag_back_default.z_index)
@@ -164,7 +185,13 @@ func _on_delivery_bag_back_area_entered(area):
 	
 	if area.is_in_group("hitbox") or body.is_in_group("destructable"):
 		deal_damage(body)
+		
 
+func _on_area_2d_area_entered(area):
+	var body = area.get_parent()
+
+	if body.is_in_group("enemy") or body.is_in_group("destructable"):
+		deal_damage(body)
 
 func deal_damage(enemy):
 	match attack_state:
@@ -172,17 +199,17 @@ func deal_damage(enemy):
 			enemy.take_damage(light_attack_damage)
 			pizza_meter.value += 10
 			$Hit.rplay()
+		ATTACK_STATE.BIKE_ATTACK:
+			enemy.take_damage(bike_damage)
+			$Hit.rplay()
 		ATTACK_STATE.NONE:
 			print("no attack")
 
 
 func _on_hit_detection_area_entered(area):
 	var body = area.get_parent()
-	#print(body, " player detection")
-	
 	
 	if !body.is_in_group("enemy"): return
-	
 	if area.is_in_group("hitbox") && body.has_pizza_piece == false:
 		lose_piece()
 		body.has_pizza_piece = true
@@ -195,15 +222,24 @@ func lose_piece():
 	
 	if pizza_pieces <= 0: player_death()
 
+
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "throw":
 		if !is_walking:
 			anim_player.play("idle")
 		if is_walking:
 			anim_player.play("walk")
+	elif anim_name == "hurt":
+		if !is_walking:
+			anim_player.play("idle")
+		if is_walking:
+			anim_player.play("walk")
 
 func _on_bike_timer_timeout():
+	attack_state = ATTACK_STATE.NONE
+	call_deferred("_deactivate")
 	get_parent().get_node("Bike_Song").volume_db = -80
+	get_parent().get_node("Boss_Song").volume_db = 0
 	get_parent().get_node("Combat_Music").volume_db = 5
 	$Bike_Loop.stop()
 	is_on_bike = false
@@ -213,3 +249,14 @@ func _on_bike_timer_timeout():
 
 func footstep():
 	$Walking.rplay()
+
+func unhide():
+	$PlayerHUD/RichTextLabel.show()
+	await get_tree().create_timer(2).timeout
+	$PlayerHUD/RichTextLabel.hide()
+
+func _deactivate():
+	$Bike/Area2D/Bike_Colision.disabled = true
+
+func _activate():
+	$Bike/Area2D/Bike_Colision.disabled = false
