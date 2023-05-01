@@ -10,6 +10,11 @@ func _ready():
 func take_damage(damage):
 	if (health - damage <= 0):
 		health = 0
+		$Sprite2D.hide()
+		$Dust.emitting = true
+		$CollisionShape2D.disabled = true
+		$Area2D/CollisionShape2D.disabled = true
+		await get_tree().create_timer(1.0).timeout
 		dies()
 	else:
 		print("Leben " + str(health))

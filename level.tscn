@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ceugkgpedkg1k"]
+[gd_scene load_steps=22 format=3 uid="uid://ceugkgpedkg1k"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://csur3fv2x4l28" path="res://Characters/enemy_fass.tscn" id="6_lrtvu"]
 [ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="7_fuf7g"]
 [ext_resource type="PackedScene" uid="uid://bcl7u4d1xw36m" path="res://barricade.tscn" id="9_quct6"]
+[ext_resource type="PackedScene" uid="uid://g711rfpjv3bn" path="res://cone.tscn" id="10_0qbg2"]
+[ext_resource type="PackedScene" uid="uid://byi1an6p8tlvj" path="res://red_car.tscn" id="11_5e4f2"]
+[ext_resource type="PackedScene" uid="uid://cypw1y4pi1hjm" path="res://pizza_car.tscn" id="12_aeigt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ulo"]
 size = Vector2(240.125, 21)
@@ -20,15 +23,183 @@ size = Vector2(239.938, 21)
 size = Vector2(127, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e0jxl"]
-size = Vector2(16, 14)
+size = Vector2(16, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tx7he"]
-size = Vector2(7, 112.75)
+size = Vector2(9, 85)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_osn4w"]
 size = Vector2(127, 21)
 
+[sub_resource type="Animation" id="Animation_84toe"]
+resource_name = "Startup_Anim"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PizzaBoy:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PizzaBoy:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4, 5.5, 8.5, 10, 12.5, 14.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(856, 432), Vector2(856, 432), Vector2(856, 600), Vector2(856, 600), Vector2(1056, 600), Vector2(1056, 600), Vector2(1376, 944)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PizzaBoy/Player:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2, 3, 6.5, 7.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false]
+}
+tracks/3/type = "animation"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PizzaBoy/AnimationPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": PackedStringArray("idle", "walk", "idle", "walk", "idle", "walk", "idle"),
+"times": PackedFloat32Array(0, 4, 5.5, 8.5, 10, 12.5, 14.5)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PizzaBoy/Exclamation_Mark:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 11, 11.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PizzaBoy:is_in_custcene")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 16.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PizzaBoy/Mouse:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 15.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_5y6df"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PizzaBoy:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PizzaBoy:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(856, 432)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PizzaBoy/Player:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PizzaBoy/Exclamation_Mark:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PizzaBoy:is_in_custcene")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PizzaBoy/Mouse:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xn12w"]
+_data = {
+"RESET": SubResource("Animation_5y6df"),
+"Startup_Anim": SubResource("Animation_84toe")
+}
+
 [node name="Node2D" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_hxk0a")
 
 [node name="MainCamera" type="Camera2D" parent="."]
@@ -38,10 +209,6 @@ limit_left = 0
 limit_top = 0
 limit_bottom = 0
 script = ExtResource("1_i80df")
-
-[node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
-unique_name_in_owner = true
-position = Vector2(848, 430)
 
 [node name="Tutorial" type="Sprite2D" parent="."]
 z_index = -2
@@ -65,7 +232,7 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_wytdy")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Tutorial/StaticBody2D"]
-position = Vector2(64.5, -10.5)
+position = Vector2(64.5, -11)
 shape = SubResource("RectangleShape2D_e0jxl")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Tutorial/StaticBody2D"]
@@ -80,6 +247,11 @@ offset_bottom = 34.375
 text = "TUTORIAL
 "
 metadata/_edit_use_anchors_ = true
+
+[node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
+unique_name_in_owner = true
+position = Vector2(856, 432)
+metadata/_edit_group_ = true
 
 [node name="BattleArena" type="Sprite2D" parent="."]
 z_index = -2
@@ -110,30 +282,27 @@ position = Vector2(-241.5, 1)
 script = ExtResource("6_0hgfu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BattleArena/BattleArenaTrigger"]
-position = Vector2(242, 25.75)
+position = Vector2(246.125, 24)
 shape = SubResource("RectangleShape2D_tx7he")
 
 [node name="Barricade3" parent="BattleArena/BattleArenaTrigger" instance=ExtResource("9_quct6")]
 z_index = 0
-position = Vector2(127.375, 2.25)
+position = Vector2(126.625, 2.5)
 scale = Vector2(0.125, 0.125)
 
 [node name="Barricade4" parent="BattleArena/BattleArenaTrigger" instance=ExtResource("9_quct6")]
 z_index = 0
-position = Vector2(126.375, 47.25)
-rotation = -0.107897
+position = Vector2(126.625, 45.5)
 scale = Vector2(0.125, 0.125)
 
 [node name="Barricade5" parent="BattleArena/BattleArenaTrigger" instance=ExtResource("9_quct6")]
 z_index = 0
-position = Vector2(354.75, 2.25)
-rotation = -0.130616
+position = Vector2(353.625, 2.5)
 scale = Vector2(0.125, 0.125)
 
 [node name="Barricade6" parent="BattleArena/BattleArenaTrigger" instance=ExtResource("9_quct6")]
 z_index = 0
-position = Vector2(355.25, 46.5)
-rotation = -0.0539049
+position = Vector2(353.625, 45.5)
 scale = Vector2(0.125, 0.125)
 
 [node name="End" type="Sprite2D" parent="."]
@@ -166,20 +335,16 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_osn4w")
 
 [node name="Enemy_Fass" parent="." instance=ExtResource("6_lrtvu")]
-z_index = -1
-position = Vector2(777, 612)
+position = Vector2(1195, 903)
 
 [node name="Enemy_Fass2" parent="." instance=ExtResource("6_lrtvu")]
-z_index = -1
-position = Vector2(1488, 912)
+position = Vector2(1487, 918)
 
 [node name="Enemy_Fass3" parent="." instance=ExtResource("6_lrtvu")]
-z_index = -1
-position = Vector2(1488, 976)
+position = Vector2(1487, 978)
 
 [node name="Enemy_Fass4" parent="." instance=ExtResource("6_lrtvu")]
-z_index = -1
-position = Vector2(1488, 1040)
+position = Vector2(1487, 1038)
 
 [node name="PizzaPieceItem" parent="." instance=ExtResource("7_fuf7g")]
 position = Vector2(496, 638)
@@ -189,6 +354,22 @@ position = Vector2(926, 771)
 rotation = -1.48156
 
 [node name="Barricade" parent="." instance=ExtResource("9_quct6")]
-position = Vector2(1496, 680)
+position = Vector2(1496, 670)
+
+[node name="Cone" parent="." instance=ExtResource("10_0qbg2")]
+position = Vector2(1492, 858)
+
+[node name="Red_Car" parent="." instance=ExtResource("11_5e4f2")]
+position = Vector2(224, 1001)
+
+[node name="Pizza_Car" parent="." instance=ExtResource("12_aeigt")]
+position = Vector2(1040, 480)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xn12w")
+}
 
 [connection signal="body_entered" from="BattleArena/BattleArenaTrigger" to="BattleArena/BattleArenaTrigger" method="_on_body_entered"]
+
+[editable path="PizzaBoy"]

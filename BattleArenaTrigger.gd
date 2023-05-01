@@ -11,6 +11,7 @@ func _on_body_entered(body):
 	if(body.name == "PizzaBoy"):
 		disable_camera_movement()
 		activate_barricades()
+		$CollisionShape2D.disabled = true
 		#execute battle arena script
 		
 func disable_camera_movement():

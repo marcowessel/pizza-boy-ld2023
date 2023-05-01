@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var light_attack_damage = 2
 @export var light_attack_distance = 120
 @export var light_attack_duration:float = 0.2
+@export var is_in_custcene = false
 
 var attack_state = ATTACK_STATE.NONE
 var delivery_bag_back
@@ -41,9 +42,10 @@ func _ready():
 	
 	
 func _process(_delta):
-	get_input()
-	move_and_slide()
-	bike_logic()
+	if !is_in_custcene:
+		get_input()
+		move_and_slide()
+		bike_logic()
 	
 
 func get_input():
@@ -71,41 +73,42 @@ func pickup_piece():
 
 
 func bike_logic():
-	if velocity.length_squared() > 0 and !is_on_bike:
-		if !is_walking:
-			anim_player.play("walk")
-			is_walking = true
-	else:
-		if is_walking:
-			anim_player.play("idle")
-			is_walking = false
-	if get_global_mouse_position().x > position.x: # Flips Sprite at mouse
-		$Player.flip_h = false
-		$Bike.flip_h = false
-	else:
-		$Player.flip_h = true
-		$Bike.flip_h = true
-	#look_at(get_global_mouse_position())
-	if Input.is_action_just_pressed("space"): #and pizza_meter >= MAX_PIZZA_METER:
-		if !is_on_bike:
-			# show the bicycle node and double the movement speed
-			bike.show()
-			anim_player.play("bike_drive")
-			is_on_bike = true
-			movement_speed *= 2
-			# start the timer for the duration of the bike power-up
-			bike_timer = BIKE_DURATION
-			# deplete the pizza meter when the bike power-up is used
-			pizza_meter -= BIKE_DEPLETION
+	if !is_in_custcene:
+		if velocity.length_squared() > 0 and !is_on_bike:
+			if !is_walking:
+				anim_player.play("walk")
+				is_walking = true
 		else:
-			# hide the bicycle node and reset the movement speed
-			bike.hide()
-			is_on_bike = false
-			movement_speed /= 2
+			if is_walking:
+				anim_player.play("idle")
+				is_walking = false
+		if get_global_mouse_position().x > position.x: # Flips Sprite at mouse
+			$Player.flip_h = false
+			$Bike.flip_h = false
+		else:
+			$Player.flip_h = true
+			$Bike.flip_h = true
+		#look_at(get_global_mouse_position())
+		if Input.is_action_just_pressed("space"): #and pizza_meter >= MAX_PIZZA_METER:
+			if !is_on_bike:
+				# show the bicycle node and double the movement speed
+				bike.show()
+				anim_player.play("bike_drive")
+				is_on_bike = true
+				movement_speed *= 2
+				# start the timer for the duration of the bike power-up
+				bike_timer = BIKE_DURATION
+				# deplete the pizza meter when the bike power-up is used
+				pizza_meter -= BIKE_DEPLETION
+			else:
+				# hide the bicycle node and reset the movement speed
+				bike.hide()
+				is_on_bike = false
+				movement_speed /= 2
 
 
 func _input(event):
-	if event.is_action_pressed("click"):
+	if event.is_action_pressed("click") and !is_in_custcene:
 		light_attack()
 	
 	
@@ -124,7 +127,7 @@ func light_attack():
 	
 	
 func setup_delivery_bag(cursor_position):
-	delivery_bag_back.position = Vector2(-24, 0) #center on player
+	delivery_bag_back.position = Vector2(0, 0) #center on player
 	delivery_bag_back.set_z_index(10) #bring to front
 	delivery_bag_back.look_at(cursor_position) #setup attack angle
 	
@@ -138,10 +141,10 @@ func calculate_attack_vector(cursor_position):
 
 	
 func execute_attack(attack_vector):
-	var tween = create_tween()
-	tween.tween_property(delivery_bag_back, "position", attack_vector, 0.2).set_ease(Tween.EASE_IN)
+	#var tween = create_tween()
+	#tween.tween_property(delivery_bag_back, "position", attack_vector, 0.2).set_ease(Tween.EASE_IN)
 	delivery_bag_back_collision.disabled = false
-	#delivery_bag_back.position += attack_vector
+	delivery_bag_back.position += attack_vector
 	await get_tree().create_timer(light_attack_duration).timeout
 	
 	
