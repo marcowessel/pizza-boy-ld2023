@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ceugkgpedkg1k"]
+[gd_scene load_steps=36 format=3 uid="uid://ceugkgpedkg1k"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
@@ -22,6 +22,8 @@
 [ext_resource type="AudioStream" uid="uid://ejrq5nguol8u" path="res://Assets/Sounds/Musik/gameover.wav" id="18_07i4i"]
 [ext_resource type="AudioStream" uid="uid://dsxj24cyno0vb" path="res://Assets/Sounds/Musik/Tutorial.wav" id="21_fj0hb"]
 [ext_resource type="AudioStream" uid="uid://dikeh67bo3qpj" path="res://Assets/Sounds/Misc/Door.wav" id="22_478m4"]
+[ext_resource type="AudioStream" uid="uid://dm5jmhorwdcvq" path="res://Assets/Sounds/Musik/boss.wav" id="23_4het4"]
+[ext_resource type="FontFile" uid="uid://cvxfciqe76mmn" path="res://Assets/Font/Efforts.ttf" id="24_wnamo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ulo"]
 size = Vector2(240.125, 21)
@@ -56,7 +58,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -202,10 +204,22 @@ tracks/12/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath(".:in_animation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_84toe"]
 resource_name = "Startup_Anim"
-length = 16.0
+length = 17.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -225,7 +239,7 @@ tracks/1/path = NodePath("PizzaBoy:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 4, 5.5, 8.5, 10, 12.5, 14.5),
+"times": PackedFloat32Array(0, 4, 5.5, 8.5, 10, 13, 15),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(856, 432), Vector2(856, 432), Vector2(856, 600), Vector2(856, 600), Vector2(1056, 600), Vector2(1056, 600), Vector2(1376, 944)]
@@ -250,7 +264,7 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "clips": PackedStringArray("idle", "walk", "idle", "walk", "idle", "walk", "idle"),
-"times": PackedFloat32Array(0, 4, 5.5, 8.5, 10, 12.5, 14.5)
+"times": PackedFloat32Array(0, 4, 5.5, 8.5, 10, 13, 15)
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -271,7 +285,7 @@ tracks/5/path = NodePath("PizzaBoy:is_in_custcene")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 16),
+"times": PackedFloat32Array(0, 16.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -283,7 +297,7 @@ tracks/6/path = NodePath("PizzaBoy/Mouse:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 16),
+"times": PackedFloat32Array(0, 16.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -319,10 +333,22 @@ tracks/9/path = NodePath("PizzaBoy:mouse_showing")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 16),
+"times": PackedFloat32Array(0, 16.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath(".:in_animation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 16.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_sc10a"]
@@ -445,6 +471,18 @@ tracks/9/loop_wrap = true
 tracks/9/keys = {
 "clips": PackedStringArray("idle", "RESET", "RESET"),
 "times": PackedFloat32Array(0, 1, 1.0001)
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath(".:in_animation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xn12w"]
@@ -608,6 +646,7 @@ shape = SubResource("RectangleShape2D_q7rom")
 
 [node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
 unique_name_in_owner = true
+visible = false
 position = Vector2(856, 432)
 metadata/_edit_group_ = true
 
@@ -650,7 +689,6 @@ scale = Vector2(1.001, 3.295)
 
 [node name="CollisionShape2D" parent="EnemySpawner" index="0"]
 position = Vector2(3.94568, 0.606979)
-scale = Vector2(10, 10)
 
 [node name="EnemySpawner2" parent="." instance=ExtResource("14_2c8kk")]
 position = Vector2(3912, 740)
@@ -684,10 +722,23 @@ stream = ExtResource("22_478m4")
 stream = ExtResource("21_fj0hb")
 
 [node name="Boss_Song" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23_4het4")
+
+[node name="Title" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Button" type="Button" parent="Title"]
+offset_left = 632.0
+offset_top = 302.0
+offset_right = 1077.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("24_wnamo")
+theme_override_font_sizes/font_size = 255
+text = "Start"
 
 [connection signal="body_entered" from="BattleArena/BattleArenaTrigger" to="BattleArena/BattleArenaTrigger" method="_on_body_entered"]
 [connection signal="body_entered" from="Endboss_Cutscene_Trigger" to="Endboss_Cutscene_Trigger" method="_on_body_entered"]
-[connection signal="animation_finished" from="AnimationPlayer" to="Endboss_Cutscene_Trigger" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 
 [editable path="PizzaBoy"]
 [editable path="EnemySpawner"]

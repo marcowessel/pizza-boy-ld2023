@@ -1,12 +1,35 @@
 extends Node2D
 
+@export var in_animation = false
+
 func _ready():
 	$Tutorial/RichTextLabel.hide()
 	$BattleArena/RichTextLabel.hide()
 	$End/RichTextLabel.hide()
+	#$PizzaBoy/PlayerHUD.hide()
 	$Tutorial_Song.play()
+	#$PizzaBoy.is_in_custcene = true
 
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "endboss_cutscene":
+		$Boss_Song.play()
 
+func accelerate_cutscene():
+	if Input.is_action_pressed("speedup") and in_animation:
+		$AnimationPlayer.set_speed_scale(3)
+		$Tutorial_Song.pitch_scale = 3
+	else:
+		$AnimationPlayer.set_speed_scale(1)
+		$Tutorial_Song.pitch_scale = 1
+
+func _process(delta):
+	if in_animation:
+		accelerate_cutscene()
+	else:
+		pass
+
+func start_game():
+	$Tutorial_Song.play()
 # WORKING ON
 #- [x] 3 zombie waves with increasing difficulty
 #- [x] merge jona stand
@@ -36,3 +59,6 @@ func _ready():
 # BACKLOG
 #- [] "WATCH OUT! PIZZA HOOLIGANS INCOMING" text appears few seconds
 #- [] 20 mobs overall split into 3 waves
+
+
+

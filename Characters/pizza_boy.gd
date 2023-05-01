@@ -112,6 +112,7 @@ func bike_logic():
 					get_parent().get_node("Bike_Song").play()
 					bike_song_started = true
 				get_parent().get_node("Combat_Music").volume_db = -80
+				get_parent().get_node("Boss_Song").volume_db = -80
 				get_parent().get_node("Bike_Song").volume_db = -10
 				is_on_bike = true
 				is_walking = false
@@ -226,6 +227,7 @@ func _on_bike_timer_timeout():
 	attack_state = ATTACK_STATE.NONE
 	call_deferred("_deactivate")
 	get_parent().get_node("Bike_Song").volume_db = -80
+	get_parent().get_node("Boss_Song").volume_db = 0
 	get_parent().get_node("Combat_Music").volume_db = 5
 	$Bike_Loop.stop()
 	is_on_bike = false
