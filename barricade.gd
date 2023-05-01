@@ -14,6 +14,6 @@ func deactivate():
 	self.visible = false
 
 	
-func activate():	
+func activate():
 	collision.disabled = false
 	self.visible = true

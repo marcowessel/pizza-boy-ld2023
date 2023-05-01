@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bcl7u4d1xw36m"]
 
-[ext_resource type="Texture2D" uid="uid://bnegdxn25iss0" path="res://Assets/Sprites/Barricade.png" id="1_g0c83"]
 [ext_resource type="Script" path="res://barricade.gd" id="1_vwsw8"]
+[ext_resource type="Texture2D" uid="uid://ou4g03piyaak" path="res://Assets/Sprites/Barricade_2.png" id="2_660ys"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_petkl"]
-size = Vector2(44.1753, 354)
+size = Vector2(72, 344)
 
 [node name="Barricade" type="StaticBody2D"]
 z_index = -1
@@ -12,9 +12,8 @@ script = ExtResource("1_vwsw8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(8, 8)
-texture = ExtResource("1_g0c83")
+texture = ExtResource("2_660ys")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-10.7733, 5.94266)
-rotation = 0.07402
+position = Vector2(-4, 4)
 shape = SubResource("RectangleShape2D_petkl")

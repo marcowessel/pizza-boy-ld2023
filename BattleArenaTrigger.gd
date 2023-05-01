@@ -7,7 +7,7 @@ func _ready():
 	barricades = get_tree().get_nodes_in_group("barricade")
 	deactivate_barricades()
 
-func _on_body_entered(body:CharacterBody2D):
+func _on_body_entered(body):
 	if(body.name == "PizzaBoy"):
 		disable_camera_movement()
 		activate_barricades()

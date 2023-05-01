@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var pizza_pieces:int # represents the amount of health
 @export var movement_speed = 400
 @export var light_attack_damage = 2
-@export var light_attack_distance = 90
+@export var light_attack_distance = 120
 @export var light_attack_duration:float = 0.2
 
 var attack_state = ATTACK_STATE.NONE
@@ -120,10 +120,11 @@ func light_attack():
 
 	delivery_bag_reset()
 	attack_state = ATTACK_STATE.NONE
+	print(delivery_bag_back.position)
 	
 	
 func setup_delivery_bag(cursor_position):
-	delivery_bag_back.position = Vector2(0, 0) #center on player
+	delivery_bag_back.position = Vector2(-24, 0) #center on player
 	delivery_bag_back.set_z_index(10) #bring to front
 	delivery_bag_back.look_at(cursor_position) #setup attack angle
 	
@@ -137,13 +138,16 @@ func calculate_attack_vector(cursor_position):
 
 	
 func execute_attack(attack_vector):
+	var tween = create_tween()
+	tween.tween_property(delivery_bag_back, "position", attack_vector, 0.2).set_ease(Tween.EASE_IN)
 	delivery_bag_back_collision.disabled = false
-	delivery_bag_back.position += attack_vector
+	#delivery_bag_back.position += attack_vector
 	await get_tree().create_timer(light_attack_duration).timeout
 	
 	
 func delivery_bag_reset():
 	delivery_bag_back.position = delivery_bag_back_default.position
+	print(delivery_bag_back.position)
 	delivery_bag_back.set_z_index(delivery_bag_back_default.z_index)
 	delivery_bag_back.rotation = delivery_bag_back_default.rotation
 	delivery_bag_back_collision.disabled = true
@@ -169,3 +173,10 @@ func _on_hit_detection_area_entered(area):
 	
 	if body.is_in_group("enemy"):
 		lose_piece()
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "throw":
+		if !is_walking:
+			anim_player.play("idle")
+		if is_walking:
+			anim_player.play("walk")

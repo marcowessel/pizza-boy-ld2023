@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ceugkgpedkg1k"]
+[gd_scene load_steps=16 format=3 uid="uid://ceugkgpedkg1k"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
@@ -11,13 +11,16 @@
 [ext_resource type="PackedScene" uid="uid://bcl7u4d1xw36m" path="res://barricade.tscn" id="9_quct6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ulo"]
-size = Vector2(240, 21)
+size = Vector2(240.125, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72btl"]
-size = Vector2(239.875, 21)
+size = Vector2(239.938, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wytdy"]
-size = Vector2(128.25, 21)
+size = Vector2(127, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e0jxl"]
+size = Vector2(16, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tx7he"]
 size = Vector2(7, 112.75)
@@ -49,17 +52,25 @@ texture = ExtResource("4_crpbj")
 [node name="StaticBody2D" type="StaticBody2D" parent="Tutorial"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tutorial/StaticBody2D"]
-position = Vector2(0.125, -28)
+position = Vector2(0.0625, -28)
 shape = SubResource("RectangleShape2D_o5ulo")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Tutorial/StaticBody2D"]
-position = Vector2(0, 78)
+position = Vector2(-0.03125, 78)
 shape = SubResource("RectangleShape2D_72btl")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Tutorial/StaticBody2D"]
-position = Vector2(-130.5, 24.875)
+position = Vector2(-130.5, 25)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_wytdy")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Tutorial/StaticBody2D"]
+position = Vector2(64.5, -10.5)
+shape = SubResource("RectangleShape2D_e0jxl")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Tutorial/StaticBody2D"]
+position = Vector2(-55, -10.5)
+shape = SubResource("RectangleShape2D_e0jxl")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Tutorial"]
 offset_left = -119.75
@@ -68,6 +79,7 @@ offset_right = 46.25
 offset_bottom = 34.375
 text = "TUTORIAL
 "
+metadata/_edit_use_anchors_ = true
 
 [node name="BattleArena" type="Sprite2D" parent="."]
 z_index = -2
@@ -159,15 +171,15 @@ position = Vector2(777, 612)
 
 [node name="Enemy_Fass2" parent="." instance=ExtResource("6_lrtvu")]
 z_index = -1
-position = Vector2(1234, 741)
+position = Vector2(1488, 912)
 
 [node name="Enemy_Fass3" parent="." instance=ExtResource("6_lrtvu")]
 z_index = -1
-position = Vector2(1231, 804)
+position = Vector2(1488, 976)
 
 [node name="Enemy_Fass4" parent="." instance=ExtResource("6_lrtvu")]
 z_index = -1
-position = Vector2(1227, 875)
+position = Vector2(1488, 1040)
 
 [node name="PizzaPieceItem" parent="." instance=ExtResource("7_fuf7g")]
 position = Vector2(496, 638)
@@ -177,11 +189,6 @@ position = Vector2(926, 771)
 rotation = -1.48156
 
 [node name="Barricade" parent="." instance=ExtResource("9_quct6")]
-position = Vector2(1181, 527)
-rotation = -0.468024
-
-[node name="Barricade2" parent="." instance=ExtResource("9_quct6")]
-position = Vector2(1181, 1074)
-rotation = 0.227282
+position = Vector2(1496, 680)
 
 [connection signal="body_entered" from="BattleArena/BattleArenaTrigger" to="BattleArena/BattleArenaTrigger" method="_on_body_entered"]

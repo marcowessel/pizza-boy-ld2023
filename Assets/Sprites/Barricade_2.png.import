@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxi7jx62cye5f"
-path="res://.godot/imported/Bag.png-1ba23430c3e1d253e5ad6ae799f6e9c2.ctex"
+uid="uid://ou4g03piyaak"
+path="res://.godot/imported/Barricade_2.png-e27724ee85d36c681e87fffce3874721.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Bag.png"
-dest_files=["res://.godot/imported/Bag.png-1ba23430c3e1d253e5ad6ae799f6e9c2.ctex"]
+source_file="res://Assets/Sprites/Barricade_2.png"
+dest_files=["res://.godot/imported/Barricade_2.png-e27724ee85d36c681e87fffce3874721.ctex"]
 
 [params]
 
