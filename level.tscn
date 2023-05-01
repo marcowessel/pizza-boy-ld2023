@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://ceugkgpedkg1k"]
+[gd_scene load_steps=33 format=3 uid="uid://ceugkgpedkg1k"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
@@ -7,25 +7,26 @@
 [ext_resource type="Texture2D" uid="uid://b4uq1xcfofmth" path="res://Assets/Sprites/Pizzaria.png" id="4_crpbj"]
 [ext_resource type="Script" path="res://BattleArenaTrigger.gd" id="6_0hgfu"]
 [ext_resource type="PackedScene" uid="uid://csur3fv2x4l28" path="res://Characters/enemy_fass.tscn" id="6_lrtvu"]
-[ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="7_fuf7g"]
+[ext_resource type="AudioStream" uid="uid://bitbgv4ek6gr3" path="res://Assets/Sounds/Misc/Fight.wav" id="6_rpf8a"]
 [ext_resource type="Texture2D" uid="uid://cnfy21kcbwwko" path="res://Assets/Sprites/Boss_Street.png" id="8_6cokp"]
 [ext_resource type="PackedScene" uid="uid://bcl7u4d1xw36m" path="res://barricade.tscn" id="9_quct6"]
 [ext_resource type="Script" path="res://Endboss_Cutscene_Trigger.gd" id="9_u8typ"]
 [ext_resource type="PackedScene" uid="uid://g711rfpjv3bn" path="res://cone.tscn" id="10_0qbg2"]
 [ext_resource type="PackedScene" uid="uid://byi1an6p8tlvj" path="res://red_car.tscn" id="11_5e4f2"]
 [ext_resource type="PackedScene" uid="uid://cypw1y4pi1hjm" path="res://pizza_car.tscn" id="12_aeigt"]
-[ext_resource type="PackedScene" uid="uid://c10ssjn0ge38f" path="res://Characters/pizza_zombie.tscn" id="13_y2vfb"]
 [ext_resource type="PackedScene" uid="uid://ci25vd13li2v4" path="res://enemy_spawner_area.tscn" id="14_2c8kk"]
 [ext_resource type="PackedScene" uid="uid://biqfhmap6ws4o" path="res://boss.tscn" id="15_h7n7g"]
 [ext_resource type="AudioStream" uid="uid://hsdhfv02cowx" path="res://Assets/Sounds/Musik/leftbanktwo.wav" id="16_x3kqb"]
 [ext_resource type="AudioStream" uid="uid://codcj12e6i6ay" path="res://Assets/Sounds/Musik/fightsong.wav" id="17_hcsr5"]
 [ext_resource type="AudioStream" uid="uid://ejrq5nguol8u" path="res://Assets/Sounds/Musik/gameover.wav" id="18_07i4i"]
+[ext_resource type="AudioStream" uid="uid://dsxj24cyno0vb" path="res://Assets/Sounds/Musik/Tutorial.wav" id="21_fj0hb"]
+[ext_resource type="AudioStream" uid="uid://dikeh67bo3qpj" path="res://Assets/Sounds/Misc/Door.wav" id="22_478m4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ulo"]
 size = Vector2(240.125, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72btl"]
-size = Vector2(239.938, 21)
+size = Vector2(240.031, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wytdy"]
 size = Vector2(127, 21)
@@ -34,7 +35,7 @@ size = Vector2(127, 21)
 size = Vector2(16, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tx7he"]
-size = Vector2(9, 85)
+size = Vector2(9.125, 85)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_osn4w"]
 size = Vector2(127, 21)
@@ -203,7 +204,7 @@ tracks/12/keys = {
 
 [sub_resource type="Animation" id="Animation_84toe"]
 resource_name = "Startup_Anim"
-length = 20.0
+length = 16.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -269,7 +270,7 @@ tracks/5/path = NodePath("PizzaBoy:is_in_custcene")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 16.5),
+"times": PackedFloat32Array(0, 16),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -281,7 +282,43 @@ tracks/6/path = NodePath("PizzaBoy/Mouse:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 15.5),
+"times": PackedFloat32Array(0, 16),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Door:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(1, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("PizzaBoy/Exclamation:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(11, 11.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("PizzaBoy:mouse_showing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 16),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -494,7 +531,7 @@ position = Vector2(-241.5, 1)
 script = ExtResource("6_0hgfu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BattleArena/BattleArenaTrigger"]
-position = Vector2(246.125, 24)
+position = Vector2(246.063, 24)
 shape = SubResource("RectangleShape2D_tx7he")
 
 [node name="Barricade3" parent="BattleArena/BattleArenaTrigger" instance=ExtResource("9_quct6")]
@@ -517,6 +554,9 @@ z_index = 0
 position = Vector2(353.625, 45.5)
 scale = Vector2(0.125, 0.125)
 
+[node name="Fight" type="AudioStreamPlayer" parent="BattleArena/BattleArenaTrigger"]
+stream = ExtResource("6_rpf8a")
+
 [node name="BattleArena2" type="Sprite2D" parent="BattleArena"]
 z_index = -2
 texture = ExtResource("2_u2ymj")
@@ -530,7 +570,7 @@ texture = ExtResource("8_6cokp")
 [node name="StaticBody2D" type="StaticBody2D" parent="End"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="End/StaticBody2D"]
-position = Vector2(0.0625, -28)
+position = Vector2(0.0157471, -28)
 shape = SubResource("RectangleShape2D_72btl")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="End/StaticBody2D"]
@@ -561,11 +601,8 @@ shape = SubResource("RectangleShape2D_q7rom")
 
 [node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
 unique_name_in_owner = true
-position = Vector2(4172, 685)
+position = Vector2(856, 432)
 metadata/_edit_group_ = true
-
-[node name="Enemy_Fass" parent="." instance=ExtResource("6_lrtvu")]
-position = Vector2(1195, 903)
 
 [node name="Enemy_Fass2" parent="." instance=ExtResource("6_lrtvu")]
 position = Vector2(1487, 918)
@@ -575,13 +612,6 @@ position = Vector2(1487, 978)
 
 [node name="Enemy_Fass4" parent="." instance=ExtResource("6_lrtvu")]
 position = Vector2(1487, 1038)
-
-[node name="PizzaPieceItem" parent="." instance=ExtResource("7_fuf7g")]
-position = Vector2(496, 638)
-
-[node name="PizzaPieceItem2" parent="." instance=ExtResource("7_fuf7g")]
-position = Vector2(926, 771)
-rotation = -1.48156
 
 [node name="Barricade" parent="." instance=ExtResource("9_quct6")]
 position = Vector2(1496, 670)
@@ -596,26 +626,23 @@ position = Vector2(224, 1001)
 position = Vector2(1040, 480)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Startup_Anim"
 libraries = {
 "": SubResource("AnimationLibrary_xn12w")
 }
-
-[node name="PizzaZombie" parent="." instance=ExtResource("13_y2vfb")]
-position = Vector2(52, 457)
-
-[node name="PizzaZombie2" parent="." instance=ExtResource("13_y2vfb")]
-position = Vector2(716, 1004)
-
-[node name="PizzaZombie3" parent="." instance=ExtResource("13_y2vfb")]
-position = Vector2(1363, 1006)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("14_2c8kk")]
 position = Vector2(1812, 738)
 scale = Vector2(1.001, 3.295)
 
+[node name="CollisionShape2D" parent="EnemySpawner" index="0"]
+position = Vector2(3.94568, 0.606979)
+scale = Vector2(10, 10)
+
 [node name="EnemySpawner2" parent="." instance=ExtResource("14_2c8kk")]
-position = Vector2(3916, 738)
+position = Vector2(3912, 740)
 scale = Vector2(1, 3.29508)
+
 [node name="Boss" parent="." instance=ExtResource("15_h7n7g")]
 position = Vector2(5078, 432)
 
@@ -637,8 +664,18 @@ volume_db = 5.0
 [node name="Game_Over" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_07i4i")
 
+[node name="Door" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_478m4")
+
+[node name="Tutorial_Song" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_fj0hb")
+
+[node name="Boss_Song" type="AudioStreamPlayer" parent="."]
+
 [connection signal="body_entered" from="BattleArena/BattleArenaTrigger" to="BattleArena/BattleArenaTrigger" method="_on_body_entered"]
 [connection signal="body_entered" from="Endboss_Cutscene_Trigger" to="Endboss_Cutscene_Trigger" method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="Endboss_Cutscene_Trigger" method="_on_animation_player_animation_finished"]
 
 [editable path="PizzaBoy"]
+[editable path="EnemySpawner"]
 [editable path="Boss"]

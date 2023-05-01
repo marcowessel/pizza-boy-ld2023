@@ -4,7 +4,7 @@ func _ready():
 	$Tutorial/RichTextLabel.hide()
 	$BattleArena/RichTextLabel.hide()
 	$End/RichTextLabel.hide()
-	$Combat_Music.play()
+	$Tutorial_Song.play()
 
 # WORKING ON
 #- [x] 3 zombie waves with increasing difficulty
@@ -22,6 +22,7 @@ func _ready():
 #- [] move delivery bag to that point smoothly (tween)
 #- [] make small cooldown for lightattack so it cant be spammed
 #- [] if enemy has pizza piece, he cant steal more
+#- [] backpack should flip with player
 
 #BACKLOG
 #- [] "WATCH OUT! PIZZA HOOLIGANS INCOMING" text appears few seconds

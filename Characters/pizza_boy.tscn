@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cthm02avoqjiv"]
+[gd_scene load_steps=41 format=3 uid="uid://cthm02avoqjiv"]
 
 [ext_resource type="Script" path="res://Characters/pizza_boy.gd" id="1_qt10e"]
 [ext_resource type="Texture2D" uid="uid://dptnjpuiu2ajd" path="res://Assets/Sprites/Character_Sheet.png" id="2_3jsvf"]
@@ -25,6 +25,9 @@
 [ext_resource type="AudioStream" uid="uid://v5iu0qlaijdh" path="res://Assets/Sounds/Bike/8 bit cycle sound.wav" id="23_mwah3"]
 [ext_resource type="AudioStream" uid="uid://drb33uupc6ly6" path="res://Assets/Sounds/Bike/BicycleBell_1.wav" id="24_phom5"]
 [ext_resource type="AudioStream" uid="uid://cq0xbxbk6ghyi" path="res://Assets/Sounds/Bike/BicycleBell_2.wav" id="25_hvtqn"]
+[ext_resource type="AudioStream" uid="uid://evk76nbxk3nw" path="res://Assets/Sounds/Misc/PizzaManiac.wav" id="26_nprx1"]
+[ext_resource type="AudioStream" uid="uid://dw3ubtbx55r2h" path="res://Assets/Sounds/Misc/Miscs_2.wav" id="27_x12nb"]
+[ext_resource type="AudioStream" uid="uid://dyfdfdyl5vje1" path="res://Assets/Sounds/Misc/Exclamation_mark_sound2.wav" id="28_xvsya"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bacsx"]
 size = Vector2(72, 24)
@@ -168,15 +171,35 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_ktnyb"]
+resource_name = "hurt"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6q5yt"]
 _data = {
 "RESET": SubResource("Animation_y7tm2"),
 "bike_drive": SubResource("Animation_445d5"),
 "falling": SubResource("Animation_kd15m"),
+"hurt": SubResource("Animation_ktnyb"),
 "idle": SubResource("Animation_in2ph"),
 "throw": SubResource("Animation_rvstt"),
 "walk": SubResource("Animation_ppvy3")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lemfg"]
+size = Vector2(21, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0dns"]
 size = Vector2(80, 80)
@@ -223,6 +246,13 @@ texture = ExtResource("4_ny3v4")
 hframes = 4
 frame = 1
 
+[node name="Area2D" type="Area2D" parent="Bike"]
+
+[node name="Bike_Colision" type="CollisionShape2D" parent="Bike/Area2D"]
+position = Vector2(0.5, 5)
+shape = SubResource("RectangleShape2D_lemfg")
+disabled = true
+
 [node name="PlayerHUD" parent="." instance=ExtResource("5_o6rtb")]
 unique_name_in_owner = true
 
@@ -263,7 +293,17 @@ stream = ExtResource("23_mwah3")
 [node name="Bike_Ring" parent="." instance=ExtResource("8_lrt2e")]
 streams = Array[Resource]([ExtResource("24_phom5"), ExtResource("25_hvtqn")])
 
+[node name="Pizza_Meter" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("26_nprx1")
+
+[node name="Pickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("27_x12nb")
+
+[node name="Exclamation" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("28_xvsya")
+
 [connection signal="area_entered" from="DeliveryBagBack" to="." method="_on_delivery_bag_back_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="Bike/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_entered" from="HitDetection" to="." method="_on_hit_detection_area_entered"]
 [connection signal="timeout" from="Bike_Timer" to="." method="_on_bike_timer_timeout"]

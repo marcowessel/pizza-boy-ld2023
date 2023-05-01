@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://csur3fv2x4l28"]
+[gd_scene load_steps=17 format=3 uid="uid://csur3fv2x4l28"]
 
 [ext_resource type="Script" path="res://Characters/enemy.gd" id="1_lis60"]
 [ext_resource type="Texture2D" uid="uid://b55wikqmjfqke" path="res://Assets/Sprites/Crate.png" id="2_eecmg"]
 [ext_resource type="Texture2D" uid="uid://snmtiwvi33xu" path="res://Assets/Sprites/Dust.png" id="3_dnvdy"]
+[ext_resource type="AudioStream" uid="uid://co644fna3xp8p" path="res://Assets/Sounds/Misc/Destruction_2.wav" id="4_rnvrh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2q0vl"]
 size = Vector2(19.4118, 28.7671)
@@ -101,3 +102,7 @@ speed_scale = 1.5
 explosiveness = 1.0
 randomness = 1.0
 fixed_fps = 60
+
+[node name="Destruction" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_rnvrh")
+volume_db = -10.0

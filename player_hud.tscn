@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://kw4rqsuft0ix"]
+[gd_scene load_steps=10 format=3 uid="uid://kw4rqsuft0ix"]
 
 [ext_resource type="Texture2D" uid="uid://cdrkfko6bp7vi" path="res://Assets/Sprites/Pizza_Bar.png" id="1_fdpou"]
 [ext_resource type="Script" path="res://PizzaPieces.gd" id="2_pkxuy"]
 [ext_resource type="Theme" uid="uid://dicggahvhfah6" path="res://new_theme.tres" id="3_173k2"]
 [ext_resource type="Texture2D" uid="uid://dvrp57hl6twxe" path="res://Assets/Sprites/Hot_Sauce.png" id="4_6osk7"]
 [ext_resource type="Texture2D" uid="uid://cefwm3yvrcgnw" path="res://Assets/Sprites/Spacebar.png" id="5_ot0fq"]
+[ext_resource type="FontFile" uid="uid://cvxfciqe76mmn" path="res://Assets/Font/Efforts.ttf" id="6_xwvnh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mcu8j"]
 atlas = ExtResource("5_ot0fq")
@@ -57,3 +58,18 @@ visible = false
 position = Vector2(360, 48)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_1mrn1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+offset_left = 602.0
+offset_top = 236.0
+offset_right = 1452.0
+offset_bottom = 717.0
+theme_override_colors/default_color = Color(1, 0.784314, 0.145098, 1)
+theme_override_colors/font_shadow_color = Color(0.768627, 0.141176, 0.188235, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 32
+theme_override_fonts/normal_font = ExtResource("6_xwvnh")
+theme_override_font_sizes/normal_font_size = 510
+bbcode_enabled = true
+text = "[wave amp=100 freq=10]FIGHT![/wave]"

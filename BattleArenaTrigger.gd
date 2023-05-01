@@ -9,6 +9,10 @@ func _ready():
 
 func _on_body_entered(body):
 	if(body.name == "PizzaBoy"):
+		body.unhide()
+		$Fight.play()
+		get_owner().get_node("Tutorial_Song").stop()
+		get_owner().get_node("Combat_Music").play()
 		disable_camera_movement()
 		activate_barricades()
 		$CollisionShape2D.queue_free()
