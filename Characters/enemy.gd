@@ -12,10 +12,10 @@ func take_damage(damage):
 		health = 0
 		dies()
 	else:
-		print("Leben " + str(health))
+		#print("Leben " + str(health))
 		health -= damage
-		print("damage = " + str(damage))
-		print("Neues Leben " + str(health))
+		#print("damage = " + str(damage))
+		#print("Neues Leben " + str(health))
 
 
 func dies():

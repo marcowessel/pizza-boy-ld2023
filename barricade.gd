@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Node2D
 
 var collision
 const GROUP_NAME = "barricade"
@@ -10,6 +10,7 @@ func _ready():
 
 
 func deactivate():
+	print(str(collision.disabled) + "barricade")
 	collision.disabled = true
 	self.visible = false
 
@@ -17,3 +18,8 @@ func deactivate():
 func activate():	
 	collision.disabled = false
 	self.visible = true
+	#call_deferred("_activate")
+
+
+#func _activate():
+	#$StaticBody2D.set_shape_disabled(0, false)

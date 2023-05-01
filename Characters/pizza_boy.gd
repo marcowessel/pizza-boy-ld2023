@@ -57,7 +57,6 @@ func lose_piece():
 	pizza_pieces -= 1
 	
 	if pizza_pieces <= 0: player_death()
-	print(pizza_pieces)
 	
 func player_death():
 	print("player dead")
