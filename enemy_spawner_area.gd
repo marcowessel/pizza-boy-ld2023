@@ -3,10 +3,11 @@ extends Area2D
 var pizza_zombie_scene = preload("res://Characters/pizza_zombie.tscn")
 
 # Wave 1
-@export var wave1_amount_enemys = 1
+@export var wave1_amount_enemys = 1#TEST
 #@export var wave1_amount_enemys = 2
 @export var wave1_spawn_time_randomnes:Vector2 = Vector2(2, 4)
-@export var wave1_walking_speed_random_range:Vector2 = Vector2(50, 100)
+@export var wave1_walking_speed_random_range:Vector2 = Vector2(200, 201)#TEST
+#@export var wave1_walking_speed_random_range:Vector2 = Vector2(50, 100)
 
 # Wave 2
 @export var wave2_amount_enemys = 6
@@ -20,7 +21,7 @@ var pizza_zombie_scene = preload("res://Characters/pizza_zombie.tscn")
 
 #var total_zombies = (wave1_amount_enemys + wave2_amount_enemys + wave3_amount_enemys) * 2
 
-var total_zombies = (wave1_amount_enemys) * 2
+var total_zombies = (wave1_amount_enemys) * 2#TEST
 
 
 func _ready():
@@ -85,7 +86,6 @@ func get_random_spawner_position():
 
 func _on_area_entered(area):
 	var body = area.get_parent()
-	if !body.is_in_group("enemy"): return
+	if !area.is_in_group("hitbox"): return
 	if body.has_pizza_piece:
 		body.vanishes()
-		

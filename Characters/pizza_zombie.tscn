@@ -1,8 +1,9 @@
-[gd_scene load_steps=36 format=3 uid="uid://c10ssjn0ge38f"]
+[gd_scene load_steps=40 format=3 uid="uid://c10ssjn0ge38f"]
 
 [ext_resource type="Script" path="res://Characters/pizza_zombie.gd" id="1_24wtd"]
 [ext_resource type="Texture2D" uid="uid://bjv4w7oaj1phf" path="res://Assets/Sprites/Pizza_Zombie.png" id="2_p1bo0"]
 [ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="3_p3pca"]
+[ext_resource type="Script" path="res://Characters/DamageArea.gd" id="3_pr53k"]
 [ext_resource type="Texture2D" uid="uid://ovjl6j4rhv4i" path="res://Assets/Sprites/Zombie_Dust.png" id="4_efcob"]
 [ext_resource type="PackedScene" uid="uid://dh8rp1004ii04" path="res://random_range_player.tscn" id="4_s1n2s"]
 [ext_resource type="AudioStream" uid="uid://d051cobfjyr3o" path="res://Assets/Sounds/Haha/Haha_1.wav" id="5_4asmh"]
@@ -14,7 +15,9 @@
 [ext_resource type="AudioStream" uid="uid://dkl4psqq6wn7l" path="res://Assets/Sounds/Zombie Death/Death sfx_3.wav" id="11_x2xpb"]
 [ext_resource type="AudioStream" uid="uid://c3kl5ybkuwkjd" path="res://Assets/Sounds/Zombie Death/Death sfx_4.wav" id="12_ys8l3"]
 [ext_resource type="AudioStream" uid="uid://eqb054m8s74b" path="res://Assets/Sounds/Hit/Hit1.wav" id="14_jorxj"]
+[ext_resource type="Script" path="res://Characters/PizzaRadar.gd" id="14_muyi3"]
 [ext_resource type="AudioStream" uid="uid://baf5772budnt" path="res://Assets/Sounds/Hit/Hit2.wav" id="15_p4flv"]
+[ext_resource type="Texture2D" uid="uid://ba2i7qycvtamh" path="res://Assets/Sprites/Exclamation Mark.png" id="16_531x7"]
 [ext_resource type="AudioStream" uid="uid://4bvyihrqec6b" path="res://Assets/Sounds/Hit/Hit3.wav" id="16_oohps"]
 [ext_resource type="AudioStream" uid="uid://dsfmka8m3eksn" path="res://Assets/Sounds/Misc/Miscs_6.wav" id="17_kpf5l"]
 
@@ -169,6 +172,8 @@ turbulence_noise_strength = 0.0
 anim_offset_max = 1.0
 anim_offset_curve = SubResource("CurveTexture_n18ao")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_fggvf"]
+
 [node name="PizzaZombie" type="CharacterBody2D"]
 script = ExtResource("1_24wtd")
 
@@ -179,6 +184,7 @@ hframes = 5
 vframes = 3
 
 [node name="DamageArea" type="Area2D" parent="."]
+script = ExtResource("3_pr53k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
 position = Vector2(4, -0.5)
@@ -218,6 +224,19 @@ streams = Array[Resource]([ExtResource("5_4asmh"), ExtResource("6_tun7b"), ExtRe
 [node name="Death" parent="." instance=ExtResource("4_s1n2s")]
 streams = Array[Resource]([ExtResource("9_unfra"), ExtResource("10_mct31"), ExtResource("11_x2xpb"), ExtResource("12_ys8l3")])
 
+[node name="PizzaRadar" type="Area2D" parent="."]
+script = ExtResource("14_muyi3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PizzaRadar"]
+scale = Vector2(22.9924, 22.9924)
+shape = SubResource("CircleShape2D_fggvf")
+
+[node name="Exclamation_Mark" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(8, -96)
+scale = Vector2(8, 8)
+texture = ExtResource("16_531x7")
+
 [node name="Hurt" parent="." instance=ExtResource("4_s1n2s")]
 volume_db = -10.0
 streams = Array[Resource]([ExtResource("14_jorxj"), ExtResource("15_p4flv"), ExtResource("16_oohps")])
@@ -226,5 +245,7 @@ streams = Array[Resource]([ExtResource("14_jorxj"), ExtResource("15_p4flv"), Ext
 stream = ExtResource("17_kpf5l")
 
 [connection signal="area_entered" from="DamageArea" to="." method="_on_damage_area_area_entered"]
+[connection signal="area_entered" from="PizzaRadar" to="PizzaRadar" method="_on_area_entered"]
+[connection signal="area_exited" from="PizzaRadar" to="PizzaRadar" method="_on_area_exited"]
 
 [editable path="PizzaPieceItem"]

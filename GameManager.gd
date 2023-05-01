@@ -12,11 +12,12 @@ func _ready():
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "endboss_cutscene":
+		$Boss.activate()
 		$Boss_Song.play()
 
 func accelerate_cutscene():
 	if Input.is_action_pressed("speedup") and in_animation:
-		$AnimationPlayer.set_speed_scale(3)
+		$AnimationPlayer.set_speed_scale(100)
 		$Tutorial_Song.pitch_scale = 3
 	else:
 		$AnimationPlayer.set_speed_scale(1)
@@ -39,9 +40,10 @@ func _on_texture_button_pressed():
 # WORKING ON
 #- [x] 3 zombie waves with increasing difficulty
 #- [x] merge jona stand
-#- [] if all mobs are cleared baricades vanishes
-#- [] activate camera follow again (smooth transition on player)
-#- [] Pizza detection pizza zombies for droped pizza pieces (area2d)
+#- [x] if all mobs are cleared baricades vanishes
+#- [x] activate camera follow again (smooth transition on player)
+#- [x] Pizza detection pizza zombies for droped pizza pieces (area2d)
+#- [] pizza zombies go for pizza pieces in range
 
 
 # TODO
@@ -56,17 +58,9 @@ func _on_texture_button_pressed():
 
 
 # ERRORS
-#- [] if enemy has pizza piece, he cant steal more
+#- [x] if enemy has pizza piece, he cant steal more
 #- [] make small cooldown for lightattack so it cant be spammed
-#- [] pizza piece still shows after player picked it up on a dead zombie
-#- [] zombie walk animation doesnt play if he has a pizza piece
 
 
 # BACKLOG
-#- [] "WATCH OUT! PIZZA HOOLIGANS INCOMING" text appears few seconds
-#- [] 20 mobs overall split into 3 waves
-
-
-
-
-
+#- []
