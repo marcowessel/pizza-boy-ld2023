@@ -70,7 +70,6 @@ func take_damage(damage):
 
 
 func dies():
-	var player = get_tree().current_scene.get_node("%PizzaBoy")
 	player.kill_count += 1
 	print(player.kill_count)
 	
@@ -91,7 +90,6 @@ func hidden():
 	$PizzaPieceItem.hide()
 
 func vanishes():
-	var player = get_tree().current_scene.get_node("%PizzaBoy")
 	player.kill_count += 1
 	print(player.kill_count)
 	hidden()

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cthm02avoqjiv" path="res://Characters/pizza_boy.tscn" id="1_op20x"]
 [ext_resource type="Texture2D" uid="uid://k6fjm5rb0uwv" path="res://Assets/Sprites/Map.png" id="2_u2ymj"]
 [ext_resource type="Texture2D" uid="uid://b4uq1xcfofmth" path="res://Assets/Sprites/Pizzaria.png" id="4_crpbj"]
+[ext_resource type="Script" path="res://BattleArena.gd" id="4_q5fpr"]
 [ext_resource type="Script" path="res://BattleArenaTrigger.gd" id="6_0hgfu"]
 [ext_resource type="PackedScene" uid="uid://csur3fv2x4l28" path="res://Characters/enemy_fass.tscn" id="6_lrtvu"]
 [ext_resource type="AudioStream" uid="uid://bitbgv4ek6gr3" path="res://Assets/Sounds/Misc/Fight.wav" id="6_rpf8a"]
@@ -507,6 +508,7 @@ metadata/_edit_use_anchors_ = true
 z_index = -2
 position = Vector2(2879, 540)
 scale = Vector2(8, 8)
+script = ExtResource("4_q5fpr")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="BattleArena"]
 
@@ -559,6 +561,11 @@ stream = ExtResource("6_rpf8a")
 
 [node name="BattleArena2" type="Sprite2D" parent="BattleArena"]
 z_index = -2
+texture = ExtResource("2_u2ymj")
+
+[node name="BattleArena2" type="Sprite2D" parent="BattleArena/BattleArena2"]
+z_index = -2
+position = Vector2(479.875, 0)
 texture = ExtResource("2_u2ymj")
 
 [node name="End" type="Sprite2D" parent="."]
@@ -615,6 +622,12 @@ position = Vector2(1487, 1038)
 
 [node name="Barricade" parent="." instance=ExtResource("9_quct6")]
 position = Vector2(1496, 670)
+
+[node name="Barricade2" parent="." instance=ExtResource("9_quct6")]
+position = Vector2(5732, 562)
+
+[node name="Barricade3" parent="." instance=ExtResource("9_quct6")]
+position = Vector2(5732, 906)
 
 [node name="Cone" parent="." instance=ExtResource("10_0qbg2")]
 position = Vector2(1492, 858)

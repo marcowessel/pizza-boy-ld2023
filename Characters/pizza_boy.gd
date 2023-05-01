@@ -19,7 +19,7 @@ var delivery_bag_back_collision
 var is_walking = false
 var anim_player
 var bike
-var is_on_bike = false 
+var is_on_bike = false
 var pizza_meter
 var timer
 var spacebar
@@ -46,8 +46,8 @@ func _ready():
 	anim_player = get_node("AnimationPlayer")
 	bike = get_node("Bike")
 	bike.hide()
-	
-	
+
+
 func _process(_delta):
 	if !is_in_custcene:
 		get_input()
@@ -71,13 +71,13 @@ func lose_piece():
 	hud_pizza_pieces.remove_piece()
 	pizza_pieces -= 1
 	anim_player.play("hurt")
-	
+
 	if pizza_pieces <= 0: player_death()
-	
+
 func player_death():
 	print("player dead")
-	
-	
+
+
 func pickup_piece():
 	if pizza_pieces < max_pizza_pieces:
 		$Pickup.play()
@@ -95,7 +95,7 @@ func bike_logic():
 		elif is_walking and !is_on_bike:
 			anim_player.play("idle")
 			is_walking = false
-			
+
 		if get_global_mouse_position().x > position.x: # Flips Sprite at mouse
 			$Player.flip_h = false
 			$Bike.flip_h = false
@@ -131,35 +131,35 @@ func bike_logic():
 func _input(event):
 	if event.is_action_pressed("click") and !is_in_custcene:
 		light_attack()
-	
-	
+
+
 func light_attack():
 	attack_state = ATTACK_STATE.LIGHT_ATTACK
 	var cursor_position = get_global_mouse_position()
 	var attack_vector = calculate_attack_vector(cursor_position)
-	
+
 	anim_player.play("throw")
 	setup_delivery_bag(cursor_position)
 	await execute_attack(attack_vector)
 
 	delivery_bag_reset()
 	attack_state = ATTACK_STATE.NONE
-	
-	
+
+
 func setup_delivery_bag(cursor_position):
 	delivery_bag_back.position = Vector2(0, 0) #center on player
 	delivery_bag_back.set_z_index(10) #bring to front
 	delivery_bag_back.look_at(cursor_position) #setup attack angle
-	
-	
+
+
 func calculate_attack_vector(cursor_position):
 	var start_position = delivery_bag_back.global_position
 	var direction_vector = cursor_position - start_position
 	var normalized_direction_vector = direction_vector.normalized()
-	
+
 	return normalized_direction_vector * light_attack_distance
 
-	
+
 func execute_attack(attack_vector):
 	#var tween = create_tween()
 	#tween.tween_property(delivery_bag_back, "position", attack_vector, 0.2).set_ease(Tween.EASE_IN)
@@ -169,8 +169,8 @@ func execute_attack(attack_vector):
 	delivery_bag_back_collision.disabled = false
 	delivery_bag_back.position += attack_vector
 	await get_tree().create_timer(light_attack_duration).timeout
-	
-	
+
+
 func delivery_bag_reset():
 	delivery_bag_back.position = delivery_bag_back_default.position
 	delivery_bag_back.set_z_index(delivery_bag_back_default.z_index)
@@ -180,13 +180,13 @@ func delivery_bag_reset():
 
 func _on_delivery_bag_back_area_entered(area):
 	var body = area.get_parent()
-	
+
 	if body.is_in_group("enemy") or body.is_in_group("destructable"):
 		deal_damage(body)
 
 func _on_area_2d_area_entered(area):
 	var body = area.get_parent()
-	
+
 	if body.is_in_group("enemy") or body.is_in_group("destructable"):
 		deal_damage(body)
 
@@ -205,7 +205,7 @@ func deal_damage(enemy):
 
 func _on_hit_detection_area_entered(area):
 	var body = area.get_parent()
-	
+
 	if body.is_in_group("enemy"):
 		lose_piece()
 
