@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Characters/pizza_boy.gd" id="1_qt10e"]
 [ext_resource type="Texture2D" uid="uid://dptnjpuiu2ajd" path="res://Assets/Sprites/Character_Sheet.png" id="2_3jsvf"]
-[ext_resource type="Texture2D" uid="uid://cxi7jx62cye5f" path="res://Assets/Sprites/bag.png" id="3_emvhn"]
+[ext_resource type="Texture2D" uid="uid://dtol03ho1rhkt" path="res://Assets/Sprites/Flash.png" id="3_gwifw"]
 [ext_resource type="Texture2D" uid="uid://c87drq4ia4bmv" path="res://Assets/Sprites/Bike.png" id="4_ny3v4"]
 [ext_resource type="PackedScene" uid="uid://kw4rqsuft0ix" path="res://player_hud.tscn" id="5_o6rtb"]
 [ext_resource type="Texture2D" uid="uid://ba2i7qycvtamh" path="res://Assets/Sprites/Exclamation Mark.png" id="6_qpcb8"]
@@ -90,6 +90,22 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [20]
+}
+
+[sub_resource type="Animation" id="Animation_fncyn"]
+resource_name = "die"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [15, 16, 17, 18]
 }
 
 [sub_resource type="Animation" id="Animation_kd15m"]
@@ -188,22 +204,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_fncyn"]
-resource_name = "die"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Player:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [15, 16, 17, 18]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6q5yt"]
 _data = {
 "RESET": SubResource("Animation_y7tm2"),
@@ -217,7 +217,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lemfg"]
-size = Vector2(21, 6)
+size = Vector2(21, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0dns"]
 size = Vector2(80, 80)
@@ -238,13 +238,15 @@ shape = SubResource("RectangleShape2D_bacsx")
 
 [node name="DeliveryBagBack" type="Area2D" parent="."]
 unique_name_in_owner = true
+visible = false
 z_index = -1
 position = Vector2(-24, 0)
 metadata/_edit_group_ = true
 
 [node name="DeliveryBag" type="Sprite2D" parent="DeliveryBagBack"]
-scale = Vector2(8, 8)
-texture = ExtResource("3_emvhn")
+position = Vector2(9, 7.5)
+scale = Vector2(6.875, 7.0625)
+texture = ExtResource("3_gwifw")
 
 [node name="DeliveryBagDamageArea" type="CollisionShape2D" parent="DeliveryBagBack"]
 position = Vector2(-4, 0)
@@ -267,7 +269,8 @@ frame = 1
 [node name="Area2D" type="Area2D" parent="Bike"]
 
 [node name="Bike_Colision" type="CollisionShape2D" parent="Bike/Area2D"]
-position = Vector2(0.5, 5)
+visible = false
+position = Vector2(0.5, -1.5)
 shape = SubResource("RectangleShape2D_lemfg")
 disabled = true
 

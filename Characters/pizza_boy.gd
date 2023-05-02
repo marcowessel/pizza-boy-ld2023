@@ -165,6 +165,7 @@ func calculate_attack_vector(cursor_position):
 func execute_attack(attack_vector):
 	#var tween = create_tween()
 	#tween.tween_property(delivery_bag_back, "position", attack_vector, 0.2).set_ease(Tween.EASE_IN)
+	delivery_bag_back.show()
 	if mouse_showing:
 		$Mouse.hide()
 	$Bag_Throw.rplay()
@@ -178,6 +179,7 @@ func delivery_bag_reset():
 	delivery_bag_back.set_z_index(delivery_bag_back_default.z_index)
 	delivery_bag_back.rotation = delivery_bag_back_default.rotation
 	delivery_bag_back_collision.disabled = true
+	delivery_bag_back.hide()
 
 
 func _on_delivery_bag_back_area_entered(area):
@@ -261,6 +263,8 @@ func unhide():
 
 func _deactivate():
 	$Bike/Area2D/Bike_Colision.disabled = true
+	$HitDetection/CollisionShape2D.disabled = false
 
 func _activate():
 	$Bike/Area2D/Bike_Colision.disabled = false
+	$HitDetection/CollisionShape2D.disabled = true
