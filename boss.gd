@@ -20,8 +20,11 @@ func take_damage(damage):
 
 
 func dies():
+	is_activated = false
 	print("boss dead")
-	self.queue_free() 
+	$AnimationPlayer.play("die")
+	get_owner().credits()
+	self.z_index = -1
 
 
 func activate():
@@ -32,6 +35,7 @@ func activate():
 
 func _process(delta):
 	if is_activated:
+		$AnimationPlayer.play("walk")
 		run_towards_player(delta)
 
 
@@ -42,3 +46,10 @@ func run_towards_player(delta):
 		walking_speed * delta
 	)
 	position = new_position
+	flip_to_player(target_position)
+
+func flip_to_player(target_position):
+	if target_position.x - position.x < 0:
+		$Sprite2D.flip_h = true
+	else:
+		$Sprite2D.flip_h = false

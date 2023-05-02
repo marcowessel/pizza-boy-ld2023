@@ -121,6 +121,7 @@ func drop_pizza_piece():
 
 
 func move_to_pizza(delta):
+	anim_player.play("walk")
 	print("move_to_pizza")
 	var pizza_zombie = get_parent()
 	

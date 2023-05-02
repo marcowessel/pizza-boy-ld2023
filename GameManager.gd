@@ -7,8 +7,8 @@ func _ready():
 	$BattleArena/RichTextLabel.hide()
 	$End/RichTextLabel.hide()
 	$PizzaBoy/PlayerHUD.hide()
-	#$PizzaBoy.is_in_custcene = true
-	#$Title.show()
+	$PizzaBoy.is_in_custcene = true
+	$Title.show()
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "endboss_cutscene":
@@ -17,7 +17,7 @@ func _on_animation_player_animation_finished(anim_name):
 
 func accelerate_cutscene():
 	if Input.is_action_pressed("speedup") and in_animation:
-		$AnimationPlayer.set_speed_scale(100)
+		$AnimationPlayer.set_speed_scale(3)
 		$Tutorial_Song.pitch_scale = 3
 	else:
 		$AnimationPlayer.set_speed_scale(1)
@@ -32,10 +32,22 @@ func _process(delta):
 func start_game():
 	$Tutorial_Song.play()
 	$AnimationPlayer.play("Startup_Anim")
+	$PizzaBoy/PlayerHUD.show()
 	$Title.hide()
 
 func _on_texture_button_pressed():
 	start_game()
+
+func credits():
+	$PizzaBoy.is_in_custcene = true
+	$Boss_Song.stop()
+	$CanvasLayer.show()
+	$PizzaBoy/PlayerHUD.hide()
+	$Boss/CanvasLayer.hide()
+	$Outro.play()
+
+func _on_outro_finished():
+	get_tree().quit()
 
 # WORKING ON
 #- [x] 3 zombie waves with increasing difficulty
@@ -64,3 +76,5 @@ func _on_texture_button_pressed():
 
 # BACKLOG
 #- []
+
+

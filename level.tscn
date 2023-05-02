@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ceugkgpedkg1k"]
+[gd_scene load_steps=42 format=3 uid="uid://ceugkgpedkg1k"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
@@ -26,6 +26,8 @@
 [ext_resource type="AudioStream" uid="uid://dm5jmhorwdcvq" path="res://Assets/Sounds/Musik/boss.wav" id="23_4het4"]
 [ext_resource type="Texture2D" uid="uid://cyqmqsjjv0hy4" path="res://Assets/Sprites/Play_Unpressed.png" id="24_vu6na"]
 [ext_resource type="Texture2D" uid="uid://bjdh4b5igojx3" path="res://Assets/Sprites/Play_Button_Hover.png" id="25_fytiu"]
+[ext_resource type="AudioStream" uid="uid://pcsjm370m1m3" path="res://Assets/Sounds/Musik/winningnormalpitch.wav" id="25_of085"]
+[ext_resource type="FontFile" uid="uid://cvxfciqe76mmn" path="res://Assets/Font/Efforts.ttf" id="28_xll4p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ulo"]
 size = Vector2(240.125, 21)
@@ -353,6 +355,32 @@ tracks/10/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_svo2f"]
+resource_name = "credits"
+length = 53.0
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PizzaBoy/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("walk"),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PizzaBoy:is_in_custcene")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_sc10a"]
 resource_name = "endboss_cutscene"
 length = 15.0
@@ -487,32 +515,6 @@ tracks/10/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="Animation" id="Animation_svo2f"]
-resource_name = "credits"
-length = 53.0
-tracks/0/type = "animation"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PizzaBoy/AnimationPlayer")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"clips": PackedStringArray("walk"),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PizzaBoy:is_in_custcene")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xn12w"]
 _data = {
 "RESET": SubResource("Animation_5y6df"),
@@ -638,16 +640,6 @@ z_index = -2
 position = Vector2(479.875, 0)
 texture = ExtResource("2_u2ymj")
 
-[node name="BattleArena3" type="Sprite2D" parent="BattleArena/BattleArena2"]
-z_index = -2
-position = Vector2(719.875, 0)
-texture = ExtResource("2_u2ymj")
-
-[node name="BattleArena4" type="Sprite2D" parent="BattleArena/BattleArena2"]
-z_index = -2
-position = Vector2(959.875, 0)
-texture = ExtResource("2_u2ymj")
-
 [node name="End" type="Sprite2D" parent="."]
 z_index = -2
 position = Vector2(4798, 540)
@@ -690,7 +682,7 @@ shape = SubResource("RectangleShape2D_q7rom")
 [node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
 unique_name_in_owner = true
 visible = false
-position = Vector2(11500, 700)
+position = Vector2(859, 432)
 metadata/_edit_group_ = true
 
 [node name="Enemy_Fass2" parent="." instance=ExtResource("6_lrtvu")]
@@ -776,9 +768,9 @@ stream = ExtResource("21_fj0hb")
 stream = ExtResource("23_4het4")
 
 [node name="Outro" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("25_of085")
 
 [node name="Title" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Title"]
 offset_right = 1922.0
@@ -795,19 +787,51 @@ texture_normal = ExtResource("24_vu6na")
 texture_pressed = ExtResource("24_vu6na")
 texture_hover = ExtResource("25_fytiu")
 
-[node name="Endcredits" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
-[node name="ColorRect" type="ColorRect" parent="Endcredits"]
-offset_left = 5927.0
-offset_top = -4.0
-offset_right = 11518.0
-offset_bottom = 1080.0
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+offset_left = -54.0
+offset_top = -3.0
+offset_right = 2037.0
+offset_bottom = 1081.0
 color = Color(0.109804, 0.0705882, 0.109804, 0.423529)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 402.0
+offset_top = 385.0
+offset_right = 1555.0
+offset_bottom = 925.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 32
+theme_override_fonts/normal_font = ExtResource("28_xll4p")
+theme_override_font_sizes/normal_font_size = 96
+text = " A Game made by:
+
+ - Jona Scheidig (Art) 
+ - Marco Vessel (Programming) 
+ - Hypixi !!! (Soundtrack)
+ - Silvan (aka Morphed Morphed / Sounds)"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 317.0
+offset_top = 128.0
+offset_right = 1706.0
+offset_bottom = 792.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 32
+theme_override_fonts/normal_font = ExtResource("28_xll4p")
+theme_override_font_sizes/normal_font_size = 255
+text = "Thanks for playing!
+
+
+"
 
 [connection signal="body_entered" from="BattleArena/BattleArenaTrigger" to="BattleArena/BattleArenaTrigger" method="_on_body_entered"]
 [connection signal="body_entered" from="Endboss_Cutscene_Trigger" to="Endboss_Cutscene_Trigger" method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="CreditsArea" to="CreditsArea" method="_on_body_entered"]
+[connection signal="finished" from="Outro" to="." method="_on_outro_finished"]
 [connection signal="pressed" from="Title/TextureButton" to="." method="_on_texture_button_pressed"]
 
 [editable path="PizzaBoy"]

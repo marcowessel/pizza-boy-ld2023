@@ -107,7 +107,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2868"]
-size = Vector2(19.4118, 28.7671)
+size = Vector2(56.4706, 49.3151)
 
 [node name="Boss" type="CharacterBody2D"]
 script = ExtResource("1_xo8dp")
@@ -200,6 +200,6 @@ text = "  Yer serious!?
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1, -9.53674e-07)
+position = Vector2(-9.53674e-07, 12)
 scale = Vector2(1.7, 1.46)
 shape = SubResource("RectangleShape2D_w2868")
