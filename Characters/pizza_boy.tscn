@@ -269,7 +269,6 @@ frame = 1
 [node name="Area2D" type="Area2D" parent="Bike"]
 
 [node name="Bike_Colision" type="CollisionShape2D" parent="Bike/Area2D"]
-visible = false
 position = Vector2(0.5, -1.5)
 shape = SubResource("RectangleShape2D_lemfg")
 disabled = true

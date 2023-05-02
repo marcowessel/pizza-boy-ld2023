@@ -131,8 +131,9 @@ func bike_logic():
 
 
 func _input(event):
-	if event.is_action_pressed("click") and !is_in_custcene:
-		light_attack()
+	if !is_on_bike:
+		if event.is_action_pressed("click") and !is_in_custcene:
+			light_attack()
 
 
 func light_attack():

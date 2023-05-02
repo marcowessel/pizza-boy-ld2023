@@ -718,14 +718,11 @@ libraries = {
 }
 
 [node name="EnemySpawner" parent="." instance=ExtResource("14_2c8kk")]
-position = Vector2(1812, 738)
+position = Vector2(1637, 737)
 scale = Vector2(1.001, 3.295)
 
-[node name="CollisionShape2D" parent="EnemySpawner" index="0"]
-position = Vector2(3.94568, 0.606979)
-
 [node name="EnemySpawner2" parent="." instance=ExtResource("14_2c8kk")]
-position = Vector2(3912, 740)
+position = Vector2(4090, 740)
 scale = Vector2(1, 3.29508)
 
 [node name="Boss" parent="." instance=ExtResource("15_h7n7g")]
@@ -773,6 +770,7 @@ stream = ExtResource("25_of085")
 [node name="Title" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="Title"]
+visible = false
 offset_right = 1922.0
 offset_bottom = 1084.0
 color = Color(0.109804, 0.0705882, 0.109804, 0.423529)
@@ -835,5 +833,4 @@ text = "Thanks for playing!
 [connection signal="pressed" from="Title/TextureButton" to="." method="_on_texture_button_pressed"]
 
 [editable path="PizzaBoy"]
-[editable path="EnemySpawner"]
 [editable path="Boss"]
