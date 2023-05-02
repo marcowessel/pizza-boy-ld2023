@@ -6,9 +6,9 @@ func _ready():
 	$Tutorial/RichTextLabel.hide()
 	$BattleArena/RichTextLabel.hide()
 	$End/RichTextLabel.hide()
-	#$PizzaBoy/PlayerHUD.hide()
-	$Tutorial_Song.play()
+	$PizzaBoy/PlayerHUD.hide()
 	#$PizzaBoy.is_in_custcene = true
+	#$Title.show()
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "endboss_cutscene":
@@ -31,8 +31,12 @@ func _process(delta):
 
 func start_game():
 	$Tutorial_Song.play()
+	$AnimationPlayer.play("Startup_Anim")
+	$Title.hide()
 
-	
+func _on_texture_button_pressed():
+	start_game()
+
 # WORKING ON
 #- [x] 3 zombie waves with increasing difficulty
 #- [x] merge jona stand
@@ -59,4 +63,4 @@ func start_game():
 
 
 # BACKLOG
-#- [] 
+#- []

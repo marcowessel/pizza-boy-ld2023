@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://ceugkgpedkg1k"]
+[gd_scene load_steps=40 format=3 uid="uid://ceugkgpedkg1k"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
@@ -20,10 +20,12 @@
 [ext_resource type="AudioStream" uid="uid://hsdhfv02cowx" path="res://Assets/Sounds/Musik/leftbanktwo.wav" id="16_x3kqb"]
 [ext_resource type="AudioStream" uid="uid://codcj12e6i6ay" path="res://Assets/Sounds/Musik/fightsong.wav" id="17_hcsr5"]
 [ext_resource type="AudioStream" uid="uid://ejrq5nguol8u" path="res://Assets/Sounds/Musik/gameover.wav" id="18_07i4i"]
+[ext_resource type="Script" path="res://CreditsArea.gd" id="18_h7ii7"]
 [ext_resource type="AudioStream" uid="uid://dsxj24cyno0vb" path="res://Assets/Sounds/Musik/Tutorial.wav" id="21_fj0hb"]
 [ext_resource type="AudioStream" uid="uid://dikeh67bo3qpj" path="res://Assets/Sounds/Misc/Door.wav" id="22_478m4"]
 [ext_resource type="AudioStream" uid="uid://dm5jmhorwdcvq" path="res://Assets/Sounds/Musik/boss.wav" id="23_4het4"]
-[ext_resource type="FontFile" uid="uid://cvxfciqe76mmn" path="res://Assets/Font/Efforts.ttf" id="24_wnamo"]
+[ext_resource type="Texture2D" uid="uid://cyqmqsjjv0hy4" path="res://Assets/Sprites/Play_Unpressed.png" id="24_vu6na"]
+[ext_resource type="Texture2D" uid="uid://bjdh4b5igojx3" path="res://Assets/Sprites/Play_Button_Hover.png" id="25_fytiu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ulo"]
 size = Vector2(240.125, 21)
@@ -485,12 +487,42 @@ tracks/10/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_svo2f"]
+resource_name = "credits"
+length = 53.0
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PizzaBoy/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("walk"),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PizzaBoy:is_in_custcene")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xn12w"]
 _data = {
 "RESET": SubResource("Animation_5y6df"),
 "Startup_Anim": SubResource("Animation_84toe"),
+"credits": SubResource("Animation_svo2f"),
 "endboss_cutscene": SubResource("Animation_sc10a")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u07y2"]
+size = Vector2(60, 680)
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
@@ -606,6 +638,16 @@ z_index = -2
 position = Vector2(479.875, 0)
 texture = ExtResource("2_u2ymj")
 
+[node name="BattleArena3" type="Sprite2D" parent="BattleArena/BattleArena2"]
+z_index = -2
+position = Vector2(719.875, 0)
+texture = ExtResource("2_u2ymj")
+
+[node name="BattleArena4" type="Sprite2D" parent="BattleArena/BattleArena2"]
+z_index = -2
+position = Vector2(959.875, 0)
+texture = ExtResource("2_u2ymj")
+
 [node name="End" type="Sprite2D" parent="."]
 z_index = -2
 position = Vector2(4798, 540)
@@ -636,6 +678,7 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_osn4w")
 
 [node name="Endboss_Cutscene_Trigger" type="Area2D" parent="."]
+visible = false
 position = Vector2(4631, 780)
 script = ExtResource("9_u8typ")
 metadata/_edit_group_ = true
@@ -647,7 +690,7 @@ shape = SubResource("RectangleShape2D_q7rom")
 [node name="PizzaBoy" parent="." instance=ExtResource("1_op20x")]
 unique_name_in_owner = true
 visible = false
-position = Vector2(856, 432)
+position = Vector2(11500, 700)
 metadata/_edit_group_ = true
 
 [node name="Enemy_Fass2" parent="." instance=ExtResource("6_lrtvu")]
@@ -678,7 +721,6 @@ position = Vector2(224, 1001)
 position = Vector2(1040, 480)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "Startup_Anim"
 libraries = {
 "": SubResource("AnimationLibrary_xn12w")
 }
@@ -704,6 +746,15 @@ offset_right = 1865.0
 offset_bottom = 142.0
 value = 0.0
 
+[node name="CreditsArea" type="Area2D" parent="."]
+position = Vector2(6380, 1049)
+script = ExtResource("18_h7ii7")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CreditsArea"]
+position = Vector2(-20, -309)
+shape = SubResource("RectangleShape2D_u07y2")
+
 [node name="Bike_Song" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_x3kqb")
 volume_db = -80.0
@@ -724,21 +775,40 @@ stream = ExtResource("21_fj0hb")
 [node name="Boss_Song" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("23_4het4")
 
+[node name="Outro" type="AudioStreamPlayer" parent="."]
+
 [node name="Title" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="Button" type="Button" parent="Title"]
-offset_left = 632.0
-offset_top = 302.0
-offset_right = 1077.0
-offset_bottom = 512.0
-theme_override_fonts/font = ExtResource("24_wnamo")
-theme_override_font_sizes/font_size = 255
-text = "Start"
+[node name="ColorRect" type="ColorRect" parent="Title"]
+offset_right = 1922.0
+offset_bottom = 1084.0
+color = Color(0.109804, 0.0705882, 0.109804, 0.423529)
+
+[node name="TextureButton" type="TextureButton" parent="Title"]
+offset_left = 688.0
+offset_top = 221.0
+offset_right = 740.0
+offset_bottom = 242.0
+scale = Vector2(9.88, 11.0381)
+texture_normal = ExtResource("24_vu6na")
+texture_pressed = ExtResource("24_vu6na")
+texture_hover = ExtResource("25_fytiu")
+
+[node name="Endcredits" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Endcredits"]
+offset_left = 5927.0
+offset_top = -4.0
+offset_right = 11518.0
+offset_bottom = 1080.0
+color = Color(0.109804, 0.0705882, 0.109804, 0.423529)
 
 [connection signal="body_entered" from="BattleArena/BattleArenaTrigger" to="BattleArena/BattleArenaTrigger" method="_on_body_entered"]
 [connection signal="body_entered" from="Endboss_Cutscene_Trigger" to="Endboss_Cutscene_Trigger" method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="CreditsArea" to="CreditsArea" method="_on_body_entered"]
+[connection signal="pressed" from="Title/TextureButton" to="." method="_on_texture_button_pressed"]
 
 [editable path="PizzaBoy"]
 [editable path="EnemySpawner"]
