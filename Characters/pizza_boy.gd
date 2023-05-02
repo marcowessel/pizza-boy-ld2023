@@ -25,6 +25,7 @@ var timer
 var spacebar
 var bike_song_started = false
 var reached_full_capacity = false
+var is_dead = false
 
 enum ATTACK_STATE {
 	NONE,
@@ -67,11 +68,15 @@ func get_input():
 
 
 func player_death():
-	get_tree().paused = true
-	$AnimationPlayer.play("hurt")
-	await get_tree().create_timer(2).timeout
-	get_tree().paused = false
-	get_tree().reload_current_scene()
+	if !is_dead:
+		is_dead = true
+		is_in_custcene = true
+		$GameOver.play()
+		$AnimationPlayer.play("die")
+		get_owner().get_node("Combat_Music").stop()
+		get_owner().get_node("Boss_Song").stop()
+		await get_tree().create_timer(5).timeout
+		get_tree().reload_current_scene()
 
 
 func pickup_piece():

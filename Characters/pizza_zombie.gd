@@ -38,14 +38,15 @@ func _process(delta):
 
 func run_towards_player(delta):
 	#(366.6868, 795.4508)(446.6774, 776.8185)
-	anim_player.play("walk")
-	var target_position = player.position
-	var new_position = position.move_toward(
-		target_position, 
-		walking_speed * delta
-	)
-	position = new_position
-	flip_to_player(target_position)
+	if !player.is_dead:
+		anim_player.play("walk")
+		var target_position = player.position
+		var new_position = position.move_toward(
+			target_position, 
+			walking_speed * delta
+		)
+		position = new_position
+		flip_to_player(target_position)
 
 func flip_to_player(target_position):
 	if target_position.x - position.x < 0:
@@ -54,14 +55,15 @@ func flip_to_player(target_position):
 		$Sprite2D.flip_h = false
 
 func run_away(delta):
-	anim_player.play("walk")
-	var target_position = spawn_position
-	var new_position = position.move_toward(
-		target_position, 
-		walking_speed * delta
-	)
-	position = new_position
-	flip_to_target(target_position)
+	if !player.is_dead:
+		anim_player.play("walk")
+		var target_position = spawn_position
+		var new_position = position.move_toward(
+			target_position, 
+			walking_speed * delta
+		)
+		position = new_position
+		flip_to_target(target_position)
 
 func flip_to_target(target_position):
 	if target_position.x - position.x < 0:

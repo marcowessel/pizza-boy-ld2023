@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cthm02avoqjiv"]
+[gd_scene load_steps=43 format=3 uid="uid://cthm02avoqjiv"]
 
 [ext_resource type="Script" path="res://Characters/pizza_boy.gd" id="1_qt10e"]
 [ext_resource type="Texture2D" uid="uid://dptnjpuiu2ajd" path="res://Assets/Sprites/Character_Sheet.png" id="2_3jsvf"]
@@ -28,6 +28,7 @@
 [ext_resource type="AudioStream" uid="uid://evk76nbxk3nw" path="res://Assets/Sounds/Misc/PizzaManiac.wav" id="26_nprx1"]
 [ext_resource type="AudioStream" uid="uid://dw3ubtbx55r2h" path="res://Assets/Sounds/Misc/Miscs_2.wav" id="27_x12nb"]
 [ext_resource type="AudioStream" uid="uid://dyfdfdyl5vje1" path="res://Assets/Sounds/Misc/Exclamation_mark_sound2.wav" id="28_xvsya"]
+[ext_resource type="AudioStream" uid="uid://ejrq5nguol8u" path="res://Assets/Sounds/Musik/gameover.wav" id="29_iqay0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bacsx"]
 size = Vector2(72, 24)
@@ -187,10 +188,27 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_fncyn"]
+resource_name = "die"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [15, 16, 17, 18]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6q5yt"]
 _data = {
 "RESET": SubResource("Animation_y7tm2"),
 "bike_drive": SubResource("Animation_445d5"),
+"die": SubResource("Animation_fncyn"),
 "falling": SubResource("Animation_kd15m"),
 "hurt": SubResource("Animation_ktnyb"),
 "idle": SubResource("Animation_in2ph"),
@@ -301,6 +319,9 @@ stream = ExtResource("27_x12nb")
 
 [node name="Exclamation" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("28_xvsya")
+
+[node name="GameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("29_iqay0")
 
 [connection signal="area_entered" from="DeliveryBagBack" to="." method="_on_delivery_bag_back_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
