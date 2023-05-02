@@ -67,7 +67,11 @@ func get_input():
 
 
 func player_death():
-	print("player dead")
+	get_tree().paused = true
+	$AnimationPlayer.play("hurt")
+	await get_tree().create_timer(2).timeout
+	get_tree().paused = false
+	get_tree().reload_current_scene()
 
 
 func pickup_piece():
@@ -180,13 +184,9 @@ func _on_delivery_bag_back_area_entered(area):
 
 func _on_area_2d_area_entered(area):
 	var body = area.get_parent()
-
+	
 	if area.is_in_group("hitbox") or body.is_in_group("destructable"):
 		deal_damage(body)
-
-	#if body.is_in_group("enemy") or body.is_in_group("destructable"):
-	#	print(body.name)
-	#	deal_damage(body)
 
 func deal_damage(enemy):
 	match attack_state:
