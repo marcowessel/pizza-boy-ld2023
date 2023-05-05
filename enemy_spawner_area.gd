@@ -22,6 +22,11 @@ var pizza_zombie_scene = preload("res://Characters/pizza_zombie.tscn")
 @export var wave4_spawn_time_randomnes:Vector2 = Vector2(1, 1.5)
 @export var wave4_walking_speed_random_range:Vector2 = Vector2(200, 200)
 
+# Wave 5 Ultimate 
+#@export var wave5_amount_enemys = 15
+#@export var wave5_spawn_time_randomnes:Vector2 = Vector2(1, 1.5)
+#@export var wave5_walking_speed_random_range:Vector2 = Vector2(200, 250)
+
 var total_zombies = (wave1_amount_enemys + wave2_amount_enemys + wave3_amount_enemys + wave4_amount_enemys) * 2
 
 #var total_zombies = (wave1_amount_enemys) * 2#TEST
@@ -61,6 +66,14 @@ func activate_spawner():
 		wave4_spawn_time_randomnes,
 		wave4_walking_speed_random_range
 	)
+	
+	#await get_tree().create_timer(20).timeout
+
+	#wave(
+	#	wave5_amount_enemys,
+	#	wave5_spawn_time_randomnes,
+	#	wave5_walking_speed_random_range
+	#)
 
 
 func wave(amount_enemys, time_range, speed_range):

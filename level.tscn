@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://ceugkgpedkg1k"]
+[gd_scene load_steps=43 format=3 uid="uid://ceugkgpedkg1k"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_hxk0a"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="1_i80df"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://cyqmqsjjv0hy4" path="res://Assets/Sprites/Play_Unpressed.png" id="24_vu6na"]
 [ext_resource type="Texture2D" uid="uid://bjdh4b5igojx3" path="res://Assets/Sprites/Play_Button_Hover.png" id="25_fytiu"]
 [ext_resource type="AudioStream" uid="uid://pcsjm370m1m3" path="res://Assets/Sounds/Musik/winningnormalpitch.wav" id="25_of085"]
+[ext_resource type="AudioStream" uid="uid://06tbn1ce0r3" path="res://Assets/Sounds/Musik/Piratesong.wav" id="26_mjbj6"]
 [ext_resource type="FontFile" uid="uid://cvxfciqe76mmn" path="res://Assets/Font/Efforts.ttf" id="28_xll4p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ulo"]
@@ -220,6 +221,18 @@ tracks/13/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Pirate:playing")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_84toe"]
 resource_name = "Startup_Anim"
@@ -357,33 +370,12 @@ tracks/10/keys = {
 
 [sub_resource type="Animation" id="Animation_svo2f"]
 resource_name = "credits"
-length = 53.0
-tracks/0/type = "animation"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PizzaBoy/AnimationPlayer")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"clips": PackedStringArray("walk"),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PizzaBoy:is_in_custcene")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
+length = 20.0
 
 [sub_resource type="Animation" id="Animation_sc10a"]
 resource_name = "endboss_cutscene"
 length = 15.0
+step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -510,6 +502,18 @@ tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = false
+tracks/11/path = NodePath("Pirate:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 13.83),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -767,10 +771,12 @@ stream = ExtResource("23_4het4")
 [node name="Outro" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("25_of085")
 
+[node name="Pirate" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("26_mjbj6")
+
 [node name="Title" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="Title"]
-visible = false
 offset_right = 1922.0
 offset_bottom = 1084.0
 color = Color(0.109804, 0.0705882, 0.109804, 0.423529)
@@ -807,7 +813,7 @@ theme_override_font_sizes/normal_font_size = 96
 text = " A Game made by:
 
  - Jona Scheidig (Art) 
- - Marco Vessel (Programming) 
+ - Marco Wessel (Programming) 
  - Hypixi !!! (Soundtrack)
  - Silvan (aka Morphed Morphed / Sounds)"
 

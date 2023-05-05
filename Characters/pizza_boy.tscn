@@ -328,5 +328,4 @@ stream = ExtResource("29_iqay0")
 [connection signal="area_entered" from="DeliveryBagBack" to="." method="_on_delivery_bag_back_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Bike/Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="area_entered" from="HitDetection" to="." method="_on_hit_detection_area_entered"]
 [connection signal="timeout" from="Bike_Timer" to="." method="_on_bike_timer_timeout"]

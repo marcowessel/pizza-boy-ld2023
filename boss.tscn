@@ -155,10 +155,10 @@ libraries = {
 
 [node name="TextEdit4" type="TextEdit" parent="."]
 visible = false
-offset_left = -188.0
-offset_top = -204.0
-offset_right = 188.0
-offset_bottom = -72.0
+offset_left = -184.0
+offset_top = -206.0
+offset_right = 184.0
+offset_bottom = -74.0
 theme_override_fonts/font = ExtResource("2_rcpw4")
 theme_override_font_sizes/font_size = 64
 text = "        >:C
@@ -166,10 +166,10 @@ text = "        >:C
 
 [node name="TextEdit3" type="TextEdit" parent="."]
 visible = false
-offset_left = -196.0
-offset_top = -207.0
-offset_right = 197.0
-offset_bottom = -73.0
+offset_left = -204.0
+offset_top = -210.0
+offset_right = 205.0
+offset_bottom = -76.0
 theme_override_fonts/font = ExtResource("2_rcpw4")
 theme_override_font_sizes/font_size = 64
 text = "  Shiver me timbers,
@@ -177,9 +177,9 @@ text = "  Shiver me timbers,
 
 [node name="There" type="TextEdit" parent="."]
 visible = false
-offset_left = -167.0
+offset_left = -168.0
 offset_top = -213.0
-offset_right = 168.0
+offset_right = 170.0
 offset_bottom = -80.0
 theme_override_fonts/font = ExtResource("2_rcpw4")
 theme_override_font_sizes/font_size = 64
@@ -188,10 +188,10 @@ text = "  AAAAAAAARGH
 
 [node name="There2" type="TextEdit" parent="."]
 visible = false
-offset_left = -166.0
-offset_top = -213.0
+offset_left = -168.0
+offset_top = -211.0
 offset_right = 169.0
-offset_bottom = -77.0
+offset_bottom = -75.0
 theme_override_fonts/font = ExtResource("2_rcpw4")
 theme_override_font_sizes/font_size = 64
 text = "  Yer serious!?

@@ -192,9 +192,11 @@ func _on_delivery_bag_back_area_entered(area):
 
 func _on_area_2d_area_entered(area):
 	var body = area.get_parent()
+	attack_state = ATTACK_STATE.BIKE_ATTACK
 	
 	if area.is_in_group("hitbox") or body.is_in_group("destructable"):
 		deal_damage(body)
+		print("Deals damage")
 
 func deal_damage(enemy):
 	match attack_state:
@@ -209,16 +211,18 @@ func deal_damage(enemy):
 			print("no attack")
 
 
-func _on_hit_detection_area_entered(area):
-	var body = area.get_parent()
+#func _on_hit_detection_area_entered(area):
+	#var body = area.get_parent()
 	
-	if !body.is_in_group("enemy"): return
-	if area.is_in_group("hitbox") && body.has_pizza_piece == false:
-		lose_piece()
-		body.has_pizza_piece = true
+	#if !body.is_in_group("enemy"): return
+	#if area.is_in_group("hitbox") && body.has_pizza_piece == false:
+		#lose_piece()
+		#body.has_pizza_piece = true
+		#pass
 
 
 func lose_piece():
+	print("lost piece")
 	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
 	hud_pizza_pieces.remove_piece()
 	pizza_pieces -= 1

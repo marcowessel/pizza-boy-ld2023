@@ -19,9 +19,11 @@ func accelerate_cutscene():
 	if Input.is_action_pressed("speedup") and in_animation:
 		$AnimationPlayer.set_speed_scale(3)
 		$Tutorial_Song.pitch_scale = 3
+		$Pirate.pitch_scale = 3
 	else:
 		$AnimationPlayer.set_speed_scale(1)
 		$Tutorial_Song.pitch_scale = 1
+		$Pirate.pitch_scale = 1
 
 func _process(delta):
 	if in_animation:
@@ -45,6 +47,7 @@ func credits():
 	$PizzaBoy/PlayerHUD.hide()
 	$Boss/CanvasLayer.hide()
 	$Outro.play()
+	$AnimationPlayer.play("credits")
 
 func _on_outro_finished():
 	get_tree().quit()

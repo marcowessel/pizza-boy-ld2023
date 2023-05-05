@@ -24,6 +24,7 @@ func dies():
 	print("boss dead")
 	$AnimationPlayer.play("die")
 	get_owner().credits()
+	get_owner().get_node("PizzaBoy/AnimationPlayer").play("idle")
 	self.z_index = -1
 
 

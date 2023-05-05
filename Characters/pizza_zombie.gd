@@ -13,7 +13,6 @@ var is_dead = false
 var found_pizza_piece = false
 var found_pizza_piece_position = Vector2.ZERO
 
-
 func _ready():
 	$PizzaPieceItem/CollisionShapeDamage.queue_free()
 	self.add_to_group("enemy")
@@ -48,11 +47,13 @@ func run_towards_player(delta):
 		position = new_position
 		flip_to_player(target_position)
 
+
 func flip_to_player(target_position):
 	if target_position.x - position.x < 0:
 		$Sprite2D.flip_h = true
 	else:
 		$Sprite2D.flip_h = false
+
 
 func run_away(delta):
 	if !player.is_dead:
@@ -65,11 +66,13 @@ func run_away(delta):
 		position = new_position
 		flip_to_target(target_position)
 
+
 func flip_to_target(target_position):
 	if target_position.x - position.x < 0:
 		$Sprite2D.flip_h = true
 	else:
 		$Sprite2D.flip_h = false
+
 
 func take_damage(damage):
 	if (health - damage <= 0):
@@ -115,6 +118,7 @@ func vanishes():
 	await get_tree().create_timer(1).timeout
 	self.queue_free() 
 
+
 func drop_pizza_piece():
 	var pizza_piece_item = pizza_piece_scene.instantiate()
 	pizza_piece_item.position = position
@@ -138,17 +142,24 @@ func _on_damage_area_area_entered(area):
 	var body = area.get_parent()
 	
 	if area.is_in_group("pizza_piece"):
-		area.queue_free()
-		picked_up_pizza()
-		has_pizza_piece = true 
-		print("standing on pizza")
+		var pizza_amount
+		if !has_pizza_piece:
+			pizza_amount = +1
+			area.queue_free()
+			picked_up_pizza()
+			has_pizza_piece = true 
+			print("has pizza piece", pizza_amount)
 	
 	if !body.is_in_group("player"): return
 	if area.name == "HitDetection":
 		if body.pizza_pieces != 0:
-			picked_up_pizza()
-			
+			if !has_pizza_piece:
+				picked_up_pizza()
+				body.lose_piece()
+
+
 func picked_up_pizza():
+	print("took pizza")
 	$PizzaPieceItem.visible = true
 	$Haha.rplay()
 	$Stole.play()
