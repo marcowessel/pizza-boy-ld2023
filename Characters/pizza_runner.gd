@@ -136,8 +136,7 @@ func drop_pizza_piece():
 
 func move_to_pizza(delta):
 	anim_player.play("walk")
-	print("move_to_pizza")
-	var pizza_zombie = get_parent()
+	#print("move_to_pizza")
 	
 	var new_position = position.move_toward(
 		found_pizza_piece_position, 
@@ -145,31 +144,38 @@ func move_to_pizza(delta):
 	)
 	position = new_position
 
-#BEGIN checkout
+
 func _on_damage_area_area_entered(area):
 	var body = area.get_parent()
 	
 	if area.is_in_group("pizza_piece"):
-		var pizza_amount
-		if !has_pizza_piece:
-			pizza_amount = +1
-			area.queue_free()
-			picked_up_pizza()
-			has_pizza_piece = true 
-			print("has pizza piece", pizza_amount)
+		get_pizza_from_ground(area)
 	
-	if !body.is_in_group("player"): return
-	if area.name == "HitDetection":
-		if body.pizza_pieces != 0:
-			if !has_pizza_piece:
-				picked_up_pizza()
-				body.lose_piece()
+	if body.is_in_group("player"):
+		get_pizza_from_player(body, area)
+
+
+func get_pizza_from_ground(area):
+	if has_pizza_piece == false:
+		delete_pizza_piece(area)
+		picked_up_pizza()
+		
+
+
+func delete_pizza_piece(pizza_piece):
+		pizza_piece.queue_free()
+
+
+func get_pizza_from_player(player, player_area):
+	if player_area.name != "HitDetection": return
+	if player.pizza_pieces == 0: return
+	if has_pizza_piece == false:
+		player.lose_piece()
+		picked_up_pizza()
 
 
 func picked_up_pizza():
-	print("took pizza")
 	$PizzaPieceItem.visible = true
 	$Haha.rplay()
 	$Stole.play()
 	has_pizza_piece = true
-#END checkout

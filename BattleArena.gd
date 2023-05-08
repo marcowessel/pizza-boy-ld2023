@@ -10,11 +10,13 @@ func _ready():
 
 
 func _physics_process(_delta):
+	# only disable once
 	if player.kill_count >= total_zombie_amount:
 		disable_battlezone()
 
 
 func disable_battlezone():
+	print("disable battlezone")
 	var battle_arena_trigger = get_node("BattleArenaTrigger")
 	battle_arena_trigger.enable_camera_movement()
 	battle_arena_trigger.deactivate_barricades()

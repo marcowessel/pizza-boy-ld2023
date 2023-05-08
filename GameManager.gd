@@ -30,7 +30,7 @@ func accelerate_cutscene():
 		$Tutorial_Song.pitch_scale = 1
 		$Pirate.pitch_scale = 1
 
-func _process(delta):
+func _process(_delta):
 	if in_animation:
 		accelerate_cutscene()
 	else:
