@@ -6,17 +6,19 @@ extends CharacterBody2D
 @export var light_attack_damage = 2
 @export var light_attack_distance = 90
 @export var bike_damage = 10
+@export var spin_damage = 2
 @export var light_attack_duration:float = 0.2
 @export var is_in_custcene = false
-@export var mouse_showing = false
+@export var is_walking = false
 
 var attack_state = ATTACK_STATE.NONE
 var kill_count = 0
 var delivery_bag_back
 var delivery_bag_back_default
 var delivery_bag_back_collision
+var spin_flash
+var spin_timer
 
-var is_walking = false
 var anim_player
 var bike
 var is_on_bike = false
@@ -26,10 +28,14 @@ var spacebar
 var bike_song_started = false
 var reached_full_capacity = false
 var is_dead = false
+var attack_cooldown = false
+var spin_cooldown = false
+var is_spinning = false
 
 enum ATTACK_STATE {
 	NONE,
 	LIGHT_ATTACK,
+	SPIN_ATTACK,
 	BIKE_ATTACK
 }
 
@@ -40,9 +46,11 @@ func _ready():
 	delivery_bag_back = get_node("%DeliveryBagBack")
 	delivery_bag_back_default = delivery_bag_back.duplicate()
 	delivery_bag_back_collision = $DeliveryBagBack/DeliveryBagDamageArea
+	spin_flash = get_node("%SpinFlash")
 	pizza_meter = $PlayerHUD/ProgressBar
 	timer = $Bike_Timer
 	spacebar = $PlayerHUD/Spacebar
+	spin_timer = $Spin_Duration
 
 	anim_player = get_node("AnimationPlayer")
 	bike = get_node("Bike")
@@ -69,6 +77,8 @@ func get_input():
 
 func player_death():
 	if !is_dead:
+		if is_spinning:
+			call_deferred("break_attack")
 		is_dead = true
 		is_in_custcene = true
 		$GameOver.play()
@@ -89,11 +99,11 @@ func pickup_piece():
 
 func bike_logic():
 	if !is_in_custcene:
-		if velocity.length_squared() > 0 and !is_on_bike:
+		if velocity.length_squared() > 0 and !is_on_bike and !is_spinning:
 			if !is_walking and !is_on_bike:
 				anim_player.play("walk")
 				is_walking = true
-		elif is_walking and !is_on_bike:
+		elif is_walking and !is_on_bike and !is_spinning:
 			anim_player.play("idle")
 			is_walking = false
 
@@ -106,6 +116,8 @@ func bike_logic():
 		#look_at(get_global_mouse_position())
 		if Input.is_action_just_pressed("space") and pizza_meter.value == 100: #and pizza_meter >= MAX_PIZZA_METER:
 			if !is_on_bike:
+				if is_spinning:
+					call_deferred("break_attack")
 				# show the bicycle node and double the movement speed
 				attack_state = ATTACK_STATE.BIKE_ATTACK
 				call_deferred("_activate")
@@ -123,6 +135,7 @@ func bike_logic():
 				$Bike_Ring.rplay()
 				$Bike_Loop.play()
 				anim_player.play("bike_drive")
+				print(anim_player)
 				spacebar.hide()
 				movement_speed *= 2
 				# start the timer for the duration of the bike power-up
@@ -133,20 +146,25 @@ func bike_logic():
 func _input(event):
 	if !is_on_bike:
 		if event.is_action_pressed("click") and !is_in_custcene:
-			light_attack()
+			if !attack_cooldown:
+				light_attack()
+		elif event.is_action_pressed("spin") and !is_in_custcene and !is_spinning:
+			if !spin_cooldown:
+				spin_attack()
 
 
 func light_attack():
-	attack_state = ATTACK_STATE.LIGHT_ATTACK
-	var cursor_position = get_global_mouse_position()
-	var attack_vector = calculate_attack_vector(cursor_position)
+	if !is_spinning:
+		attack_state = ATTACK_STATE.LIGHT_ATTACK
+		var cursor_position = get_global_mouse_position()
+		var attack_vector = calculate_attack_vector(cursor_position)
 
-	anim_player.play("throw")
-	setup_delivery_bag(cursor_position)
-	await execute_attack(attack_vector)
+		anim_player.play("throw")
+		setup_delivery_bag(cursor_position)
+		await execute_attack(attack_vector)
 
-	delivery_bag_reset()
-	attack_state = ATTACK_STATE.NONE
+		delivery_bag_reset()
+		attack_state = ATTACK_STATE.NONE
 
 
 func setup_delivery_bag(cursor_position):
@@ -166,9 +184,10 @@ func calculate_attack_vector(cursor_position):
 func execute_attack(attack_vector):
 	#var tween = create_tween()
 	#tween.tween_property(delivery_bag_back, "position", attack_vector, 0.2).set_ease(Tween.EASE_IN)
+	$Hit_Timer.start()
+	attack_cooldown = true
 	delivery_bag_back.show()
-	if mouse_showing:
-		$Mouse.hide()
+	$Flash_Anim.play("scale")
 	$Bag_Throw.rplay()
 	delivery_bag_back_collision.disabled = false
 	delivery_bag_back.position += attack_vector
@@ -182,21 +201,45 @@ func delivery_bag_reset():
 	delivery_bag_back_collision.disabled = true
 	delivery_bag_back.hide()
 
+func spin_attack():
+	if !spin_cooldown:
+		attack_state = ATTACK_STATE.SPIN_ATTACK
+		$Spin_Cooldown.start()
+		spin_timer.start()
+		spin_cooldown = true
+		is_spinning = true
+		spin_flash.show()
+		call_deferred("activate_spin_colision")
+		anim_player.play("spin")
+		$Spin_Anim.play("spin_flash")
+		$SpinSound.play()
 
+func activate_spin_colision():
+	$SpinFlash/CollisionShape2D.disabled = false
+	$SpinFlash/CollisionShape2D2.disabled = false
+
+#Light Attack Colision Check
 func _on_delivery_bag_back_area_entered(area):
 	var body = area.get_parent()
 	
 	if area.is_in_group("hitbox") or body.is_in_group("destructable"):
 		deal_damage(body)
-		
 
+#Bike Attack Colision Check
 func _on_area_2d_area_entered(area):
 	var body = area.get_parent()
 	attack_state = ATTACK_STATE.BIKE_ATTACK
 	
 	if area.is_in_group("hitbox") or body.is_in_group("destructable"):
 		deal_damage(body)
-		print("Deals damage")
+
+#Spin Attack Colision Check
+func _on_spin_flash_area_entered(area):
+	var body = area.get_parent()
+	attack_state = ATTACK_STATE.SPIN_ATTACK
+	
+	if area.is_in_group("hitbox") or body.is_in_group("destructable"):
+		deal_damage(body)
 
 func deal_damage(enemy):
 	match attack_state:
@@ -206,6 +249,10 @@ func deal_damage(enemy):
 			$Hit.rplay()
 		ATTACK_STATE.BIKE_ATTACK:
 			enemy.take_damage(bike_damage)
+			$Hit.rplay()
+		ATTACK_STATE.SPIN_ATTACK:
+			enemy.take_damage(spin_damage)
+			pizza_meter.value += 5
 			$Hit.rplay()
 		ATTACK_STATE.NONE:
 			print("no attack")
@@ -226,22 +273,33 @@ func lose_piece():
 	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
 	hud_pizza_pieces.remove_piece()
 	pizza_pieces -= 1
-	anim_player.play("hurt")
+	if !is_spinning:
+		anim_player.play("hurt")
 
 	if pizza_pieces <= 0: player_death()
 
 
 func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "throw":
+	if anim_name == "throw" or anim_name == "hurt" or anim_name == "standup" or anim_name == "idle":
 		if !is_walking:
 			anim_player.play("idle")
 		if is_walking:
 			anim_player.play("walk")
-	elif anim_name == "hurt":
-		if !is_walking:
-			anim_player.play("idle")
-		if is_walking:
-			anim_player.play("walk")
+	#elif anim_name == "hurt":
+		#if !is_walking:
+			#anim_player.play("idle")
+		#if is_walking:
+			#anim_player.play("walk")
+	#elif anim_name == "standup":
+		#if !is_walking:
+			#anim_player.play("idle")
+		#if is_walking:
+			#anim_player.play("walk")
+	#elif anim_name == "idle":
+		#if !is_walking:
+			#anim_player.play("idle")
+		#if is_walking:
+			#anim_player.play("walk")
 
 func _on_bike_timer_timeout():
 	attack_state = ATTACK_STATE.NONE
@@ -254,9 +312,6 @@ func _on_bike_timer_timeout():
 	movement_speed /= 2
 	bike.hide()
 	anim_player.play("idle")
-
-func move_to(pos, source):
-	pass
 
 func footstep():
 	$Walking.rplay()
@@ -273,3 +328,42 @@ func _deactivate():
 func _activate():
 	$Bike/Area2D/Bike_Colision.disabled = false
 	$HitDetection/CollisionShape2D.disabled = true
+
+func _on_hit_timer_timeout():
+	attack_cooldown = false
+
+func slip():
+	call_deferred("disable_movement")
+	anim_player.play("falling")
+	$Knocked_Timer.start()
+	if is_spinning:
+		call_deferred("break_attack")
+
+func _on_knocked_timer_timeout():
+	anim_player.play("standup")
+	await get_tree().create_timer(0.3).timeout
+	is_in_custcene = false
+	print("gets here")
+
+func disable_movement():
+	is_in_custcene = true
+
+func _on_spin_cooldown_timeout():
+	spin_cooldown = false
+
+func _on_spin_duration_timeout():
+	call_deferred("break_attack")
+	if !is_on_bike:
+		anim_player.play("idle")
+
+#Breaks Spin Attack
+func break_attack():
+	if is_spinning:
+		spin_timer.stop()
+		$SpinFlash/CollisionShape2D.disabled = true
+		$SpinFlash/CollisionShape2D2.disabled = true
+		spin_flash.hide()
+		is_spinning = false
+
+
+

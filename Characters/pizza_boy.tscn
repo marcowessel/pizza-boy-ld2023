@@ -1,12 +1,12 @@
-[gd_scene load_steps=43 format=3 uid="uid://cthm02avoqjiv"]
+[gd_scene load_steps=56 format=3 uid="uid://cthm02avoqjiv"]
 
 [ext_resource type="Script" path="res://Characters/pizza_boy.gd" id="1_qt10e"]
 [ext_resource type="Texture2D" uid="uid://dptnjpuiu2ajd" path="res://Assets/Sprites/Character_Sheet.png" id="2_3jsvf"]
+[ext_resource type="Shader" path="res://Characters/pizza_boy.gdshader" id="2_roaym"]
 [ext_resource type="Texture2D" uid="uid://dtol03ho1rhkt" path="res://Assets/Sprites/Flash.png" id="3_gwifw"]
 [ext_resource type="Texture2D" uid="uid://c87drq4ia4bmv" path="res://Assets/Sprites/Bike.png" id="4_ny3v4"]
 [ext_resource type="PackedScene" uid="uid://kw4rqsuft0ix" path="res://player_hud.tscn" id="5_o6rtb"]
 [ext_resource type="Texture2D" uid="uid://ba2i7qycvtamh" path="res://Assets/Sprites/Exclamation Mark.png" id="6_qpcb8"]
-[ext_resource type="Texture2D" uid="uid://cahmy4lc8lvv8" path="res://Assets/Sprites/Mouse_Button.png" id="7_ehs7x"]
 [ext_resource type="PackedScene" uid="uid://dh8rp1004ii04" path="res://random_range_player.tscn" id="8_lrt2e"]
 [ext_resource type="AudioStream" uid="uid://d10tqx66ilajl" path="res://Assets/Sounds/Footsteps/Footsteps_1.wav" id="9_ix1dh"]
 [ext_resource type="AudioStream" uid="uid://i76iv1l4c6ya" path="res://Assets/Sounds/Footsteps/Footsteps_2.wav" id="10_fpmkn"]
@@ -29,12 +29,26 @@
 [ext_resource type="AudioStream" uid="uid://dw3ubtbx55r2h" path="res://Assets/Sounds/Misc/Miscs_2.wav" id="27_x12nb"]
 [ext_resource type="AudioStream" uid="uid://dyfdfdyl5vje1" path="res://Assets/Sounds/Misc/Exclamation_mark_sound2.wav" id="28_xvsya"]
 [ext_resource type="AudioStream" uid="uid://ejrq5nguol8u" path="res://Assets/Sounds/Musik/gameover.wav" id="29_iqay0"]
+[ext_resource type="Texture2D" uid="uid://tscnh5c2k6qh" path="res://Assets/Sprites/Spin_Flash.png" id="29_sjy1p"]
+[ext_resource type="AudioStream" uid="uid://ba2xcbx143x36" path="res://Assets/Sounds/Hit/Spin_Attack.wav" id="30_dp15w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0lwve"]
+shader = ExtResource("2_roaym")
+shader_parameter/speed = 1.0
+shader_parameter/tint = Color(1, 1, 0, 1)
+shader_parameter/span = 0.3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bacsx"]
 size = Vector2(72, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q5ctr"]
 size = Vector2(56, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qxnlf"]
+size = Vector2(35, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jfc8"]
+size = Vector2(35, 48)
 
 [sub_resource type="Animation" id="Animation_y7tm2"]
 length = 0.001
@@ -156,6 +170,41 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_t7q7p"]
+resource_name = "spin"
+length = 0.2
+loop_mode = 1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [21, 22, 23, 24]
+}
+
+[sub_resource type="Animation" id="Animation_nxdpc"]
+resource_name = "standup"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [17, 16, 15, 0]
+}
+
 [sub_resource type="Animation" id="Animation_rvstt"]
 resource_name = "throw"
 length = 0.2
@@ -167,7 +216,7 @@ tracks/0/path = NodePath("Player:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.03, 0.06, 0.09, 0.12),
+"times": PackedFloat32Array(0, 0.02, 0.04, 0.06, 0.08),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [10, 11, 12, 13, 14]
@@ -212,8 +261,134 @@ _data = {
 "falling": SubResource("Animation_kd15m"),
 "hurt": SubResource("Animation_ktnyb"),
 "idle": SubResource("Animation_in2ph"),
+"spin": SubResource("Animation_t7q7p"),
+"standup": SubResource("Animation_nxdpc"),
 "throw": SubResource("Animation_rvstt"),
 "walk": SubResource("Animation_ppvy3")
+}
+
+[sub_resource type="Animation" id="Animation_3vhan"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeliveryBagBack/DeliveryBag:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeliveryBagBack/DeliveryBag:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, 7.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeliveryBagBack/DeliveryBag:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_26l0h"]
+resource_name = "scale"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeliveryBagBack/DeliveryBag:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(8, 8), Vector2(5, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeliveryBagBack/DeliveryBag:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(9, 7.5), Vector2(9, 7.5), Vector2(24, 7.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeliveryBagBack/DeliveryBag:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.117647)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hmlgm"]
+_data = {
+"RESET": SubResource("Animation_3vhan"),
+"scale": SubResource("Animation_26l0h")
+}
+
+[sub_resource type="Animation" id="Animation_urxvv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpinFlash:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_0v5in"]
+resource_name = "spin_flash"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpinFlash:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vhbhs"]
+_data = {
+"RESET": SubResource("Animation_urxvv"),
+"spin_flash": SubResource("Animation_0v5in")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lemfg"]
@@ -227,6 +402,8 @@ y_sort_enabled = true
 script = ExtResource("1_qt10e")
 
 [node name="Player" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0lwve")
+use_parent_material = true
 scale = Vector2(8, 8)
 texture = ExtResource("2_3jsvf")
 hframes = 5
@@ -245,7 +422,7 @@ metadata/_edit_group_ = true
 
 [node name="DeliveryBag" type="Sprite2D" parent="DeliveryBagBack"]
 position = Vector2(9, 7.5)
-scale = Vector2(6.875, 7.0625)
+scale = Vector2(10, 10)
 texture = ExtResource("3_gwifw")
 
 [node name="DeliveryBagDamageArea" type="CollisionShape2D" parent="DeliveryBagBack"]
@@ -253,9 +430,61 @@ position = Vector2(-4, 0)
 shape = SubResource("RectangleShape2D_q5ctr")
 disabled = true
 
+[node name="SpinFlash" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="Flash_Opacity" type="Sprite2D" parent="SpinFlash"]
+modulate = Color(1, 1, 1, 0.509804)
+position = Vector2(-6.59109, 35.7569)
+scale = Vector2(7, 7)
+texture = ExtResource("29_sjy1p")
+offset = Vector2(15.9053, -0.305059)
+
+[node name="Flash" type="Sprite2D" parent="SpinFlash"]
+position = Vector2(0, 8)
+scale = Vector2(7, 7)
+texture = ExtResource("29_sjy1p")
+offset = Vector2(15.9053, -0.305059)
+
+[node name="Flash_Opacity2" type="Sprite2D" parent="SpinFlash"]
+modulate = Color(1, 1, 1, 0.509804)
+position = Vector2(6.75078, -19.4789)
+rotation = 3.14159
+scale = Vector2(7, 7)
+texture = ExtResource("29_sjy1p")
+offset = Vector2(15.9053, -0.305059)
+
+[node name="Flash2" type="Sprite2D" parent="SpinFlash"]
+position = Vector2(0, 8)
+rotation = 3.14159
+scale = Vector2(7, 7)
+texture = ExtResource("29_sjy1p")
+offset = Vector2(15.9053, -0.305059)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpinFlash"]
+position = Vector2(107.5, -1)
+shape = SubResource("RectangleShape2D_qxnlf")
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SpinFlash"]
+position = Vector2(-107.5, 21)
+shape = SubResource("RectangleShape2D_2jfc8")
+disabled = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_6q5yt")
+}
+
+[node name="Flash_Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hmlgm")
+}
+
+[node name="Spin_Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vhbhs")
 }
 
 [node name="Bike" type="Sprite2D" parent="."]
@@ -277,6 +506,7 @@ disabled = true
 unique_name_in_owner = true
 
 [node name="HitDetection" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetection"]
 position = Vector2(-8, 8)
@@ -288,15 +518,22 @@ position = Vector2(8, -96)
 scale = Vector2(8, 8)
 texture = ExtResource("6_qpcb8")
 
-[node name="Mouse" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(8, -104)
-scale = Vector2(6, 6)
-texture = ExtResource("7_ehs7x")
-
 [node name="Bike_Timer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="Hit_Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Spin_Cooldown" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="Knocked_Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Spin_Duration" type="Timer" parent="."]
+wait_time = 2.0
 
 [node name="Walking" parent="." instance=ExtResource("8_lrt2e")]
 streams = Array[Resource]([ExtResource("9_ix1dh"), ExtResource("10_fpmkn"), ExtResource("11_ectvh"), ExtResource("12_amb1o"), ExtResource("13_kg4a5"), ExtResource("14_w7136")])
@@ -325,7 +562,15 @@ stream = ExtResource("28_xvsya")
 [node name="GameOver" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("29_iqay0")
 
+[node name="SpinSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("30_dp15w")
+
 [connection signal="area_entered" from="DeliveryBagBack" to="." method="_on_delivery_bag_back_area_entered"]
+[connection signal="area_entered" from="SpinFlash" to="." method="_on_spin_flash_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Bike/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="timeout" from="Bike_Timer" to="." method="_on_bike_timer_timeout"]
+[connection signal="timeout" from="Hit_Timer" to="." method="_on_hit_timer_timeout"]
+[connection signal="timeout" from="Spin_Cooldown" to="." method="_on_spin_cooldown_timeout"]
+[connection signal="timeout" from="Knocked_Timer" to="." method="_on_knocked_timer_timeout"]
+[connection signal="timeout" from="Spin_Duration" to="." method="_on_spin_duration_timeout"]

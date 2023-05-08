@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
-@export var health:int = 1
+@export var health:int = 100
 @export var walking_speed = 100
 
 var is_activated = false
 var player
+var is_dead = false
 
 
 func _ready():
@@ -17,15 +18,18 @@ func take_damage(damage):
 		dies()
 	else:
 		health -= damage
+		$CanvasLayer/ProgressBar.value -= damage
 
 
 func dies():
-	is_activated = false
-	print("boss dead")
-	$AnimationPlayer.play("die")
-	get_owner().credits()
-	get_owner().get_node("PizzaBoy/AnimationPlayer").play("idle")
-	self.z_index = -1
+	if !is_dead:
+		is_dead = true
+		is_activated = false
+		print("boss dead")
+		$AnimationPlayer.play("die")
+		get_owner().credits()
+		get_owner().get_node("PizzaBoy/AnimationPlayer").play("idle")
+		self.z_index = -1
 
 
 func activate():

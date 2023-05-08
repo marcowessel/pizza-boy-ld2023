@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var pizza_piece_scene = preload("res://pizza_piece_item.tscn") 
 	
-@export var health:int = 6
+@export var health:int = 4
 @export var walking_speed = 100
 
 var player = null
@@ -12,6 +12,7 @@ var anim_player
 var is_dead = false
 var found_pizza_piece = false
 var found_pizza_piece_position = Vector2.ZERO
+var animation_has_stopped = false
 
 func _ready():
 	$PizzaPieceItem/CollisionShapeDamage.queue_free()
@@ -27,12 +28,17 @@ func _process(delta):
 	else:
 		$Exclamation_Mark.hide()
 	
-	if !has_pizza_piece and !is_dead and !found_pizza_piece:
+	if !has_pizza_piece and !is_dead and !found_pizza_piece and !player.is_dead:
 		run_towards_player(delta)
-	elif has_pizza_piece and !is_dead:
+	elif has_pizza_piece and !is_dead and !player.is_dead:
 		run_away(delta)
-	elif !has_pizza_piece and found_pizza_piece:
+	elif !has_pizza_piece and found_pizza_piece and !player.is_dead:
 		move_to_pizza(delta)
+	
+	if player.is_dead:
+		if !animation_has_stopped:
+			anim_player.stop()
+			animation_has_stopped = true
 
 
 func run_towards_player(delta):

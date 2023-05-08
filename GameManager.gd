@@ -14,6 +14,11 @@ func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "endboss_cutscene":
 		$Boss.activate()
 		$Boss_Song.play()
+	elif anim_name == "Startup_Anim":
+		if get_node("PizzaBoy").is_walking == false:
+			get_node("PizzaBoy/AnimationPlayer").play("idle")
+		if get_node("PizzaBoy").is_walking == true:
+			get_node("PizzaBoy/AnimationPlayer").play("walk")
 
 func accelerate_cutscene():
 	if Input.is_action_pressed("speedup") and in_animation:
@@ -58,7 +63,7 @@ func _on_outro_finished():
 #- [x] if all mobs are cleared baricades vanishes
 #- [x] activate camera follow again (smooth transition on player)
 #- [x] Pizza detection pizza zombies for droped pizza pieces (area2d)
-#- [] pizza zombies go for pizza pieces in range
+#- [x] pizza zombies go for pizza pieces in range
 
 
 # TODO
@@ -67,14 +72,14 @@ func _on_outro_finished():
 #- [x] baricade left / right activate
 #- [x] spawning of mobs, basic "zombies"
 #- [] move delivery bag to that point smoothly (tween)
-#- [] make small cooldown for lightattack so it cant be spammed
+#- [x] make small cooldown for lightattack so it cant be spammed
 #- [] if enemy has pizza piece, he cant steal more
 #- [] backpack should flip with player
 
 
 # ERRORS
 #- [x] if enemy has pizza piece, he cant steal more
-#- [] make small cooldown for lightattack so it cant be spammed
+#- [x] make small cooldown for lightattack so it cant be spammed
 
 
 # BACKLOG

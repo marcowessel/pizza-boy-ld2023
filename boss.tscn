@@ -131,7 +131,6 @@ offset_top = 68.0
 offset_right = 1866.0
 offset_bottom = 137.0
 theme = SubResource("Theme_2orrp")
-max_value = 10.0
 value = 10.0
 fill_mode = 1
 show_percentage = false
