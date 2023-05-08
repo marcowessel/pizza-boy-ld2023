@@ -58,6 +58,8 @@ func _ready():
 
 
 func _process(_delta):
+	print("player kill count: ", kill_count)
+	
 	if !is_in_custcene:
 		get_input()
 		move_and_slide()

@@ -28,12 +28,19 @@ var pizza_runner_scene = preload("res://Characters/pizza_runner.tscn")
 @export var wave5_spawn_time_randomnes:Vector2 = Vector2(1, 1.5)
 @export var wave5_walking_speed_random_range:Vector2 = Vector2(200, 250)
 
-var total_zombies = (wave1_amount_enemys + wave2_amount_enemys + wave3_amount_enemys + wave4_amount_enemys + wave5_amount_enemys) * 2
+var total_zombies = (
+	wave1_amount_enemys + 
+	wave2_amount_enemys + 
+	wave3_amount_enemys + 
+	wave4_amount_enemys + 
+	wave5_amount_enemys
+) * 2
 
 #var total_zombies = (wave1_amount_enemys) * 2#TEST
 
 
 func _ready():
+	print("total zombies: ", total_zombies)
 	self.add_to_group("enemy_spawner")
 
 
