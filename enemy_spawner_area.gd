@@ -94,8 +94,8 @@ func spawn_zombie(time_range, speed_range):
 	)
 
 	pizza_runner.walking_speed = randf_range(
-		speed_range.x * 1.5,
-		speed_range.y * 1.5
+		speed_range.x * 0.7,
+		speed_range.y * 0.7
 	)
 
 	pizza_zombie.spawn_position = random_spawn_position

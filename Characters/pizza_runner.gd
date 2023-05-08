@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var pizza_piece_scene = preload("res://pizza_piece_item.tscn") 
 	
-@export var health:int = 4
+@export var health:int = 8
 @export var walking_speed = 100
 
 var player = null
