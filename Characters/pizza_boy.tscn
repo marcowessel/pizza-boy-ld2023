@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://cthm02avoqjiv"]
+[gd_scene load_steps=67 format=3 uid="uid://cthm02avoqjiv"]
 
 [ext_resource type="Script" path="res://Characters/pizza_boy.gd" id="1_qt10e"]
 [ext_resource type="Texture2D" uid="uid://dptnjpuiu2ajd" path="res://Assets/Sprites/Character_Sheet.png" id="2_3jsvf"]
@@ -36,6 +36,7 @@
 [ext_resource type="AudioStream" uid="uid://dbata1qhc0cx8" path="res://Assets/Sounds/Misc/Attack_Charge_1.wav" id="32_ljdu5"]
 [ext_resource type="FontFile" uid="uid://crnj41u27p38k" path="res://Assets/Font/PICO-8.ttf" id="35_q73cd"]
 [ext_resource type="Script" path="res://Characters/Combo.gd" id="36_ei7ls"]
+[ext_resource type="AudioStream" uid="uid://1ykmyeottrkl" path="res://Assets/Sounds/Misc/combo.wav" id="37_awjp3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0lwve"]
 shader = ExtResource("2_roaym")
@@ -803,6 +804,9 @@ theme_override_font_sizes/font_size = 30
 text = "0"
 horizontal_alignment = 2
 script = ExtResource("36_ei7ls")
+
+[node name="Combo_Sound" type="AudioStreamPlayer" parent="Combo"]
+stream = ExtResource("37_awjp3")
 
 [connection signal="area_entered" from="DeliveryBagBack" to="." method="_on_delivery_bag_back_area_entered"]
 [connection signal="area_entered" from="SpinFlash" to="." method="_on_spin_flash_area_entered"]

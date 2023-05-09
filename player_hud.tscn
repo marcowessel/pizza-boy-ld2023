@@ -39,9 +39,9 @@ scale = Vector2(4, 4)
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Node2D"]
 offset_left = 374.0
-offset_top = 18.25
-offset_right = 466.0
-offset_bottom = 42.25
+offset_top = 20.0
+offset_right = 465.0
+offset_bottom = 46.0
 texture = ExtResource("1_c4uqn")
 patch_margin_left = 8
 patch_margin_top = 5
@@ -49,30 +49,30 @@ patch_margin_right = 8
 patch_margin_bottom = 5
 
 [node name="PizzaPieces" type="Sprite2D" parent="."]
-position = Vector2(152, 133)
+position = Vector2(180, 156)
 scale = Vector2(3, 3)
 texture = ExtResource("1_fdpou")
 hframes = 9
 script = ExtResource("2_pkxuy")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = 364.0
-offset_top = 204.0
-offset_right = 508.0
-offset_bottom = 244.0
+offset_left = 422.0
+offset_top = 224.0
+offset_right = 566.0
+offset_bottom = 265.0
 rotation = -1.57031
 theme = ExtResource("3_173k2")
 step = 10.0
 show_percentage = false
 
 [node name="HotSauce" type="Sprite2D" parent="."]
-position = Vector2(328, 133)
+position = Vector2(380, 152)
 scale = Vector2(3, 3)
 texture = ExtResource("4_6osk7")
 
 [node name="Spacebar" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(360, 48)
+position = Vector2(381, 257)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_1mrn1")
 
@@ -92,10 +92,10 @@ bbcode_enabled = true
 text = "[wave amp=100 freq=10]FIGHT![/wave]"
 
 [node name="ScoreCounter" type="Label" parent="."]
-offset_left = 1480.0
-offset_top = 96.0
-offset_right = 1840.0
-offset_bottom = 159.0
+offset_left = 1509.0
+offset_top = 103.0
+offset_right = 1836.0
+offset_bottom = 166.0
 theme_override_colors/font_shadow_color = Color(0.054902, 0.027451, 0.105882, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 9

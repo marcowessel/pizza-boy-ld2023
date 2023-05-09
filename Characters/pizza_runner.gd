@@ -4,7 +4,7 @@ var pizza_piece_scene = preload("res://pizza_piece_item.tscn")
 	
 @export var health:int = 4
 @export var walking_speed = 100
-@export var score_count = 20
+@export var score_count = 40
 
 var player = null
 var has_pizza_piece = false
@@ -181,6 +181,7 @@ func get_pizza_from_player(player, player_area):
 
 func picked_up_pizza():
 	$PizzaPieceItem.visible = true
-	$Haha.rplay()
+	#$Haha.rplay()
+	$Pizza.play()
 	$Stole.play()
 	has_pizza_piece = true

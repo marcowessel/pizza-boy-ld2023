@@ -83,7 +83,6 @@ func take_damage(damage):
 		$Hurt.rplay()
 		health -= damage
 
-
 func dies():
 	var player = get_tree().current_scene.get_node("%PizzaBoy")
 	player.kill_count += 1
