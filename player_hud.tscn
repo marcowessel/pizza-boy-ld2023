@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://kw4rqsuft0ix"]
+[gd_scene load_steps=13 format=3 uid="uid://kw4rqsuft0ix"]
 
+[ext_resource type="Texture2D" uid="uid://vynw8ky8j5sd" path="res://Assets/Sprites/Hud.png" id="1_c4uqn"]
 [ext_resource type="Texture2D" uid="uid://cdrkfko6bp7vi" path="res://Assets/Sprites/Pizza_Bar.png" id="1_fdpou"]
 [ext_resource type="Script" path="res://PizzaPieces.gd" id="2_pkxuy"]
 [ext_resource type="Theme" uid="uid://dicggahvhfah6" path="res://new_theme.tres" id="3_173k2"]
@@ -33,25 +34,39 @@ animations = [{
 
 [node name="PlayerHUD" type="CanvasLayer"]
 
+[node name="Node2D" type="Node2D" parent="."]
+scale = Vector2(4, 4)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Node2D"]
+offset_left = 374.0
+offset_top = 18.25
+offset_right = 466.0
+offset_bottom = 42.25
+texture = ExtResource("1_c4uqn")
+patch_margin_left = 8
+patch_margin_top = 5
+patch_margin_right = 8
+patch_margin_bottom = 5
+
 [node name="PizzaPieces" type="Sprite2D" parent="."]
-position = Vector2(150, 147)
+position = Vector2(152, 133)
 scale = Vector2(3, 3)
 texture = ExtResource("1_fdpou")
 hframes = 9
 script = ExtResource("2_pkxuy")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = 368.0
-offset_top = 216.0
-offset_right = 512.0
-offset_bottom = 256.0
+offset_left = 364.0
+offset_top = 204.0
+offset_right = 508.0
+offset_bottom = 244.0
 rotation = -1.57031
 theme = ExtResource("3_173k2")
 step = 10.0
 show_percentage = false
 
 [node name="HotSauce" type="Sprite2D" parent="."]
-position = Vector2(328, 144)
+position = Vector2(328, 133)
 scale = Vector2(3, 3)
 texture = ExtResource("4_6osk7")
 
@@ -76,17 +91,10 @@ theme_override_font_sizes/normal_font_size = 510
 bbcode_enabled = true
 text = "[wave amp=100 freq=10]FIGHT![/wave]"
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 1527.0
-offset_top = 87.0
-offset_right = 1847.0
-offset_bottom = 163.0
-color = Color(0.109804, 0.0705882, 0.109804, 0.423529)
-
 [node name="ScoreCounter" type="Label" parent="."]
-offset_left = 1487.0
+offset_left = 1480.0
 offset_top = 96.0
-offset_right = 1847.0
+offset_right = 1840.0
 offset_bottom = 159.0
 theme_override_colors/font_shadow_color = Color(0.054902, 0.027451, 0.105882, 1)
 theme_override_constants/shadow_offset_x = 0
