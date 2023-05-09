@@ -65,7 +65,7 @@ func _ready():
 
 
 func _process(_delta):
-	print("player kill count: ", kill_count)
+	#print("player kill count: ", kill_count)
 	
 	if !is_in_custcene:
 		get_input()
@@ -326,6 +326,7 @@ func lose_piece():
 	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
 	hud_pizza_pieces.remove_piece()
 	pizza_pieces -= 1
+	Score.combo = 0
 	if !is_spinning:
 		anim_player.play("hurt")
 
