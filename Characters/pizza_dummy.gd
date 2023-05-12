@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var pizza_piece_scene = preload("res://pizza_piece_item.tscn") 
 	
-@export var health:int = 4
+@export var health:int = 8
 @export var walking_speed = 100
 @export var score_count = 40
 
@@ -99,8 +99,10 @@ func dies():
 	
 	$PizzaRadar.queue_free()
 	is_dead = true
-	if has_pizza_piece: drop_pizza_piece()
+	if has_pizza_piece: drop_pizza_piece(2)
 	$Death.rplay()
+	$Score_Sound.play()
+	#$Score_Sound.pitch_scale = randf_range(0.9, 1.2)
 	$Score_Anim.play("score")
 	anim_player.play("death")
 	$ZombieFeet.queue_free()
@@ -132,11 +134,14 @@ func vanishes():
 	self.queue_free() 
 
 
-func drop_pizza_piece():
-	var pizza_piece_item = pizza_piece_scene.instantiate()
-	pizza_piece_item.position = position
-	pizza_piece_item.set_rotation_degrees(randi_range(0, 360))
-	get_tree().get_root().call_deferred("add_child", pizza_piece_item)
+func drop_pizza_piece(pizza_pieces):
+	for i in range(pizza_pieces):
+		var position_x = randi_range(-5, 5)
+		var position_offset = Vector2(position_x, 0)
+		var pizza_piece_item = pizza_piece_scene.instantiate()
+		pizza_piece_item.position = position + position_offset
+		pizza_piece_item.set_rotation_degrees(randi_range(0, 360))
+		get_tree().get_root().call_deferred("add_child", pizza_piece_item)
 
 
 func move_to_pizza(delta):
@@ -175,7 +180,7 @@ func get_pizza_from_player(player, player_area):
 	if player_area.name != "HitDetection": return
 	if player.pizza_pieces == 0: return
 	if has_pizza_piece == false:
-		player.lose_piece()
+		player.lose_piece(2)
 		picked_up_pizza()
 
 

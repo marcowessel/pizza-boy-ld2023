@@ -14,7 +14,7 @@ var pizza_runner_scene = preload("res://Characters/pizza_dummy.tscn")
 @export var wave2_walking_speed_random_range:Vector2 = Vector2(100, 150)
 
 # Wave 3
-@export var wave3_amount_enemys = 8
+@export var wave3_amount_enemys = 9
 @export var wave3_spawn_time_randomnes:Vector2 = Vector2(1, 2)
 @export var wave3_walking_speed_random_range:Vector2 = Vector2(150, 200)
 

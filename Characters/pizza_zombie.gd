@@ -158,7 +158,6 @@ func get_pizza_from_ground(area):
 	if has_pizza_piece == false:
 		delete_pizza_piece(area)
 		picked_up_pizza()
-		
 
 
 func delete_pizza_piece(pizza_piece):
@@ -169,7 +168,7 @@ func get_pizza_from_player(player, player_area):
 	if player_area.name != "HitDetection": return
 	if player.pizza_pieces == 0: return
 	if has_pizza_piece == false:
-		player.lose_piece()
+		player.lose_piece(1)
 		picked_up_pizza()
 
 

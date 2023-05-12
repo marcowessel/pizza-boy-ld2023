@@ -1,0 +1,142 @@
+[gd_scene load_steps=12 format=3 uid="uid://c38lhx6vko54r"]
+
+[ext_resource type="Texture2D" uid="uid://k6fjm5rb0uwv" path="res://Assets/Sprites/Map.png" id="1_uqr75"]
+[ext_resource type="Texture2D" uid="uid://dyeoe35o1wusn" path="res://Assets/Sprites/pizza_piece.png" id="2_kr2yi"]
+[ext_resource type="FontFile" uid="uid://crnj41u27p38k" path="res://Assets/Font/PICO-8.ttf" id="3_kko7u"]
+[ext_resource type="Texture2D" uid="uid://busp6ae4igbgm" path="res://Assets/Sprites/Submit.png" id="4_6x7l0"]
+[ext_resource type="Texture2D" uid="uid://cmgtkpfhtu1hi" path="res://Assets/Sprites/Submit_Hover.png" id="5_nftwf"]
+
+[sub_resource type="Gradient" id="Gradient_qy560"]
+offsets = PackedFloat32Array(0, 0.125926, 0.859259, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.745098, 1, 1, 1, 0.745098, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f35gy"]
+gradient = SubResource("Gradient_qy560")
+
+[sub_resource type="Curve" id="Curve_frmo2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.481928, 1), 0.0, 0.0, 0, 0, Vector2(0.704819, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.581818), 1.13182, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_85yqs"]
+curve = SubResource("Curve_frmo2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i2xde"]
+emission_shape = 3
+emission_box_extents = Vector3(110, 70, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -15.0
+initial_velocity_max = 15.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_max = 5.0
+angle_min = -10.0
+angle_max = 10.0
+scale_min = 6.0
+scale_max = 9.0
+scale_curve = SubResource("CurveTexture_85yqs")
+color_ramp = SubResource("GradientTexture1D_f35gy")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_is2h4"]
+load_path = "res://.godot/imported/Hud.png-12326a85c852ffd89c9829bba2adf308.ctex"
+
+[node name="HighscoreScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BattleArena2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.352941)
+z_index = -2
+position = Vector2(960, 540)
+scale = Vector2(8, 8)
+texture = ExtResource("1_uqr75")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(955, 546)
+scale = Vector2(8, 8)
+amount = 14
+process_material = SubResource("ParticleProcessMaterial_i2xde")
+texture = ExtResource("2_kr2yi")
+lifetime = 10.0
+preprocess = 10.0
+
+[node name="Node2D" type="Node2D" parent="."]
+scale = Vector2(4, 4)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Node2D"]
+offset_left = 148.0
+offset_top = 54.0
+offset_right = 340.0
+offset_bottom = 94.0
+texture = SubResource("CompressedTexture2D_is2h4")
+patch_margin_left = 8
+patch_margin_top = 5
+patch_margin_right = 8
+patch_margin_bottom = 5
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.109804, 0.0705882, 0.109804, 0.423529)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.325
+anchor_top = 0.228
+anchor_right = 0.7
+anchor_bottom = 0.356
+offset_left = -6.10352e-05
+offset_top = -0.240021
+offset_right = -0.00012207
+offset_bottom = 0.519989
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_kko7u")
+theme_override_font_sizes/font_size = 100
+text = "Highscore"
+
+[node name="HighscoreLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.362
+anchor_top = 0.404
+anchor_right = 0.654
+anchor_bottom = 0.498
+offset_left = 5.95996
+offset_top = -0.320007
+offset_right = 5.31995
+offset_bottom = 0.159973
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_kko7u")
+theme_override_font_sizes/font_size = 70
+text = "XXXXX"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 788.0
+offset_top = 578.0
+offset_right = 1173.0
+offset_bottom = 686.0
+theme_override_fonts/font = ExtResource("3_kko7u")
+theme_override_font_sizes/font_size = 50
+placeholder_text = "Enter"
+alignment = 1
+max_length = 6
+
+[node name="Button" type="TextureButton" parent="LineEdit"]
+layout_mode = 0
+offset_top = 131.0
+offset_right = 384.0
+offset_bottom = 278.0
+texture_normal = ExtResource("4_6x7l0")
+texture_hover = ExtResource("5_nftwf")
+stretch_mode = 0
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

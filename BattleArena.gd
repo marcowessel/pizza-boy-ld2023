@@ -2,6 +2,7 @@ extends Node2D
 
 var total_zombie_amount
 var player
+var is_disabled = false
 
 func _ready():
 	var node = get_tree().current_scene.get_node("EnemySpawner")
@@ -12,7 +13,9 @@ func _ready():
 func _physics_process(_delta):
 	# only disable once
 	if player.kill_count >= total_zombie_amount:
-		disable_battlezone()
+		if !is_disabled:
+			disable_battlezone()
+			is_disabled = true
 
 
 func disable_battlezone():

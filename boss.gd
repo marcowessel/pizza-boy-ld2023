@@ -23,7 +23,7 @@ func take_damage(damage):
 
 func dies():
 	if !is_dead:
-		$Dies.play()
+		#$Dies.play()
 		is_dead = true
 		is_activated = false
 		print("boss dead")

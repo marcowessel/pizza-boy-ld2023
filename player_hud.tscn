@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://kw4rqsuft0ix"]
+[gd_scene load_steps=17 format=3 uid="uid://kw4rqsuft0ix"]
 
 [ext_resource type="Texture2D" uid="uid://vynw8ky8j5sd" path="res://Assets/Sprites/Hud.png" id="1_c4uqn"]
 [ext_resource type="Texture2D" uid="uid://cdrkfko6bp7vi" path="res://Assets/Sprites/Pizza_Bar.png" id="1_fdpou"]
@@ -9,6 +9,10 @@
 [ext_resource type="FontFile" uid="uid://cvxfciqe76mmn" path="res://Assets/Font/Efforts.ttf" id="6_xwvnh"]
 [ext_resource type="FontFile" uid="uid://crnj41u27p38k" path="res://Assets/Font/PICO-8.ttf" id="7_lm1f0"]
 [ext_resource type="Script" path="res://ScoreCounter.gd" id="8_io0wo"]
+[ext_resource type="PackedScene" uid="uid://dh8rp1004ii04" path="res://random_range_player.tscn" id="10_smglv"]
+[ext_resource type="AudioStream" uid="uid://bcfef4xn5bhcg" path="res://Assets/Sounds/Misc/Score/Miscs_3.wav" id="11_wbbhe"]
+[ext_resource type="AudioStream" uid="uid://bvsvb737hkvr0" path="res://Assets/Sounds/Misc/Score/Miscs_4.wav" id="12_nl2lh"]
+[ext_resource type="AudioStream" uid="uid://bhqt821v0choa" path="res://Assets/Sounds/Misc/Score/Miscs_5.wav" id="15_vrwrr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mcu8j"]
 atlas = ExtResource("5_ot0fq")
@@ -105,3 +109,9 @@ theme_override_font_sizes/font_size = 50
 text = "0"
 horizontal_alignment = 2
 script = ExtResource("8_io0wo")
+
+[node name="Pizza_Points" parent="." instance=ExtResource("10_smglv")]
+streams = Array[Resource]([ExtResource("11_wbbhe"), ExtResource("12_nl2lh")])
+
+[node name="Jackpot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_vrwrr")

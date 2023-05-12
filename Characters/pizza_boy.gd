@@ -321,11 +321,11 @@ func deal_damage(enemy):
 		#pass
 
 
-func lose_piece():
+func lose_piece(pizza_loss):
 	print("lost piece")
 	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
-	hud_pizza_pieces.remove_piece()
-	pizza_pieces -= 1
+	hud_pizza_pieces.remove_piece(pizza_loss)
+	pizza_pieces -= pizza_loss
 	Score.combo = 0
 	if !is_spinning:
 		anim_player.play("hurt")
@@ -339,21 +339,7 @@ func _on_animation_player_animation_finished(anim_name):
 			anim_player.play("idle")
 		if is_walking:
 			anim_player.play("walk")
-	#elif anim_name == "hurt":
-		#if !is_walking:
-			#anim_player.play("idle")
-		#if is_walking:
-			#anim_player.play("walk")
-	#elif anim_name == "standup":
-		#if !is_walking:
-			#anim_player.play("idle")
-		#if is_walking:
-			#anim_player.play("walk")
-	#elif anim_name == "idle":
-		#if !is_walking:
-			#anim_player.play("idle")
-		#if is_walking:
-			#anim_player.play("walk")
+
 
 func _on_bike_timer_timeout():
 	attack_state = ATTACK_STATE.NONE

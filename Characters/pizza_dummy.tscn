@@ -1,7 +1,7 @@
-[gd_scene load_steps=41 format=3 uid="uid://45wgnsgbact2"]
+[gd_scene load_steps=42 format=3 uid="uid://vpvdjv5giaa3"]
 
 [ext_resource type="Texture2D" uid="uid://egugeakw2lqt" path="res://Assets/Sprites/Shadow.png" id="1_rpflj"]
-[ext_resource type="Script" path="res://Characters/pizza_runner.gd" id="1_tywoy"]
+[ext_resource type="Script" path="res://Characters/pizza_dummy.gd" id="1_v0jpg"]
 [ext_resource type="Texture2D" uid="uid://chq3k71wxgfuh" path="res://Assets/Sprites/Thick_Enemy.png" id="1_xkadx"]
 [ext_resource type="Script" path="res://Characters/DamageArea.gd" id="3_ile72"]
 [ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="4_dtgq0"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://bi03dp651s7h8" path="res://Assets/Sounds/Haha/pizza.wav" id="12_gy5da"]
 [ext_resource type="AudioStream" uid="uid://jr24ikjf0ygc" path="res://Assets/Sounds/Zombie Death/Death sfx_2.wav" id="12_u4qsy"]
 [ext_resource type="AudioStream" uid="uid://dkl4psqq6wn7l" path="res://Assets/Sounds/Zombie Death/Death sfx_3.wav" id="13_ff0it"]
+[ext_resource type="AudioStream" uid="uid://bcfef4xn5bhcg" path="res://Assets/Sounds/Misc/Score/Miscs_3.wav" id="13_ic4mo"]
 [ext_resource type="AudioStream" uid="uid://c3kl5ybkuwkjd" path="res://Assets/Sounds/Zombie Death/Death sfx_4.wav" id="14_wf5vg"]
 [ext_resource type="Script" path="res://Characters/PizzaRadar.gd" id="15_es6cl"]
 [ext_resource type="Texture2D" uid="uid://ba2i7qycvtamh" path="res://Assets/Sprites/Exclamation Mark.png" id="16_4buct"]
@@ -268,7 +269,7 @@ anim_offset_curve = SubResource("CurveTexture_n18ao")
 [sub_resource type="CircleShape2D" id="CircleShape2D_fggvf"]
 
 [node name="PizzaDummy" type="CharacterBody2D"]
-script = ExtResource("1_tywoy")
+script = ExtResource("1_v0jpg")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 position = Vector2(8, 16)
@@ -326,11 +327,16 @@ randomness = 1.0
 fixed_fps = 60
 
 [node name="Death" parent="." instance=ExtResource("6_4jstk")]
+volume_db = -5.0
 pitch_scale = 0.7
 streams = Array[Resource]([ExtResource("11_q82pw"), ExtResource("12_u4qsy"), ExtResource("13_ff0it"), ExtResource("14_wf5vg")])
 
 [node name="Pizza" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_gy5da")
+
+[node name="Score_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_ic4mo")
+volume_db = 5.0
 
 [node name="PizzaRadar" type="Area2D" parent="."]
 visible = false

@@ -48,11 +48,12 @@ func _on_texture_button_pressed():
 func credits():
 	$PizzaBoy.is_in_custcene = true
 	$Boss_Song.stop()
-	$CanvasLayer.show()
-	$PizzaBoy/PlayerHUD.hide()
+	#$CanvasLayer.show()
+	#$PizzaBoy/PlayerHUD.hide()
 	$Boss/CanvasLayer.hide()
 	$Outro.play()
-	$AnimationPlayer.play("credits")
+	#$AnimationPlayer.play("credits")
+	$PizzaBoy/PlayerHUD/PizzaPieces.calculate_score()
 
 func _on_outro_finished():
 	get_tree().quit()

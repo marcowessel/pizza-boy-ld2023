@@ -290,6 +290,7 @@ fixed_fps = 60
 streams = Array[Resource]([ExtResource("5_4asmh"), ExtResource("6_tun7b"), ExtResource("7_oat6d"), ExtResource("8_q6dqy")])
 
 [node name="Death" parent="." instance=ExtResource("4_s1n2s")]
+volume_db = -5.0
 streams = Array[Resource]([ExtResource("9_unfra"), ExtResource("10_mct31"), ExtResource("11_x2xpb"), ExtResource("12_ys8l3")])
 
 [node name="PizzaRadar" type="Area2D" parent="."]
