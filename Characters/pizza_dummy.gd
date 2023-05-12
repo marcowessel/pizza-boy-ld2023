@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-var pizza_piece_scene = preload("res://pizza_piece_item.tscn") 
-	
+var pizza_piece_scene = preload("res://pizza_piece_item.tscn")
+
 @export var health:int = 8
 @export var walking_speed = 100
 @export var score_count = 40
@@ -14,6 +14,7 @@ var is_dead = false
 var found_pizza_piece = false
 var found_pizza_piece_position = Vector2.ZERO
 var animation_has_stopped = false
+
 
 func _ready():
 	$PizzaPieceItem/CollisionShapeDamage.queue_free()
@@ -28,14 +29,14 @@ func _process(delta):
 		$Exclamation_Mark.show()
 	else:
 		$Exclamation_Mark.hide()
-	
+
 	if !has_pizza_piece and !is_dead and !found_pizza_piece and !player.is_dead:
 		run_towards_player(delta)
 	elif has_pizza_piece and !is_dead and !player.is_dead:
 		run_away(delta)
 	elif !has_pizza_piece and found_pizza_piece and !player.is_dead:
 		move_to_pizza(delta)
-	
+
 	if player.is_dead:
 		if !animation_has_stopped:
 			anim_player.stop()
@@ -48,7 +49,7 @@ func run_towards_player(delta):
 		anim_player.play("walk")
 		var target_position = player.position
 		var new_position = position.move_toward(
-			target_position, 
+			target_position,
 			walking_speed * delta
 		)
 		position = new_position
@@ -67,7 +68,7 @@ func run_away(delta):
 		anim_player.play("walk")
 		var target_position = spawn_position
 		var new_position = position.move_toward(
-			target_position, 
+			target_position,
 			walking_speed * delta
 		)
 		position = new_position
@@ -96,7 +97,7 @@ func dies():
 	Score.combo += 1
 	Score.score += score_count * Score.combo
 	print("combo =", Score.combo)
-	
+
 	$PizzaRadar.queue_free()
 	is_dead = true
 	if has_pizza_piece: drop_pizza_piece(2)
@@ -113,7 +114,7 @@ func dies():
 	$Sprite2D.hide()
 	$Dust.emitting = true
 	await get_tree().create_timer(1).timeout
-	self.queue_free() 
+	self.queue_free()
 
 
 func hidden():
@@ -123,7 +124,7 @@ func hidden():
 func vanishes():
 	var player = get_tree().current_scene.get_node("%PizzaBoy")
 	player.kill_count += 1
-	
+
 	$PizzaRadar.queue_free()
 	hidden()
 	$ZombieFeet.queue_free()
@@ -131,7 +132,7 @@ func vanishes():
 	$Sprite2D.hide()
 	$Dust.emitting = true
 	await get_tree().create_timer(1).timeout
-	self.queue_free() 
+	self.queue_free()
 
 
 func drop_pizza_piece(pizza_pieces):
@@ -147,9 +148,9 @@ func drop_pizza_piece(pizza_pieces):
 func move_to_pizza(delta):
 	anim_player.play("walk")
 	#print("move_to_pizza")
-	
+
 	var new_position = position.move_toward(
-		found_pizza_piece_position, 
+		found_pizza_piece_position,
 		walking_speed * delta
 	)
 	position = new_position
@@ -157,10 +158,10 @@ func move_to_pizza(delta):
 
 func _on_damage_area_area_entered(area):
 	var body = area.get_parent()
-	
+
 	if area.is_in_group("pizza_piece"):
 		get_pizza_from_ground(area)
-	
+
 	if body.is_in_group("player"):
 		get_pizza_from_player(body, area)
 
@@ -169,7 +170,6 @@ func get_pizza_from_ground(area):
 	if has_pizza_piece == false:
 		delete_pizza_piece(area)
 		picked_up_pizza()
-		
 
 
 func delete_pizza_piece(pizza_piece):

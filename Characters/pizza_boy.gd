@@ -65,8 +65,6 @@ func _ready():
 
 
 func _process(_delta):
-	#print("player kill count: ", kill_count)
-	
 	if !is_in_custcene:
 		get_input()
 		move_and_slide()
@@ -143,7 +141,6 @@ func bike_logic():
 				$Bike_Ring.rplay()
 				$Bike_Loop.play()
 				anim_player.play("bike_drive")
-				print(anim_player)
 				spacebar.hide()
 				movement_speed *= 2
 				# start the timer for the duration of the bike power-up
@@ -270,7 +267,7 @@ func activate_spin_colision():
 #Light Attack Colision Check
 func _on_delivery_bag_back_area_entered(area):
 	var body = area.get_parent()
-	
+
 	if area.is_in_group("hitbox") or body.is_in_group("destructable"):
 		deal_damage(body)
 
@@ -278,7 +275,7 @@ func _on_delivery_bag_back_area_entered(area):
 func _on_area_2d_area_entered(area):
 	var body = area.get_parent()
 	attack_state = ATTACK_STATE.BIKE_ATTACK
-	
+
 	if area.is_in_group("hitbox") or body.is_in_group("destructable"):
 		deal_damage(body)
 
@@ -286,7 +283,7 @@ func _on_area_2d_area_entered(area):
 func _on_spin_flash_area_entered(area):
 	var body = area.get_parent()
 	attack_state = ATTACK_STATE.SPIN_ATTACK
-	
+
 	if area.is_in_group("hitbox") or body.is_in_group("destructable"):
 		deal_damage(body)
 
@@ -313,7 +310,7 @@ func deal_damage(enemy):
 
 #func _on_hit_detection_area_entered(area):
 	#var body = area.get_parent()
-	
+
 	#if !body.is_in_group("enemy"): return
 	#if area.is_in_group("hitbox") && body.has_pizza_piece == false:
 		#lose_piece()
@@ -321,8 +318,7 @@ func deal_damage(enemy):
 		#pass
 
 
-func lose_piece(pizza_loss):
-	print("lost piece")
+func lose_piece():
 	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
 	hud_pizza_pieces.remove_piece(pizza_loss)
 	pizza_pieces -= pizza_loss
@@ -383,7 +379,6 @@ func _on_knocked_timer_timeout():
 	anim_player.play("standup")
 	await get_tree().create_timer(0.3).timeout
 	is_in_custcene = false
-	print("gets here")
 
 func disable_movement():
 	is_in_custcene = true
@@ -404,6 +399,3 @@ func break_attack():
 		$SpinFlash/CollisionShape2D2.disabled = true
 		spin_flash.hide()
 		is_spinning = false
-
-
-
