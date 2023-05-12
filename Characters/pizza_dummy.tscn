@@ -1,32 +1,30 @@
-[gd_scene load_steps=44 format=3 uid="uid://c10ssjn0ge38f"]
+[gd_scene load_steps=41 format=3 uid="uid://45wgnsgbact2"]
 
-[ext_resource type="Script" path="res://Characters/pizza_zombie.gd" id="1_24wtd"]
-[ext_resource type="Texture2D" uid="uid://bjv4w7oaj1phf" path="res://Assets/Sprites/Pizza_Zombie.png" id="2_p1bo0"]
-[ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="3_p3pca"]
-[ext_resource type="Script" path="res://Characters/DamageArea.gd" id="3_pr53k"]
-[ext_resource type="Texture2D" uid="uid://ovjl6j4rhv4i" path="res://Assets/Sprites/Zombie_Dust.png" id="4_efcob"]
-[ext_resource type="PackedScene" uid="uid://dh8rp1004ii04" path="res://random_range_player.tscn" id="4_s1n2s"]
-[ext_resource type="AudioStream" uid="uid://d051cobfjyr3o" path="res://Assets/Sounds/Haha/Haha_1.wav" id="5_4asmh"]
-[ext_resource type="AudioStream" uid="uid://ds8ru60vn4lli" path="res://Assets/Sounds/Haha/Haha_2.wav" id="6_tun7b"]
-[ext_resource type="AudioStream" uid="uid://prr7aso1kehx" path="res://Assets/Sounds/Haha/Haha_3.wav" id="7_oat6d"]
-[ext_resource type="AudioStream" uid="uid://k6sc1sfukwam" path="res://Assets/Sounds/Haha/Haha_5.wav" id="8_q6dqy"]
-[ext_resource type="AudioStream" uid="uid://1i7rdl27x1kf" path="res://Assets/Sounds/Zombie Death/Death sfx_1.wav" id="9_unfra"]
-[ext_resource type="AudioStream" uid="uid://jr24ikjf0ygc" path="res://Assets/Sounds/Zombie Death/Death sfx_2.wav" id="10_mct31"]
-[ext_resource type="AudioStream" uid="uid://dkl4psqq6wn7l" path="res://Assets/Sounds/Zombie Death/Death sfx_3.wav" id="11_x2xpb"]
-[ext_resource type="AudioStream" uid="uid://c3kl5ybkuwkjd" path="res://Assets/Sounds/Zombie Death/Death sfx_4.wav" id="12_ys8l3"]
-[ext_resource type="AudioStream" uid="uid://eqb054m8s74b" path="res://Assets/Sounds/Hit/Hit1.wav" id="14_jorxj"]
-[ext_resource type="Script" path="res://Characters/PizzaRadar.gd" id="14_muyi3"]
-[ext_resource type="AudioStream" uid="uid://baf5772budnt" path="res://Assets/Sounds/Hit/Hit2.wav" id="15_p4flv"]
-[ext_resource type="Texture2D" uid="uid://ba2i7qycvtamh" path="res://Assets/Sprites/Exclamation Mark.png" id="16_531x7"]
-[ext_resource type="AudioStream" uid="uid://4bvyihrqec6b" path="res://Assets/Sounds/Hit/Hit3.wav" id="16_oohps"]
-[ext_resource type="AudioStream" uid="uid://dsfmka8m3eksn" path="res://Assets/Sounds/Misc/Miscs_6.wav" id="17_kpf5l"]
-[ext_resource type="FontFile" uid="uid://crnj41u27p38k" path="res://Assets/Font/PICO-8.ttf" id="21_858ci"]
+[ext_resource type="Texture2D" uid="uid://egugeakw2lqt" path="res://Assets/Sprites/Shadow.png" id="1_rpflj"]
+[ext_resource type="Script" path="res://Characters/pizza_runner.gd" id="1_tywoy"]
+[ext_resource type="Texture2D" uid="uid://chq3k71wxgfuh" path="res://Assets/Sprites/Thick_Enemy.png" id="1_xkadx"]
+[ext_resource type="Script" path="res://Characters/DamageArea.gd" id="3_ile72"]
+[ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="4_dtgq0"]
+[ext_resource type="Texture2D" uid="uid://ovjl6j4rhv4i" path="res://Assets/Sprites/Zombie_Dust.png" id="5_8b56a"]
+[ext_resource type="PackedScene" uid="uid://dh8rp1004ii04" path="res://random_range_player.tscn" id="6_4jstk"]
+[ext_resource type="AudioStream" uid="uid://1i7rdl27x1kf" path="res://Assets/Sounds/Zombie Death/Death sfx_1.wav" id="11_q82pw"]
+[ext_resource type="AudioStream" uid="uid://bi03dp651s7h8" path="res://Assets/Sounds/Haha/pizza.wav" id="12_gy5da"]
+[ext_resource type="AudioStream" uid="uid://jr24ikjf0ygc" path="res://Assets/Sounds/Zombie Death/Death sfx_2.wav" id="12_u4qsy"]
+[ext_resource type="AudioStream" uid="uid://dkl4psqq6wn7l" path="res://Assets/Sounds/Zombie Death/Death sfx_3.wav" id="13_ff0it"]
+[ext_resource type="AudioStream" uid="uid://c3kl5ybkuwkjd" path="res://Assets/Sounds/Zombie Death/Death sfx_4.wav" id="14_wf5vg"]
+[ext_resource type="Script" path="res://Characters/PizzaRadar.gd" id="15_es6cl"]
+[ext_resource type="Texture2D" uid="uid://ba2i7qycvtamh" path="res://Assets/Sprites/Exclamation Mark.png" id="16_4buct"]
+[ext_resource type="AudioStream" uid="uid://eqb054m8s74b" path="res://Assets/Sounds/Hit/Hit1.wav" id="17_ixjcw"]
+[ext_resource type="AudioStream" uid="uid://baf5772budnt" path="res://Assets/Sounds/Hit/Hit2.wav" id="18_dk3fs"]
+[ext_resource type="FontFile" uid="uid://crnj41u27p38k" path="res://Assets/Font/PICO-8.ttf" id="19_bqlnc"]
+[ext_resource type="AudioStream" uid="uid://4bvyihrqec6b" path="res://Assets/Sounds/Hit/Hit3.wav" id="19_h8bu3"]
+[ext_resource type="AudioStream" uid="uid://dsfmka8m3eksn" path="res://Assets/Sounds/Misc/Miscs_6.wav" id="20_g2hmd"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cr2mi"]
-size = Vector2(104, 109)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_duve3"]
+size = Vector2(104, 88)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d5hur"]
-size = Vector2(72, 34)
+size = Vector2(72, 32)
 
 [sub_resource type="Animation" id="Animation_je2gi"]
 length = 0.001
@@ -37,6 +35,18 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -58,6 +68,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [10, 11, 12, 13]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13]
+}
 
 [sub_resource type="Animation" id="Animation_xsxoq"]
 resource_name = "idle"
@@ -74,26 +96,24 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
-
-[sub_resource type="Animation" id="Animation_0dtcj"]
-resource_name = "pizza_taken"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1, 0, 1, 0, 1]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_vqmjd"]
 resource_name = "walk"
 length = 0.5
+loop_mode = 1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -106,13 +126,24 @@ tracks/0/keys = {
 "update": 1,
 "values": [5, 6, 7, 8, 9]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ttml4"]
 _data = {
 "RESET": SubResource("Animation_je2gi"),
 "death": SubResource("Animation_3qba3"),
 "idle": SubResource("Animation_xsxoq"),
-"pizza_taken": SubResource("Animation_0dtcj"),
 "walk": SubResource("Animation_vqmjd")
 }
 
@@ -187,14 +218,14 @@ particles_anim_loop = false
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_ak0n8"]
+[sub_resource type="CurveTexture" id="CurveTexture_n18ao"]
 curve = SubResource("Curve_u0ucl")
 
 [sub_resource type="Gradient" id="Gradient_x4x77"]
 offsets = PackedFloat32Array(0, 0.844444, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_bpa2h"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3mbne"]
 gradient = SubResource("Gradient_x4x77")
 
 [sub_resource type="Curve" id="Curve_yofls"]
@@ -202,14 +233,14 @@ max_value = 100.0
 _data = [Vector2(0, 6.36364), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_qf2q2"]
+[sub_resource type="CurveTexture" id="CurveTexture_ttu62"]
 curve = SubResource("Curve_yofls")
 
 [sub_resource type="Curve" id="Curve_dkvah"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.190909), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_d5duk"]
+[sub_resource type="CurveTexture" id="CurveTexture_dc210"]
 curve = SubResource("Curve_dkvah")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ym3jg"]
@@ -225,39 +256,47 @@ orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 damping_min = 5.0
 damping_max = 10.0
-damping_curve = SubResource("CurveTexture_qf2q2")
+damping_curve = SubResource("CurveTexture_ttu62")
 scale_min = 6.0
 scale_max = 8.0
-scale_curve = SubResource("CurveTexture_d5duk")
-color_ramp = SubResource("GradientTexture1D_bpa2h")
+scale_curve = SubResource("CurveTexture_dc210")
+color_ramp = SubResource("GradientTexture1D_3mbne")
 turbulence_noise_strength = 0.0
 anim_offset_max = 1.0
-anim_offset_curve = SubResource("CurveTexture_ak0n8")
+anim_offset_curve = SubResource("CurveTexture_n18ao")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fggvf"]
 
-[node name="PizzaZombie" type="CharacterBody2D"]
-script = ExtResource("1_24wtd")
+[node name="PizzaDummy" type="CharacterBody2D"]
+script = ExtResource("1_tywoy")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(8, 16)
+scale = Vector2(8, 8)
+texture = ExtResource("1_rpflj")
+hframes = 5
+vframes = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(8, 8)
-texture = ExtResource("2_p1bo0")
+texture = ExtResource("1_xkadx")
 hframes = 5
 vframes = 3
 
 [node name="DamageArea" type="Area2D" parent="."]
 visible = false
-script = ExtResource("3_pr53k")
+script = ExtResource("3_ile72")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-position = Vector2(4, -0.5)
-shape = SubResource("RectangleShape2D_cr2mi")
+position = Vector2(-4, 20)
+shape = SubResource("RectangleShape2D_duve3")
 
 [node name="ZombieFeet" type="CollisionShape2D" parent="."]
-position = Vector2(-4, 31)
+visible = false
+position = Vector2(4, 48)
 shape = SubResource("RectangleShape2D_d5hur")
 
-[node name="PizzaPieceItem" parent="." instance=ExtResource("3_p3pca")]
+[node name="PizzaPieceItem" parent="." instance=ExtResource("4_dtgq0")]
 visible = false
 z_index = 0
 position = Vector2(6, 25)
@@ -279,22 +318,23 @@ position = Vector2(0, 17)
 emitting = false
 amount = 15
 process_material = SubResource("ParticleProcessMaterial_ym3jg")
-texture = ExtResource("4_efcob")
+texture = ExtResource("5_8b56a")
 one_shot = true
 speed_scale = 1.5
 explosiveness = 1.0
 randomness = 1.0
 fixed_fps = 60
 
-[node name="Haha" parent="." instance=ExtResource("4_s1n2s")]
-streams = Array[Resource]([ExtResource("5_4asmh"), ExtResource("6_tun7b"), ExtResource("7_oat6d"), ExtResource("8_q6dqy")])
+[node name="Death" parent="." instance=ExtResource("6_4jstk")]
+pitch_scale = 0.7
+streams = Array[Resource]([ExtResource("11_q82pw"), ExtResource("12_u4qsy"), ExtResource("13_ff0it"), ExtResource("14_wf5vg")])
 
-[node name="Death" parent="." instance=ExtResource("4_s1n2s")]
-streams = Array[Resource]([ExtResource("9_unfra"), ExtResource("10_mct31"), ExtResource("11_x2xpb"), ExtResource("12_ys8l3")])
+[node name="Pizza" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_gy5da")
 
 [node name="PizzaRadar" type="Area2D" parent="."]
 visible = false
-script = ExtResource("14_muyi3")
+script = ExtResource("15_es6cl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PizzaRadar"]
 scale = Vector2(22.9924, 22.9924)
@@ -304,14 +344,15 @@ shape = SubResource("CircleShape2D_fggvf")
 visible = false
 position = Vector2(8, -96)
 scale = Vector2(8, 8)
-texture = ExtResource("16_531x7")
+texture = ExtResource("16_4buct")
 
-[node name="Hurt" parent="." instance=ExtResource("4_s1n2s")]
+[node name="Hurt" parent="." instance=ExtResource("6_4jstk")]
 volume_db = -10.0
-streams = Array[Resource]([ExtResource("14_jorxj"), ExtResource("15_p4flv"), ExtResource("16_oohps")])
+pitch_scale = 0.7
+streams = Array[Resource]([ExtResource("17_ixjcw"), ExtResource("18_dk3fs"), ExtResource("19_h8bu3")])
 
 [node name="Stole" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("17_kpf5l")
+stream = ExtResource("20_g2hmd")
 
 [node name="Score" type="Node2D" parent="."]
 position = Vector2(7, -89)
@@ -322,10 +363,10 @@ offset_left = -20.0
 offset_top = 1.0
 offset_right = 36.0
 offset_bottom = 33.0
-theme_override_fonts/normal_font = ExtResource("21_858ci")
+theme_override_fonts/normal_font = ExtResource("19_bqlnc")
 theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
-text = "10"
+text = "40"
 
 [connection signal="area_entered" from="DamageArea" to="." method="_on_damage_area_area_entered"]
 [connection signal="area_entered" from="PizzaRadar" to="PizzaRadar" method="_on_area_entered"]

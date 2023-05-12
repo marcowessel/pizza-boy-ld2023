@@ -1,10 +1,11 @@
-[gd_scene load_steps=56 format=3 uid="uid://cthm02avoqjiv"]
+[gd_scene load_steps=67 format=3 uid="uid://cthm02avoqjiv"]
 
 [ext_resource type="Script" path="res://Characters/pizza_boy.gd" id="1_qt10e"]
 [ext_resource type="Texture2D" uid="uid://dptnjpuiu2ajd" path="res://Assets/Sprites/Character_Sheet.png" id="2_3jsvf"]
 [ext_resource type="Shader" path="res://Characters/pizza_boy.gdshader" id="2_roaym"]
 [ext_resource type="Texture2D" uid="uid://dtol03ho1rhkt" path="res://Assets/Sprites/Flash.png" id="3_gwifw"]
 [ext_resource type="Texture2D" uid="uid://c87drq4ia4bmv" path="res://Assets/Sprites/Bike.png" id="4_ny3v4"]
+[ext_resource type="Texture2D" uid="uid://csd3oyyeo0rn2" path="res://Assets/Sprites/Heavy_Flash.png" id="5_ml6k4"]
 [ext_resource type="PackedScene" uid="uid://kw4rqsuft0ix" path="res://player_hud.tscn" id="5_o6rtb"]
 [ext_resource type="Texture2D" uid="uid://ba2i7qycvtamh" path="res://Assets/Sprites/Exclamation Mark.png" id="6_qpcb8"]
 [ext_resource type="PackedScene" uid="uid://dh8rp1004ii04" path="res://random_range_player.tscn" id="8_lrt2e"]
@@ -19,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://bfddb2nqrdoao" path="res://Assets/Sounds/Hit/Punch_3.wav" id="17_7ujnj"]
 [ext_resource type="AudioStream" uid="uid://ciprql53ipw6g" path="res://Assets/Sounds/Bag_Throw/Throwing Pizza_1.wav" id="18_orhl2"]
 [ext_resource type="AudioStream" uid="uid://bgykvwgft7dtc" path="res://Assets/Sounds/Bag_Throw/Throwing Pizza_2.wav" id="19_jl2a3"]
+[ext_resource type="AudioStream" uid="uid://dbc3psf5rn3x5" path="res://Assets/Sounds/Hit/Heavy_attack_3.wav" id="20_gjp4j"]
 [ext_resource type="AudioStream" uid="uid://d03kxlvxfmseh" path="res://Assets/Sounds/Bag_Throw/Throwing Pizza_3.wav" id="20_kmsm5"]
 [ext_resource type="AudioStream" uid="uid://ff8jnskpamph" path="res://Assets/Sounds/Bag_Throw/Throwing Pizza_4.wav" id="21_ksp4k"]
 [ext_resource type="AudioStream" uid="uid://31pdqijxofbd" path="res://Assets/Sounds/Bag_Throw/Throwing Pizza_5.wav" id="22_y568g"]
@@ -31,18 +33,25 @@
 [ext_resource type="AudioStream" uid="uid://ejrq5nguol8u" path="res://Assets/Sounds/Musik/gameover.wav" id="29_iqay0"]
 [ext_resource type="Texture2D" uid="uid://tscnh5c2k6qh" path="res://Assets/Sprites/Spin_Flash.png" id="29_sjy1p"]
 [ext_resource type="AudioStream" uid="uid://ba2xcbx143x36" path="res://Assets/Sounds/Hit/Spin_Attack.wav" id="30_dp15w"]
+[ext_resource type="AudioStream" uid="uid://dbata1qhc0cx8" path="res://Assets/Sounds/Misc/Attack_Charge_1.wav" id="32_ljdu5"]
+[ext_resource type="FontFile" uid="uid://crnj41u27p38k" path="res://Assets/Font/PICO-8.ttf" id="35_q73cd"]
+[ext_resource type="Script" path="res://Characters/Combo.gd" id="36_ei7ls"]
+[ext_resource type="AudioStream" uid="uid://1ykmyeottrkl" path="res://Assets/Sounds/Misc/combo.wav" id="37_awjp3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0lwve"]
 shader = ExtResource("2_roaym")
 shader_parameter/speed = 1.0
-shader_parameter/tint = Color(1, 1, 0, 1)
-shader_parameter/span = 0.3
+shader_parameter/tint = Color(0.92549, 0.333333, 0.945098, 1)
+shader_parameter/span = 0.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bacsx"]
 size = Vector2(72, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q5ctr"]
-size = Vector2(56, 64)
+size = Vector2(60, 99)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chxpl"]
+size = Vector2(70, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qxnlf"]
 size = Vector2(35, 56)
@@ -305,6 +314,131 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DeliveryBagBack/HeavyFlash:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, 10)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DeliveryBagBack/HeavyFlash:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8.99999, 8)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DeliveryBagBack/HeavyFlash:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("DeliveryBagBack/HeavyDamageArea:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 8)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("DeliveryBagBack/HeavyDamageArea:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3fomy"]
+resource_name = "heavy_scale"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeliveryBagBack/HeavyFlash:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(10, 10), Vector2(10, 10), Vector2(7, 7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeliveryBagBack/HeavyFlash:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(8.99999, 8), Vector2(8.99999, 8), Vector2(49, 8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeliveryBagBack/HeavyFlash:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.117647)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DeliveryBagBack/HeavyDamageArea:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4, 8), Vector2(4, 8), Vector2(45.5, 8)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DeliveryBagBack/HeavyDamageArea:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(0.7, 0.7)]
+}
 
 [sub_resource type="Animation" id="Animation_26l0h"]
 resource_name = "scale"
@@ -350,6 +484,7 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hmlgm"]
 _data = {
 "RESET": SubResource("Animation_3vhan"),
+"heavy_scale": SubResource("Animation_3fomy"),
 "scale": SubResource("Animation_26l0h")
 }
 
@@ -391,6 +526,67 @@ _data = {
 "spin_flash": SubResource("Animation_0v5in")
 }
 
+[sub_resource type="Animation" id="Animation_4f4qt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:use_parent_material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Attack_Charge:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_q572x"]
+resource_name = "charge"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:use_parent_material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Attack_Charge:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2b2j1"]
+_data = {
+"RESET": SubResource("Animation_4f4qt"),
+"charge": SubResource("Animation_q572x")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lemfg"]
 size = Vector2(21, 19)
 
@@ -421,13 +617,25 @@ position = Vector2(-24, 0)
 metadata/_edit_group_ = true
 
 [node name="DeliveryBag" type="Sprite2D" parent="DeliveryBagBack"]
+visible = false
 position = Vector2(9, 7.5)
 scale = Vector2(10, 10)
 texture = ExtResource("3_gwifw")
 
 [node name="DeliveryBagDamageArea" type="CollisionShape2D" parent="DeliveryBagBack"]
-position = Vector2(-4, 0)
+position = Vector2(-11, 7.5)
 shape = SubResource("RectangleShape2D_q5ctr")
+disabled = true
+
+[node name="HeavyFlash" type="Sprite2D" parent="DeliveryBagBack"]
+visible = false
+position = Vector2(8.99999, 8)
+scale = Vector2(10, 10)
+texture = ExtResource("5_ml6k4")
+
+[node name="HeavyDamageArea" type="CollisionShape2D" parent="DeliveryBagBack"]
+position = Vector2(4, 8)
+shape = SubResource("RectangleShape2D_chxpl")
 disabled = true
 
 [node name="SpinFlash" type="Area2D" parent="."]
@@ -487,6 +695,11 @@ libraries = {
 "": SubResource("AnimationLibrary_vhbhs")
 }
 
+[node name="Charge_Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2b2j1")
+}
+
 [node name="Bike" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(0, 32)
@@ -541,6 +754,9 @@ streams = Array[Resource]([ExtResource("9_ix1dh"), ExtResource("10_fpmkn"), ExtR
 [node name="Hit" parent="." instance=ExtResource("8_lrt2e")]
 streams = Array[Resource]([ExtResource("15_y83p0"), ExtResource("16_txxox"), ExtResource("17_7ujnj")])
 
+[node name="Heavy_Hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_gjp4j")
+
 [node name="Bag_Throw" parent="." instance=ExtResource("8_lrt2e")]
 streams = Array[Resource]([ExtResource("18_orhl2"), ExtResource("19_jl2a3"), ExtResource("20_kmsm5"), ExtResource("21_ksp4k"), ExtResource("22_y568g")])
 
@@ -564,6 +780,33 @@ stream = ExtResource("29_iqay0")
 
 [node name="SpinSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("30_dp15w")
+
+[node name="Attack_Charge" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("32_ljdu5")
+volume_db = -10.0
+pitch_scale = 2.0
+
+[node name="Combo" type="Label" parent="."]
+visible = false
+offset_left = -40.0
+offset_top = -105.0
+offset_right = 32.0
+offset_bottom = -72.0
+theme_override_colors/font_color = Color(1, 0.784314, 0.145098, 1)
+theme_override_colors/font_shadow_color = Color(0.152941, 0.152941, 0.152941, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("35_q73cd")
+theme_override_font_sizes/font_size = 30
+text = "0"
+horizontal_alignment = 2
+script = ExtResource("36_ei7ls")
+
+[node name="Combo_Sound" type="AudioStreamPlayer" parent="Combo"]
+stream = ExtResource("37_awjp3")
 
 [connection signal="area_entered" from="DeliveryBagBack" to="." method="_on_delivery_bag_back_area_entered"]
 [connection signal="area_entered" from="SpinFlash" to="." method="_on_spin_flash_area_entered"]

@@ -1,7 +1,7 @@
 extends Area2D
 
 var pizza_zombie_scene = preload("res://Characters/pizza_zombie.tscn")
-var pizza_runner_scene = preload("res://Characters/pizza_runner.tscn")
+var pizza_runner_scene = preload("res://Characters/pizza_dummy.tscn")
 
 # Wave 1
 @export var wave1_amount_enemys = 3
@@ -101,8 +101,8 @@ func spawn_zombie(time_range, speed_range):
 	)
 
 	pizza_runner.walking_speed = randf_range(
-		speed_range.x * 1.5,
-		speed_range.y * 1.5
+		speed_range.x * 0.7,
+		speed_range.y * 0.7
 	)
 
 	pizza_zombie.spawn_position = random_spawn_position

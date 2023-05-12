@@ -4,6 +4,7 @@ var pizza_piece_scene = preload("res://pizza_piece_item.tscn")
 
 @export var health:int = 4
 @export var walking_speed = 100
+@export var score_count = 40
 
 var player = null
 var has_pizza_piece = false
@@ -93,11 +94,15 @@ func take_damage(damage):
 func dies():
 	var player = get_tree().current_scene.get_node("%PizzaBoy")
 	player.kill_count += 1
+	Score.combo += 1
+	Score.score += score_count * Score.combo
+	print("combo =", Score.combo)
 	
 	$PizzaRadar.queue_free()
 	is_dead = true
 	if has_pizza_piece: drop_pizza_piece()
 	$Death.rplay()
+	$Score_Anim.play("score")
 	anim_player.play("death")
 	$ZombieFeet.queue_free()
 	$DamageArea/CollisionShape2D.queue_free()
@@ -176,6 +181,7 @@ func get_pizza_from_player(player, player_area):
 
 func picked_up_pizza():
 	$PizzaPieceItem.visible = true
-	$Haha.rplay()
+	#$Haha.rplay()
+	$Pizza.play()
 	$Stole.play()
 	has_pizza_piece = true

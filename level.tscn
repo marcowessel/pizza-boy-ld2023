@@ -447,7 +447,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(3.5, 11),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0, 10.0]
+"values": [0.0, 100.0]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -710,11 +710,17 @@ scale = Vector2(1, 3.29508)
 position = Vector2(5078, 432)
 
 [node name="ProgressBar" parent="Boss/CanvasLayer" index="0"]
-offset_left = 480.0
-offset_top = 73.0
-offset_right = 1865.0
-offset_bottom = 142.0
+offset_left = 488.0
+offset_top = 84.0
+offset_right = 1416.0
+offset_bottom = 153.0
 value = 0.0
+
+[node name="RichTextLabel" parent="Boss/CanvasLayer" index="1"]
+offset_left = 1154.0
+offset_top = 136.0
+offset_right = 1514.0
+offset_bottom = 252.0
 
 [node name="CreditsArea" type="Area2D" parent="."]
 position = Vector2(6380, 1049)

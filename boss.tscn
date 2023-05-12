@@ -1,8 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://biqfhmap6ws4o"]
+[gd_scene load_steps=16 format=3 uid="uid://biqfhmap6ws4o"]
 
 [ext_resource type="Texture2D" uid="uid://373kjbknnnyy" path="res://Assets/Sprites/Customer.png" id="1_2fdnv"]
 [ext_resource type="Script" path="res://boss.gd" id="1_xo8dp"]
 [ext_resource type="FontFile" uid="uid://cvxfciqe76mmn" path="res://Assets/Font/Efforts.ttf" id="2_rcpw4"]
+[ext_resource type="AudioStream" uid="uid://67ok3adgpjpv" path="res://Assets/Sounds/Hit/boss_hurt.wav" id="4_jn3lg"]
+[ext_resource type="AudioStream" uid="uid://ci7gybm4iv37i" path="res://Assets/Sounds/Hit/boss_dead.wav" id="5_jjns7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7fxhk"]
 size = Vector2(120, 47.5)
@@ -128,19 +130,19 @@ shape = SubResource("RectangleShape2D_7fxhk")
 visible = false
 offset_left = 529.0
 offset_top = 68.0
-offset_right = 1866.0
+offset_right = 1367.0
 offset_bottom = 137.0
 theme = SubResource("Theme_2orrp")
-value = 10.0
+value = 100.0
 fill_mode = 1
 show_percentage = false
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
 visible = false
-offset_left = 1603.0
-offset_top = 120.0
-offset_right = 1963.0
-offset_bottom = 236.0
+offset_left = 1106.0
+offset_top = 123.0
+offset_right = 1466.0
+offset_bottom = 239.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/normal_font = ExtResource("2_rcpw4")
@@ -202,3 +204,9 @@ text = "  Yer serious!?
 position = Vector2(-9.53674e-07, 12)
 scale = Vector2(1.7, 1.46)
 shape = SubResource("RectangleShape2D_w2868")
+
+[node name="Hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_jn3lg")
+
+[node name="Dies" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_jjns7")

@@ -4,10 +4,13 @@ extends CharacterBody2D
 @export var pizza_pieces:int # represents the amount of health
 @export var movement_speed = 400
 @export var light_attack_damage = 2
+@export var heavy_attack_damage = 6
 @export var light_attack_distance = 90
+@export var heavy_attack_distance = 120
 @export var bike_damage = 10
 @export var spin_damage = 2
 @export var light_attack_duration:float = 0.2
+@export var heavy_attack_duration:float = 0.3
 @export var is_in_custcene = false
 @export var is_walking = false
 
@@ -16,6 +19,7 @@ var kill_count = 0
 var delivery_bag_back
 var delivery_bag_back_default
 var delivery_bag_back_collision
+var delivery_bag_heavy_collision
 var spin_flash
 var spin_timer
 
@@ -31,10 +35,12 @@ var is_dead = false
 var attack_cooldown = false
 var spin_cooldown = false
 var is_spinning = false
+var is_charging = false
 
 enum ATTACK_STATE {
 	NONE,
 	LIGHT_ATTACK,
+	STRONG_ATTACK,
 	SPIN_ATTACK,
 	BIKE_ATTACK
 }
@@ -46,6 +52,7 @@ func _ready():
 	delivery_bag_back = get_node("%DeliveryBagBack")
 	delivery_bag_back_default = delivery_bag_back.duplicate()
 	delivery_bag_back_collision = $DeliveryBagBack/DeliveryBagDamageArea
+	delivery_bag_heavy_collision = $DeliveryBagBack/HeavyDamageArea
 	spin_flash = get_node("%SpinFlash")
 	pizza_meter = $PlayerHUD/ProgressBar
 	timer = $Bike_Timer
@@ -68,7 +75,6 @@ func _process(_delta):
 				spacebar.play("default")
 				$Pizza_Meter.play()
 				reached_full_capacity = true
-
 
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -146,17 +152,27 @@ func _input(event):
 	if !is_on_bike:
 		if event.is_action_pressed("click") and !is_in_custcene:
 			if !attack_cooldown:
-				light_attack()
+				$Charge_Anim.play("charge")
 		elif event.is_action_pressed("spin") and !is_in_custcene and !is_spinning:
 			if !spin_cooldown:
 				spin_attack()
+		elif event.is_action_released("click") and !is_in_custcene:
+			if $Charge_Anim.is_playing() and $Charge_Anim.current_animation == "charge":
+				light_attack()
+				$Charge_Anim.stop()
+			elif $Player.use_parent_material == false:
+				strong_attack()
 
+func cancel_attack():
+	anim_player.play("cancel_attack")
 
 func light_attack():
 	if !is_spinning:
 		attack_state = ATTACK_STATE.LIGHT_ATTACK
 		var cursor_position = get_global_mouse_position()
 		var attack_vector = calculate_attack_vector(cursor_position)
+		$DeliveryBagBack/DeliveryBag.show()
+		$DeliveryBagBack/HeavyFlash.hide()
 
 		anim_player.play("throw")
 		setup_delivery_bag(cursor_position)
@@ -165,6 +181,20 @@ func light_attack():
 		delivery_bag_reset()
 		attack_state = ATTACK_STATE.NONE
 
+func strong_attack():
+	if !is_spinning:
+		attack_state = ATTACK_STATE.STRONG_ATTACK
+		var cursor_position = get_global_mouse_position()
+		var attack_vector = calculate_heavy_attack_vector(cursor_position)
+		$DeliveryBagBack/DeliveryBag.hide()
+		$DeliveryBagBack/HeavyFlash.show()
+
+		anim_player.play("throw")
+		setup_delivery_bag(cursor_position)
+		await execute_strong_attack(attack_vector)
+
+		delivery_bag_reset()
+		attack_state = ATTACK_STATE.NONE
 
 func setup_delivery_bag(cursor_position):
 	delivery_bag_back.position = Vector2(0, 0) #center on player
@@ -179,6 +209,12 @@ func calculate_attack_vector(cursor_position):
 
 	return normalized_direction_vector * light_attack_distance
 
+func calculate_heavy_attack_vector(cursor_position):
+	var start_position = delivery_bag_back.global_position
+	var direction_vector = cursor_position - start_position
+	var normalized_direction_vector = direction_vector.normalized()
+
+	return normalized_direction_vector * light_attack_distance
 
 func execute_attack(attack_vector):
 	#var tween = create_tween()
@@ -192,12 +228,23 @@ func execute_attack(attack_vector):
 	delivery_bag_back.position += attack_vector
 	await get_tree().create_timer(light_attack_duration).timeout
 
+func execute_strong_attack(attack_vector):
+	$Player.use_parent_material = true
+	$Hit_Timer.start()
+	attack_cooldown = true
+	delivery_bag_back.show()
+	$Flash_Anim.play("heavy_scale")
+	$Heavy_Hit.play()
+	delivery_bag_heavy_collision.disabled = false
+	delivery_bag_back.position += attack_vector
+	await get_tree().create_timer(heavy_attack_duration).timeout
 
 func delivery_bag_reset():
 	delivery_bag_back.position = delivery_bag_back_default.position
 	delivery_bag_back.set_z_index(delivery_bag_back_default.z_index)
 	delivery_bag_back.rotation = delivery_bag_back_default.rotation
 	delivery_bag_back_collision.disabled = true
+	delivery_bag_heavy_collision.disabled = true
 	delivery_bag_back.hide()
 
 func spin_attack():
@@ -246,6 +293,10 @@ func deal_damage(enemy):
 			enemy.take_damage(light_attack_damage)
 			pizza_meter.value += 10
 			$Hit.rplay()
+		ATTACK_STATE.STRONG_ATTACK:
+			enemy.take_damage(heavy_attack_damage)
+			pizza_meter.value += 15
+			$Hit.rplay()
 		ATTACK_STATE.BIKE_ATTACK:
 			enemy.take_damage(bike_damage)
 			$Hit.rplay()
@@ -271,6 +322,7 @@ func lose_piece():
 	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
 	hud_pizza_pieces.remove_piece()
 	pizza_pieces -= 1
+	Score.combo = 0
 	if !is_spinning:
 		anim_player.play("hurt")
 
@@ -278,7 +330,7 @@ func lose_piece():
 
 
 func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "throw" or anim_name == "hurt" or anim_name == "standup" or anim_name == "idle":
+	if anim_name == "throw" or anim_name == "hurt" or anim_name == "standup" or anim_name == "idle" or anim_name == "cancel_attack":
 		if !is_walking:
 			anim_player.play("idle")
 		if is_walking:

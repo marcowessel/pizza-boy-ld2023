@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bglyxyxpoie8g"]
+[gd_scene load_steps=44 format=3 uid="uid://bglyxyxpoie8g"]
 
 [ext_resource type="Script" path="res://Characters/pizza_runner.gd" id="1_mii6n"]
 [ext_resource type="Texture2D" uid="uid://c4g128psjngof" path="res://Assets/Sprites/Runner_Spritesheet.png" id="1_uel4b"]
@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://baf5772budnt" path="res://Assets/Sounds/Hit/Hit2.wav" id="18_vmf05"]
 [ext_resource type="AudioStream" uid="uid://4bvyihrqec6b" path="res://Assets/Sounds/Hit/Hit3.wav" id="19_df3oo"]
 [ext_resource type="AudioStream" uid="uid://dsfmka8m3eksn" path="res://Assets/Sounds/Misc/Miscs_6.wav" id="20_f3c7m"]
+[ext_resource type="FontFile" uid="uid://crnj41u27p38k" path="res://Assets/Font/PICO-8.ttf" id="21_ma1pg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cr2mi"]
 size = Vector2(104, 104)
@@ -117,6 +118,67 @@ _data = {
 "walk": SubResource("Animation_vqmjd")
 }
 
+[sub_resource type="Animation" id="Animation_l44ax"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Score/RichTextLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Score:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7, -89)]
+}
+
+[sub_resource type="Animation" id="Animation_mqihk"]
+resource_name = "score"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Score:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(7, -89), Vector2(7, -98)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Score/RichTextLabel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, false, true, false, true, false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mymya"]
+_data = {
+"RESET": SubResource("Animation_l44ax"),
+"score": SubResource("Animation_mqihk")
+}
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5fgt6"]
 particles_animation = true
 particles_anim_h_frames = 2
@@ -208,6 +270,11 @@ libraries = {
 "": SubResource("AnimationLibrary_ttml4")
 }
 
+[node name="Score_Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mymya")
+}
+
 [node name="Dust" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_5fgt6")
 position = Vector2(0, 17)
@@ -250,6 +317,20 @@ streams = Array[Resource]([ExtResource("17_27kxy"), ExtResource("18_vmf05"), Ext
 
 [node name="Stole" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("20_f3c7m")
+
+[node name="Score" type="Node2D" parent="."]
+position = Vector2(7, -89)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Score"]
+visible = false
+offset_left = -20.0
+offset_top = 1.0
+offset_right = 36.0
+offset_bottom = 33.0
+theme_override_fonts/normal_font = ExtResource("21_ma1pg")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "20"
 
 [connection signal="area_entered" from="DamageArea" to="." method="_on_damage_area_area_entered"]
 [connection signal="area_entered" from="PizzaRadar" to="PizzaRadar" method="_on_area_entered"]

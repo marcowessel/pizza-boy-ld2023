@@ -68,7 +68,7 @@ func _on_outro_finished():
 
 # TODO
 #- [x] crosshair instead of cursor
-#- [x] implement light attack
+#- [x] implement light attackw
 #- [x] baricade left / right activate
 #- [x] spawning of mobs, basic "zombies"
 #- [] move delivery bag to that point smoothly (tween)
