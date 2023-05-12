@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var pizza_piece_scene = preload("res://pizza_piece_item.tscn") 
-	
+
 @export var health:int = 4
 @export var walking_speed = 100
 
@@ -13,6 +13,7 @@ var is_dead = false
 var found_pizza_piece = false
 var found_pizza_piece_position = Vector2.ZERO
 var animation_has_stopped = false
+
 
 func _ready():
 	$PizzaPieceItem/CollisionShapeDamage.queue_free()
@@ -159,7 +160,6 @@ func get_pizza_from_ground(area):
 	if has_pizza_piece == false:
 		delete_pizza_piece(area)
 		picked_up_pizza()
-		
 
 
 func delete_pizza_piece(pizza_piece):

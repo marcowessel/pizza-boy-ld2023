@@ -58,8 +58,6 @@ func _ready():
 
 
 func _process(_delta):
-	print("player kill count: ", kill_count)
-	
 	if !is_in_custcene:
 		get_input()
 		move_and_slide()
@@ -137,7 +135,6 @@ func bike_logic():
 				$Bike_Ring.rplay()
 				$Bike_Loop.play()
 				anim_player.play("bike_drive")
-				print(anim_player)
 				spacebar.hide()
 				movement_speed *= 2
 				# start the timer for the duration of the bike power-up
@@ -271,7 +268,6 @@ func deal_damage(enemy):
 
 
 func lose_piece():
-	print("lost piece")
 	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
 	hud_pizza_pieces.remove_piece()
 	pizza_pieces -= 1
@@ -345,7 +341,6 @@ func _on_knocked_timer_timeout():
 	anim_player.play("standup")
 	await get_tree().create_timer(0.3).timeout
 	is_in_custcene = false
-	print("gets here")
 
 func disable_movement():
 	is_in_custcene = true
