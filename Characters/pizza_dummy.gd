@@ -44,7 +44,6 @@ func _process(delta):
 
 
 func run_towards_player(delta):
-	#(366.6868, 795.4508)(446.6774, 776.8185)
 	if !player.is_dead:
 		anim_player.play("walk")
 		var target_position = player.position
@@ -147,7 +146,6 @@ func drop_pizza_piece(pizza_pieces):
 
 func move_to_pizza(delta):
 	anim_player.play("walk")
-	#print("move_to_pizza")
 
 	var new_position = position.move_toward(
 		found_pizza_piece_position,

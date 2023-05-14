@@ -1,10 +1,4 @@
-extends CharacterBody2D
-
-var pizza_piece_scene = preload("res://pizza_piece_item.tscn") 
-	
-@export var health:int = 6
-@export var walking_speed = 100
-@export var score_count = 10
+extends EnemyBaseDynamic
 
 var player = null
 var has_pizza_piece = false
@@ -14,7 +8,12 @@ var is_dead = false
 var found_pizza_piece = false
 var found_pizza_piece_position = Vector2.ZERO
 
+
 func _ready():
+	health = 6
+	walking_speed = 100
+	score_count = 10
+	
 	$PizzaPieceItem/CollisionShapeDamage.queue_free()
 	self.add_to_group("enemy")
 	player = get_parent().get_node("PizzaBoy")
@@ -37,7 +36,6 @@ func _process(delta):
 
 
 func run_towards_player(delta):
-	#(366.6868, 795.4508)(446.6774, 776.8185)
 	if !player.is_dead:
 		anim_player.play("walk")
 		var target_position = player.position
