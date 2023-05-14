@@ -15,6 +15,11 @@ func take_damage(damage):
 		dies()
 	else:
 		health -= damage
+		takes_damage()
+
+
+func takes_damage():
+	pass
 
 
 func dies():

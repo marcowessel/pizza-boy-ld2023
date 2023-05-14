@@ -1,10 +1,9 @@
 extends EnemyBaseDynamic
 
-
 func _ready():
-	health = 6
-	walking_speed = 100
-	score_count = 10
+	health = 4
+	walking_speed = 200
+	score_count = 15
 	anim_player = $AnimationPlayer
 	player = get_tree().current_scene.get_node("%PizzaBoy")
 	$PizzaPieceItem/CollisionShapeDamage.queue_free()

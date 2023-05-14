@@ -1,5 +1,6 @@
-[gd_scene load_steps=43 format=3 uid="uid://dish8aowptut2"]
+[gd_scene load_steps=44 format=3 uid="uid://dish8aowptut2"]
 
+[ext_resource type="Script" path="res://Characters/pizza_runner.gd" id="1_21mos"]
 [ext_resource type="Texture2D" uid="uid://c4g128psjngof" path="res://Assets/Sprites/Runner_Spritesheet.png" id="1_uel4b"]
 [ext_resource type="Script" path="res://Characters/DamageArea.gd" id="3_32gkk"]
 [ext_resource type="PackedScene" uid="uid://blck6ubw7plw8" path="res://pizza_piece_item.tscn" id="4_xf2jx"]
@@ -238,6 +239,7 @@ anim_offset_curve = SubResource("CurveTexture_n18ao")
 [sub_resource type="CircleShape2D" id="CircleShape2D_fggvf"]
 
 [node name="PizzaRunner" type="CharacterBody2D"]
+script = ExtResource("1_21mos")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(8, 8)

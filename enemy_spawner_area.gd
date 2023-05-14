@@ -2,6 +2,7 @@ extends Area2D
 
 var pizza_zombie_scene = preload("res://Characters/pizza_zombie.tscn")
 var pizza_runner_scene = preload("res://Characters/pizza_dummy.tscn")
+#var pizza_runner_scene = preload("res://Characters/pizza_runner.tscn")
 
 # Wave 1
 @export var wave1_amount_enemys = 3
