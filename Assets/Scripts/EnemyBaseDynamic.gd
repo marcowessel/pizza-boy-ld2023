@@ -10,14 +10,18 @@ var pizza_piece_scene = preload("res://pizza_piece_item.tscn")
 var is_dead = false
 var spawn_position:Vector2 = Vector2.ZERO
 var player = null
-var anim_player
 var has_pizza_piece = false
 var found_pizza_piece = false
 var found_pizza_piece_position = Vector2.ZERO
+var anim_player
 
 
 func _init():
 	self.add_to_group("enemy")
+
+
+func stop_animation():
+	anim_player.stop()
 
 
 func run_towards_player(delta):
@@ -75,6 +79,15 @@ func found_pizza_indicator():
 		$Exclamation_Mark.hide()
 
 
+func choose_move(delta):
+	if !has_pizza_piece and !is_dead and !found_pizza_piece:
+		run_towards_player(delta)
+	elif has_pizza_piece and !is_dead:
+		run_away(delta)
+	elif !has_pizza_piece and found_pizza_piece:
+		move_to_pizza(delta)
+
+
 func dies():
 	is_dead = true
 	player.kill_count += 1
@@ -97,11 +110,20 @@ func death_visuals():
 	await get_tree().create_timer(1).timeout
 
 
-func drop_pizza_piece():
-	var pizza_piece_item = pizza_piece_scene.instantiate()
-	pizza_piece_item.position = position
-	pizza_piece_item.set_rotation_degrees(randi_range(0, 360))
-	get_tree().get_root().call_deferred("add_child", pizza_piece_item)
+func drop_pizza_piece(pizza_pieces):
+	for i in range(pizza_pieces):
+		var pizza_piece_item = pizza_piece_scene.instantiate()
+		pizza_piece_item.position = position + get_random_offset(5)
+		pizza_piece_item.set_rotation_degrees(randi_range(0, 360))
+		get_tree().get_root().call_deferred("add_child", pizza_piece_item)
+
+
+func get_random_offset(amount):
+	var x_offset = randi_range(-amount, amount)
+	var y_offset = randi_range(-amount, amount)
+	var offset = Vector2(x_offset, y_offset)
+	
+	return offset;
 
 
 func vanishes():

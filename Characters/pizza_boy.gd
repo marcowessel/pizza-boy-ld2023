@@ -91,8 +91,14 @@ func player_death():
 		$AnimationPlayer.play("die")
 		get_owner().get_node("Combat_Music").stop()
 		get_owner().get_node("Boss_Song").stop()
+		deactivate_enemy_animation()
 		await get_tree().create_timer(5).timeout
 		get_tree().reload_current_scene()
+
+
+func deactivate_enemy_animation():
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		enemy.stop_animation()
 
 
 func pickup_piece():
