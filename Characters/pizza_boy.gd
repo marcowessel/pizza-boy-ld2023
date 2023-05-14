@@ -318,7 +318,7 @@ func deal_damage(enemy):
 		#pass
 
 
-func lose_piece():
+func lose_piece(pizza_loss):
 	var hud_pizza_pieces = $PlayerHUD/PizzaPieces
 	hud_pizza_pieces.remove_piece(pizza_loss)
 	pizza_pieces -= pizza_loss

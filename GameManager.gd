@@ -37,6 +37,7 @@ func _process(_delta):
 		pass
 
 func start_game():
+	Score.score = 0
 	$Tutorial_Song.play()
 	$AnimationPlayer.play("Startup_Anim")
 	$PizzaBoy/PlayerHUD.show()
@@ -51,12 +52,14 @@ func credits():
 	#$CanvasLayer.show()
 	#$PizzaBoy/PlayerHUD.hide()
 	$Boss/CanvasLayer.hide()
-	$Outro.play()
+	#$Outro.play()
 	#$AnimationPlayer.play("credits")
 	$PizzaBoy/PlayerHUD/PizzaPieces.calculate_score()
+	await get_tree().create_timer(10).timeout
+	get_tree().change_scene_to_file("res://highscore_screen.tscn")
 
-func _on_outro_finished():
-	get_tree().quit()
+#func _on_outro_finished():
+	#get_tree().quit()
 
 # WORKING ON
 #- [x] 3 zombie waves with increasing difficulty

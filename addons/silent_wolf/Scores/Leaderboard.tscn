@@ -1,0 +1,156 @@
+[gd_scene load_steps=17 format=3 uid="uid://b2h8ok8yfc7wb"]
+
+[ext_resource type="Script" path="res://addons/silent_wolf/Scores/Leaderboard.gd" id="1"]
+[ext_resource type="Theme" uid="uid://d2eakbmaefnt6" path="res://addons/silent_wolf/assets/themes/sw_theme.tres" id="2_ixaq4"]
+[ext_resource type="Texture2D" uid="uid://dyeoe35o1wusn" path="res://Assets/Sprites/pizza_piece.png" id="3_0lo8y"]
+[ext_resource type="FontFile" uid="uid://bdsrcr8mhnxhu" path="res://Assets/Font/HopeGold.ttf" id="3_jlofs"]
+[ext_resource type="PackedScene" uid="uid://clllbf6am8qdf" path="res://addons/silent_wolf/common/SWButton.tscn" id="4"]
+[ext_resource type="Texture2D" uid="uid://k6fjm5rb0uwv" path="res://Assets/Sprites/Map.png" id="5_ls1ct"]
+[ext_resource type="FontFile" uid="uid://crnj41u27p38k" path="res://Assets/Font/PICO-8.ttf" id="5_ltoro"]
+[ext_resource type="Texture2D" uid="uid://8v74mk5rahs0" path="res://Assets/Sprites/Close.png" id="7_g1q8b"]
+[ext_resource type="Texture2D" uid="uid://e1wht6i8uqiw" path="res://Assets/Sprites/Close_Unpressed.png" id="8_ndtx6"]
+
+[sub_resource type="Gradient" id="Gradient_gchie"]
+offsets = PackedFloat32Array(0, 0.125926, 0.859259, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.745098, 1, 1, 1, 0.745098, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f35gy"]
+gradient = SubResource("Gradient_gchie")
+
+[sub_resource type="Curve" id="Curve_3p5y7"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.481928, 1), 0.0, 0.0, 0, 0, Vector2(0.704819, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.581818), 1.13182, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_85yqs"]
+curve = SubResource("Curve_3p5y7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ojvgq"]
+emission_shape = 3
+emission_box_extents = Vector3(110, 70, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -15.0
+initial_velocity_max = 15.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_max = 5.0
+angle_min = -10.0
+angle_max = 10.0
+scale_min = 6.0
+scale_max = 9.0
+scale_curve = SubResource("CurveTexture_85yqs")
+color_ramp = SubResource("GradientTexture1D_f35gy")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3j107"]
+load_path = "res://.godot/imported/Hud.png-12326a85c852ffd89c9829bba2adf308.ctex"
+
+[sub_resource type="Theme" id="Theme_j1gah"]
+
+[node name="Leaderboard" type="Node2D"]
+script = ExtResource("1")
+
+[node name="BattleArena2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.352941)
+z_index = -2
+position = Vector2(960, 540)
+scale = Vector2(8, 8)
+texture = ExtResource("5_ls1ct")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(955, 546)
+scale = Vector2(8, 8)
+amount = 14
+process_material = SubResource("ParticleProcessMaterial_ojvgq")
+texture = ExtResource("3_0lo8y")
+lifetime = 10.0
+preprocess = 14.0
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.109804, 0.0705882, 0.109804, 0.423529)
+
+[node name="OldBoard" type="MarginContainer" parent="."]
+visible = false
+
+[node name="HighScores" type="TextureRect" parent="OldBoard"]
+layout_mode = 2
+
+[node name="Board" type="VBoxContainer" parent="."]
+offset_left = 232.0
+offset_top = 3.0
+offset_right = 1738.0
+offset_bottom = 1070.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_ixaq4")
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="TitleContainer" type="CenterContainer" parent="Board"]
+layout_mode = 2
+
+[node name="Node2D" type="Node2D" parent="Board/TitleContainer"]
+scale = Vector2(4, 4)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Board/TitleContainer/Node2D"]
+offset_left = 112.0
+offset_top = -8.0
+offset_right = 262.0
+offset_bottom = 23.0
+texture = SubResource("CompressedTexture2D_3j107")
+patch_margin_left = 8
+patch_margin_top = 5
+patch_margin_right = 8
+patch_margin_bottom = 5
+
+[node name="Label" type="Label" parent="Board/TitleContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ltoro")
+theme_override_font_sizes/font_size = 60
+text = "leaderboard"
+horizontal_alignment = 1
+
+[node name="MessageContainer" type="CenterContainer" parent="Board"]
+visible = false
+layout_mode = 2
+
+[node name="TextMessage" type="Label" parent="Board/MessageContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_jlofs")
+theme_override_font_sizes/font_size = 64
+text = "Loading scores..."
+
+[node name="HighScores" type="CenterContainer" parent="Board"]
+layout_mode = 2
+theme = SubResource("Theme_j1gah")
+
+[node name="ScoreItemContainer" type="VBoxContainer" parent="Board/HighScores"]
+layout_mode = 2
+
+[node name="CloseButtonContainer" type="CenterContainer" parent="Board"]
+layout_mode = 2
+
+[node name="Node2D" type="Node2D" parent="Board/CloseButtonContainer"]
+
+[node name="Close" type="TextureButton" parent="Board/CloseButtonContainer/Node2D"]
+offset_left = 563.0
+offset_top = 3.0
+offset_right = 929.0
+offset_bottom = 154.0
+texture_normal = ExtResource("7_g1q8b")
+texture_hover = ExtResource("8_ndtx6")
+stretch_mode = 0
+
+[node name="CloseButton" parent="Board/CloseButtonContainer" instance=ExtResource("4")]
+visible = false
+custom_minimum_size = Vector2(600, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_jlofs")
+theme_override_font_sizes/font_size = 64
+text = "Close Leaderboard"
+
+[connection signal="pressed" from="Board/CloseButtonContainer/Node2D/Close" to="." method="_on_close_pressed"]
