@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddyc7p1comrxn"]
+
+[sub_resource type="Gradient" id="Gradient_0j02q"]
+offsets = PackedFloat32Array(0, 0.111111, 0.607407, 0.866667, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.147672, 0.147672, 0.147672, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qdh6g"]
+gradient = SubResource("Gradient_0j02q")
+
+[sub_resource type="Curve" id="Curve_xp00t"]
+max_value = 100.0
+_data = [Vector2(0, 100), 0.0, 3.77272, 0, 0, Vector2(0.331325, 0), 55.1399, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7n8c2"]
+curve = SubResource("Curve_xp00t")
+
+[sub_resource type="Curve" id="Curve_33etj"]
+min_value = -1.0
+_data = [Vector2(0, 0.890909), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_its2x"]
+curve = SubResource("Curve_33etj")
+
+[sub_resource type="Curve" id="Curve_2wuyr"]
+_data = [Vector2(0, 0.481818), 0.0, 0.0, 0, 0, Vector2(0.409639, 1), 0.0, 0.0, 0, 0, Vector2(0.680723, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -6.48909, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_jt8bk"]
+curve = SubResource("Curve_2wuyr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0pip3"]
+emission_shape = 3
+emission_box_extents = Vector3(7, 5, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, -98, 0)
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_curve = SubResource("CurveTexture_7n8c2")
+scale_min = 8.0
+scale_max = 8.5
+scale_curve = SubResource("CurveTexture_jt8bk")
+color = Color(0.92549, 0.333333, 0.945098, 1)
+color_ramp = SubResource("GradientTexture1D_qdh6g")
+hue_variation_max = 0.1
+hue_variation_curve = SubResource("CurveTexture_its2x")
+
+[node name="Charge_Particles" type="GPUParticles2D"]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_0pip3")
+preprocess = 10.0

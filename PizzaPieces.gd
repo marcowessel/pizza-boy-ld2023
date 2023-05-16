@@ -1,7 +1,7 @@
 extends Sprite2D
 
-var pizza_pieces = 8
 var pizza_count = 0
+@export var pizza_pieces = 8
 
 func remove_piece(pizza_loss):
 	if(self.frame == 8):

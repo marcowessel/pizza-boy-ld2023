@@ -66,7 +66,7 @@ offset_right = 566.0
 offset_bottom = 265.0
 rotation = -1.57031
 theme = ExtResource("3_173k2")
-step = 10.0
+step = 1.0
 show_percentage = false
 
 [node name="HotSauce" type="Sprite2D" parent="."]

@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-var pizza_piece_scene = preload("res://pizza_piece_item.tscn")
-
-@export var health:int = 8
-@export var walking_speed = 100
-@export var score_count = 40
+var pizza_piece_scene = preload("res://pizza_piece_item.tscn") 
+	
+@export var health:int = 4
+@export var walking_speed = 300
+@export var score_count = 20
 
 var player = null
 var has_pizza_piece = false
@@ -14,7 +14,6 @@ var is_dead = false
 var found_pizza_piece = false
 var found_pizza_piece_position = Vector2.ZERO
 var animation_has_stopped = false
-
 
 func _ready():
 	$PizzaPieceItem/CollisionShapeDamage.queue_free()
@@ -29,14 +28,14 @@ func _process(delta):
 		$Exclamation_Mark.show()
 	else:
 		$Exclamation_Mark.hide()
-
-	if !has_pizza_piece and !is_dead and !found_pizza_piece and !player.is_dead:
+	
+	if !has_pizza_piece and !is_dead and !found_pizza_piece:
 		run_towards_player(delta)
-	elif has_pizza_piece and !is_dead and !player.is_dead:
+	elif has_pizza_piece and !is_dead:
 		run_away(delta)
-	elif !has_pizza_piece and found_pizza_piece and !player.is_dead:
+	elif !has_pizza_piece and found_pizza_piece:
 		move_to_pizza(delta)
-
+	
 	if player.is_dead:
 		if !animation_has_stopped:
 			anim_player.stop()
@@ -49,7 +48,7 @@ func run_towards_player(delta):
 		anim_player.play("walk")
 		var target_position = player.position
 		var new_position = position.move_toward(
-			target_position,
+			target_position, 
 			walking_speed * delta
 		)
 		position = new_position
@@ -68,7 +67,7 @@ func run_away(delta):
 		anim_player.play("walk")
 		var target_position = spawn_position
 		var new_position = position.move_toward(
-			target_position,
+			target_position, 
 			walking_speed * delta
 		)
 		position = new_position
@@ -90,33 +89,28 @@ func take_damage(damage):
 		$Hurt.rplay()
 		health -= damage
 
-
 func dies():
 	var player = get_tree().current_scene.get_node("%PizzaBoy")
 	player.kill_count += 1
 	Score.combo += 1
 	Score.score += score_count * Score.combo
 	print("combo =", Score.combo)
-
+	
 	$PizzaRadar.queue_free()
 	is_dead = true
-	if has_pizza_piece: drop_pizza_piece(2)
+	if has_pizza_piece: drop_pizza_piece()
 	$Death.rplay()
-	$Score_Sound.play()
-	#$Score_Sound.pitch_scale = randf_range(0.9, 1.2)
 	$Score_Anim.play("score")
 	anim_player.play("death")
 	$ZombieFeet.queue_free()
 	$DamageArea/CollisionShape2D.queue_free()
 	hidden()
 	$Sprite2D.z_index -= 1
-	$Shadow.z_index -= 1
 	await get_tree().create_timer(2).timeout
 	$Sprite2D.hide()
-	$Shadow.hide()
 	$Dust.emitting = true
 	await get_tree().create_timer(1).timeout
-	self.queue_free()
+	self.queue_free() 
 
 
 func hidden():
@@ -126,7 +120,7 @@ func hidden():
 func vanishes():
 	var player = get_tree().current_scene.get_node("%PizzaBoy")
 	player.kill_count += 1
-
+	
 	$PizzaRadar.queue_free()
 	hidden()
 	$ZombieFeet.queue_free()
@@ -134,25 +128,20 @@ func vanishes():
 	$Sprite2D.hide()
 	$Dust.emitting = true
 	await get_tree().create_timer(1).timeout
-	self.queue_free()
+	self.queue_free() 
 
 
-func drop_pizza_piece(pizza_pieces):
-	for i in range(pizza_pieces):
-		var position_x = randi_range(-5, 5)
-		var position_offset = Vector2(position_x, 0)
-		var pizza_piece_item = pizza_piece_scene.instantiate()
-		pizza_piece_item.position = position + position_offset
-		pizza_piece_item.set_rotation_degrees(randi_range(0, 360))
-		get_tree().get_root().call_deferred("add_child", pizza_piece_item)
+func drop_pizza_piece():
+	var pizza_piece_item = pizza_piece_scene.instantiate()
+	pizza_piece_item.position = position
+	pizza_piece_item.set_rotation_degrees(randi_range(0, 360))
+	get_tree().get_root().call_deferred("add_child", pizza_piece_item)
 
 
 func move_to_pizza(delta):
 	anim_player.play("walk")
-	#print("move_to_pizza")
-
 	var new_position = position.move_toward(
-		found_pizza_piece_position,
+		found_pizza_piece_position, 
 		walking_speed * delta
 	)
 	position = new_position
@@ -160,10 +149,10 @@ func move_to_pizza(delta):
 
 func _on_damage_area_area_entered(area):
 	var body = area.get_parent()
-
+	
 	if area.is_in_group("pizza_piece"):
 		get_pizza_from_ground(area)
-
+	
 	if body.is_in_group("player"):
 		get_pizza_from_player(body, area)
 
@@ -182,13 +171,12 @@ func get_pizza_from_player(player, player_area):
 	if player_area.name != "HitDetection": return
 	if player.pizza_pieces == 0: return
 	if has_pizza_piece == false:
-		player.lose_piece(2)
+		player.lose_piece(1)
 		picked_up_pizza()
 
 
 func picked_up_pizza():
 	$PizzaPieceItem.visible = true
-	#$Haha.rplay()
-	$Pizza.play()
+	$Haha.rplay()
 	$Stole.play()
 	has_pizza_piece = true

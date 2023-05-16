@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b2h8ok8yfc7wb"]
+[gd_scene load_steps=15 format=3 uid="uid://b2h8ok8yfc7wb"]
 
 [ext_resource type="Script" path="res://addons/silent_wolf/Scores/Leaderboard.gd" id="1"]
 [ext_resource type="Theme" uid="uid://d2eakbmaefnt6" path="res://addons/silent_wolf/assets/themes/sw_theme.tres" id="2_ixaq4"]
@@ -9,40 +9,15 @@
 [ext_resource type="FontFile" uid="uid://crnj41u27p38k" path="res://Assets/Font/PICO-8.ttf" id="5_ltoro"]
 [ext_resource type="Texture2D" uid="uid://8v74mk5rahs0" path="res://Assets/Sprites/Close.png" id="7_g1q8b"]
 [ext_resource type="Texture2D" uid="uid://e1wht6i8uqiw" path="res://Assets/Sprites/Close_Unpressed.png" id="8_ndtx6"]
-
-[sub_resource type="Gradient" id="Gradient_gchie"]
-offsets = PackedFloat32Array(0, 0.125926, 0.859259, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.745098, 1, 1, 1, 0.745098, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_f35gy"]
-gradient = SubResource("Gradient_gchie")
+[ext_resource type="AudioStream" uid="uid://pcsjm370m1m3" path="res://Assets/Sounds/Musik/winningnormalpitch.wav" id="10_ordj4"]
 
 [sub_resource type="Curve" id="Curve_3p5y7"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.481928, 1), 0.0, 0.0, 0, 0, Vector2(0.704819, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.581818), 1.13182, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_85yqs"]
-curve = SubResource("Curve_3p5y7")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ojvgq"]
-emission_shape = 3
-emission_box_extents = Vector3(110, 70, 1)
-particle_flag_disable_z = true
-direction = Vector3(0, 0, 0)
-gravity = Vector3(0, 0, 0)
-initial_velocity_min = -15.0
-initial_velocity_max = 15.0
-angular_velocity_min = -40.0
-angular_velocity_max = 40.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-damping_max = 5.0
-angle_min = -10.0
-angle_max = 10.0
-scale_min = 6.0
-scale_max = 9.0
-scale_curve = SubResource("CurveTexture_85yqs")
-color_ramp = SubResource("GradientTexture1D_f35gy")
+[sub_resource type="Gradient" id="Gradient_gchie"]
+offsets = PackedFloat32Array(0, 0.125926, 0.859259, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.745098, 1, 1, 1, 0.745098, 1, 1, 1, 0)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3j107"]
 load_path = "res://.godot/imported/Hud.png-12326a85c852ffd89c9829bba2adf308.ctex"
@@ -59,14 +34,30 @@ position = Vector2(960, 540)
 scale = Vector2(8, 8)
 texture = ExtResource("5_ls1ct")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(955, 546)
 scale = Vector2(8, 8)
 amount = 14
-process_material = SubResource("ParticleProcessMaterial_ojvgq")
-texture = ExtResource("3_0lo8y")
 lifetime = 10.0
 preprocess = 14.0
+fixed_fps = 30
+draw_order = 1
+texture = ExtResource("3_0lo8y")
+emission_shape = 3
+emission_rect_extents = Vector2(110, 70)
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+initial_velocity_min = -15.0
+initial_velocity_max = 15.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+damping_max = 5.0
+angle_min = -10.0
+angle_max = 10.0
+scale_amount_min = 6.0
+scale_amount_max = 9.0
+scale_amount_curve = SubResource("Curve_3p5y7")
+color_ramp = SubResource("Gradient_gchie")
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 offset_right = 1920.0
@@ -152,5 +143,8 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_jlofs")
 theme_override_font_sizes/font_size = 64
 text = "Close Leaderboard"
+
+[node name="Outro" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_ordj4")
 
 [connection signal="pressed" from="Board/CloseButtonContainer/Node2D/Close" to="." method="_on_close_pressed"]

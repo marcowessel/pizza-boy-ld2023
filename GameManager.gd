@@ -48,6 +48,7 @@ func _on_texture_button_pressed():
 
 func credits():
 	$PizzaBoy.is_in_custcene = true
+	$PizzaBoy/AnimationPlayer.stop()
 	$Boss_Song.stop()
 	#$CanvasLayer.show()
 	#$PizzaBoy/PlayerHUD.hide()

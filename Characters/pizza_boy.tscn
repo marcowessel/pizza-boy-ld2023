@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://cthm02avoqjiv"]
+[gd_scene load_steps=73 format=3 uid="uid://cthm02avoqjiv"]
 
 [ext_resource type="Script" path="res://Characters/pizza_boy.gd" id="1_qt10e"]
 [ext_resource type="Texture2D" uid="uid://dptnjpuiu2ajd" path="res://Assets/Sprites/Character_Sheet.png" id="2_3jsvf"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://csd3oyyeo0rn2" path="res://Assets/Sprites/Heavy_Flash.png" id="5_ml6k4"]
 [ext_resource type="PackedScene" uid="uid://kw4rqsuft0ix" path="res://player_hud.tscn" id="5_o6rtb"]
 [ext_resource type="Texture2D" uid="uid://ba2i7qycvtamh" path="res://Assets/Sprites/Exclamation Mark.png" id="6_qpcb8"]
+[ext_resource type="PackedScene" uid="uid://ddyc7p1comrxn" path="res://charge_particles.tscn" id="7_1jnuy"]
 [ext_resource type="PackedScene" uid="uid://dh8rp1004ii04" path="res://random_range_player.tscn" id="8_lrt2e"]
 [ext_resource type="AudioStream" uid="uid://d10tqx66ilajl" path="res://Assets/Sounds/Footsteps/Footsteps_1.wav" id="9_ix1dh"]
 [ext_resource type="AudioStream" uid="uid://i76iv1l4c6ya" path="res://Assets/Sounds/Footsteps/Footsteps_2.wav" id="10_fpmkn"]
@@ -101,7 +102,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_445d5"]
 resource_name = "bike_drive"
-length = 5.0
+length = 4.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -134,7 +135,7 @@ tracks/2/path = NodePath("Bike:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 3.6, 3.8, 4, 4.2, 4.4, 4.6, 4.8, 5),
+"times": PackedFloat32Array(0, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 1), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 1), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 1), Color(1, 1, 1, 0.196078)]
@@ -589,6 +590,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Particles/Charge_Particles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_q572x"]
 resource_name = "charge"
@@ -629,6 +642,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Particles/Charge_Particles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2b2j1"]
 _data = {
@@ -636,11 +661,29 @@ _data = {
 "charge": SubResource("Animation_q572x")
 }
 
+[sub_resource type="Curve" id="Curve_xp00t"]
+max_value = 100.0
+_data = [Vector2(0, 100), 0.0, 3.77272, 0, 0, Vector2(0.331325, 0), 55.1399, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_2wuyr"]
+_data = [Vector2(0, 0.481818), 0.0, 0.0, 0, 0, Vector2(0.409639, 1), 0.0, 0.0, 0, 0, Vector2(0.680723, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -6.48909, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_0j02q"]
+offsets = PackedFloat32Array(0, 0.111111, 0.607407, 0.866667, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.147672, 0.147672, 0.147672, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_33etj"]
+min_value = -1.0
+_data = [Vector2(0, 0.890909), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lemfg"]
 size = Vector2(21, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0dns"]
-size = Vector2(80, 80)
+size = Vector2(56, 57)
 
 [node name="PizzaBoy" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -749,6 +792,34 @@ libraries = {
 "": SubResource("AnimationLibrary_2b2j1")
 }
 
+[node name="Particles" type="Node2D" parent="."]
+scale = Vector2(8, 8)
+
+[node name="Charge_Particles" type="CPUParticles2D" parent="Particles" instance=ExtResource("7_1jnuy")]
+modulate = Color(1, 1, 1, 0.788235)
+position = Vector2(-0.125, 1.75)
+emitting = false
+amount = 10
+lifetime = 1.5
+preprocess = 1.0
+speed_scale = 2.0
+fixed_fps = 30
+draw_order = 1
+emission_shape = 3
+emission_rect_extents = Vector2(7, 5)
+direction = Vector2(0, -1)
+gravity = Vector2(0, -98)
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+damping_curve = SubResource("Curve_xp00t")
+scale_amount_min = 8.0
+scale_amount_max = 8.5
+scale_amount_curve = SubResource("Curve_2wuyr")
+color = Color(0.92549, 0.333333, 0.945098, 1)
+color_ramp = SubResource("Gradient_0j02q")
+hue_variation_max = 0.1
+hue_variation_curve = SubResource("Curve_33etj")
+
 [node name="Bike" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(0, 32)
@@ -771,7 +842,7 @@ unique_name_in_owner = true
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetection"]
-position = Vector2(-8, 8)
+position = Vector2(-4, 12.5)
 shape = SubResource("RectangleShape2D_i0dns")
 
 [node name="Exclamation_Mark" type="Sprite2D" parent="."]
@@ -781,7 +852,7 @@ scale = Vector2(8, 8)
 texture = ExtResource("6_qpcb8")
 
 [node name="Bike_Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 4.0
 one_shot = true
 
 [node name="Hit_Timer" type="Timer" parent="."]

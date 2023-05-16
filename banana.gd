@@ -9,9 +9,20 @@ func _ready():
 
 func _on_area_2d_body_entered(body):
 	if body.name == "PizzaBoy":
-		body.slip()
-		$slip.play()
-		$AnimationPlayer.play("vanish")
-		$Dust.emitting = true
-		await get_tree().create_timer(1).timeout
-		self.queue_free()
+		if !body.is_on_bike:
+			body.slip()
+			$slip.play()
+			$AnimationPlayer.play("vanish")
+			$Dust.emitting = true
+			await get_tree().create_timer(1).timeout
+			self.queue_free()
+
+func activate():
+	$Area2D/CollisionShape2D.disabled = false
+
+func deactivate():
+	self.hide()
+	$Area2D/CollisionShape2D.disabled = true
+
+func floor_hit():
+	$fall.play()

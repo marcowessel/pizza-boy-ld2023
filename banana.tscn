@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://etnfn678dqra"]
+[gd_scene load_steps=19 format=3 uid="uid://etnfn678dqra"]
 
 [ext_resource type="Script" path="res://banana.gd" id="1_q1php"]
 [ext_resource type="Texture2D" uid="uid://ddahmrg1okq4j" path="res://Assets/Sprites/Banana.png" id="1_t6iwm"]
 [ext_resource type="AudioStream" uid="uid://drsr8vlxnjddk" path="res://Assets/Sounds/Misc/Banana_Peel2.wav" id="3_yw6rm"]
+[ext_resource type="AudioStream" uid="uid://c1w432e1x2vlp" path="res://Assets/Sounds/Misc/Miscs_9.wav" id="4_ddfwl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wccs1"]
 size = Vector2(96, 40)
@@ -147,6 +148,9 @@ libraries = {
 
 [node name="slip" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_yw6rm")
+
+[node name="fall" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ddfwl")
 
 [node name="Dust" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_y7yb1")

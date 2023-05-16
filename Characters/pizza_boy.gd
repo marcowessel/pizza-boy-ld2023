@@ -66,6 +66,7 @@ func _ready():
 
 func _process(_delta):
 	if !is_in_custcene:
+		#health_low()
 		get_input()
 		move_and_slide()
 		bike_logic()
@@ -83,16 +84,16 @@ func get_input():
 
 func player_death():
 	if !is_dead:
-		if is_spinning:
-			call_deferred("break_attack")
 		is_dead = true
 		is_in_custcene = true
+		if is_spinning:
+			call_deferred("break_attack")
 		$GameOver.play()
 		$AnimationPlayer.play("die")
 		get_owner().get_node("Combat_Music").stop()
 		get_owner().get_node("Boss_Song").stop()
 		await get_tree().create_timer(5).timeout
-		get_tree().reload_current_scene()
+		get_tree().change_scene_to_file("res://highscore_screen.tscn")
 
 
 func pickup_piece():
@@ -126,6 +127,7 @@ func bike_logic():
 					call_deferred("break_attack")
 				# show the bicycle node and double the movement speed
 				attack_state = ATTACK_STATE.BIKE_ATTACK
+				cancel_heavy()
 				call_deferred("_activate")
 				if !bike_song_started:
 					get_parent().get_node("Bike_Song").play()
@@ -159,12 +161,13 @@ func _input(event):
 		elif event.is_action_released("click") and !is_in_custcene:
 			if $Charge_Anim.is_playing() and $Charge_Anim.current_animation == "charge":
 				light_attack()
-				$Charge_Anim.stop()
+				cancel_heavy()
 			elif $Player.use_parent_material == false:
 				strong_attack()
 
-func cancel_attack():
-	anim_player.play("cancel_attack")
+func cancel_heavy():
+	$Charge_Anim.stop()
+	$Particles/Charge_Particles.emitting = false
 
 func light_attack():
 	if !is_spinning:
@@ -230,6 +233,7 @@ func execute_attack(attack_vector):
 
 func execute_strong_attack(attack_vector):
 	$Player.use_parent_material = true
+	$Particles/Charge_Particles.emitting = false
 	$Hit_Timer.start()
 	attack_cooldown = true
 	delivery_bag_back.show()
@@ -249,6 +253,7 @@ func delivery_bag_reset():
 
 func spin_attack():
 	if !spin_cooldown:
+		cancel_heavy()
 		attack_state = ATTACK_STATE.SPIN_ATTACK
 		$Spin_Cooldown.start()
 		spin_timer.start()
@@ -291,11 +296,11 @@ func deal_damage(enemy):
 	match attack_state:
 		ATTACK_STATE.LIGHT_ATTACK:
 			enemy.take_damage(light_attack_damage)
-			pizza_meter.value += 10
+			pizza_meter.value += 5
 			$Hit.rplay()
 		ATTACK_STATE.STRONG_ATTACK:
 			enemy.take_damage(heavy_attack_damage)
-			pizza_meter.value += 15
+			pizza_meter.value += 10
 			$Hit.rplay()
 		ATTACK_STATE.BIKE_ATTACK:
 			enemy.take_damage(bike_damage)
@@ -330,11 +335,12 @@ func lose_piece(pizza_loss):
 
 
 func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "throw" or anim_name == "hurt" or anim_name == "standup" or anim_name == "idle" or anim_name == "cancel_attack":
-		if !is_walking:
-			anim_player.play("idle")
-		if is_walking:
-			anim_player.play("walk")
+	if !is_in_custcene:
+		if anim_name == "throw" or anim_name == "hurt" or anim_name == "standup" or anim_name == "idle" or anim_name == "cancel_attack":
+			if !is_walking:
+				anim_player.play("idle")
+			if is_walking:
+				anim_player.play("walk")
 
 
 func _on_bike_timer_timeout():
@@ -369,16 +375,18 @@ func _on_hit_timer_timeout():
 	attack_cooldown = false
 
 func slip():
-	call_deferred("disable_movement")
-	anim_player.play("falling")
-	$Knocked_Timer.start()
-	if is_spinning:
-		call_deferred("break_attack")
+	if !is_dead:
+		call_deferred("disable_movement")
+		anim_player.play("falling")
+		$Knocked_Timer.start()
+		if is_spinning:
+			call_deferred("break_attack")
 
 func _on_knocked_timer_timeout():
-	anim_player.play("standup")
-	await get_tree().create_timer(0.3).timeout
-	is_in_custcene = false
+	if !is_dead:
+		anim_player.play("standup")
+		await get_tree().create_timer(0.3).timeout
+		is_in_custcene = false
 
 func disable_movement():
 	is_in_custcene = true
@@ -399,3 +407,9 @@ func break_attack():
 		$SpinFlash/CollisionShape2D2.disabled = true
 		spin_flash.hide()
 		is_spinning = false
+
+#func health_low():
+	#if $PlayerHUD/PizzaPieces.pizza_pieces <= 2:
+		#get_owner().get_node("Combat_Music").pitch_scale = 1.5
+	#else:
+		#get_owner().get_node("Combat_Music").pitch_scale = 1
