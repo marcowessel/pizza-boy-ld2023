@@ -204,6 +204,9 @@ point_count = 2
 
 [node name="PizzaZombie" type="CharacterBody2D"]
 script = ExtResource("1_24wtd")
+walking_speed = null
+score_count = null
+health = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(8, 8)

@@ -22,7 +22,8 @@ func _on_animation_player_animation_finished(anim_name):
 
 func accelerate_cutscene():
 	if Input.is_action_pressed("speedup") and in_animation:
-		$AnimationPlayer.set_speed_scale(3)
+		#$AnimationPlayer.set_speed_scale(3)
+		$AnimationPlayer.set_speed_scale(100) # for debug
 		$Tutorial_Song.pitch_scale = 3
 		$Pirate.pitch_scale = 3
 	else:

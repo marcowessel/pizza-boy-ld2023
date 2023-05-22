@@ -1,6 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://csur3fv2x4l28"]
+[gd_scene load_steps=17 format=3 uid="uid://da68t2vx60osr"]
 
-[ext_resource type="Script" path="res://Characters/enemy.gd" id="1_lis60"]
+[ext_resource type="Script" path="res://Characters/enemy_fass.gd" id="1_t2bie"]
 [ext_resource type="Texture2D" uid="uid://b55wikqmjfqke" path="res://Assets/Sprites/Crate.png" id="2_eecmg"]
 [ext_resource type="Texture2D" uid="uid://snmtiwvi33xu" path="res://Assets/Sprites/Dust.png" id="3_dnvdy"]
 [ext_resource type="AudioStream" uid="uid://co644fna3xp8p" path="res://Assets/Sounds/Misc/Destruction_2.wav" id="4_rnvrh"]
@@ -71,7 +71,7 @@ anim_offset_curve = SubResource("CurveTexture_hqteo")
 [node name="EnemyFass" type="CharacterBody2D"]
 y_sort_enabled = true
 scale = Vector2(2, 2)
-script = ExtResource("1_lis60")
+script = ExtResource("1_t2bie")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(2.5, 3)

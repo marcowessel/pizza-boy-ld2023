@@ -4,7 +4,7 @@ var is_showing = false
 var is_hiding = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	self.text = str(Score.combo, "x")
 	if Score.combo > 1:
 		if !is_showing:

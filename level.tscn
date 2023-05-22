@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b4uq1xcfofmth" path="res://Assets/Sprites/Pizzaria.png" id="4_crpbj"]
 [ext_resource type="Script" path="res://BattleArena.gd" id="4_q5fpr"]
 [ext_resource type="Script" path="res://BattleArenaTrigger.gd" id="6_0hgfu"]
-[ext_resource type="PackedScene" uid="uid://csur3fv2x4l28" path="res://Characters/enemy_fass.tscn" id="6_lrtvu"]
+[ext_resource type="PackedScene" uid="uid://da68t2vx60osr" path="res://Characters/enemy_fass.tscn" id="6_lrtvu"]
 [ext_resource type="AudioStream" uid="uid://bitbgv4ek6gr3" path="res://Assets/Sounds/Misc/Fight.wav" id="6_rpf8a"]
 [ext_resource type="Texture2D" uid="uid://cnfy21kcbwwko" path="res://Assets/Sprites/Boss_Street.png" id="8_6cokp"]
 [ext_resource type="PackedScene" uid="uid://bcl7u4d1xw36m" path="res://barricade.tscn" id="9_quct6"]
@@ -1119,6 +1119,18 @@ offset_left = 1154.0
 offset_top = 136.0
 offset_right = 1514.0
 offset_bottom = 252.0
+
+[node name="TextEdit4" parent="Boss" index="4"]
+editable = false
+
+[node name="TextEdit3" parent="Boss" index="5"]
+editable = false
+
+[node name="There" parent="Boss" index="6"]
+editable = false
+
+[node name="There2" parent="Boss" index="7"]
+editable = false
 
 [node name="CreditsArea" type="Area2D" parent="."]
 position = Vector2(6380, 1049)
